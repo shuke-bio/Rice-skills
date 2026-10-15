@@ -208,6 +208,8 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 > （`docs/variants_usage.md`、`pangenome_usage.md`、`qtl_usage.md`、`proteomics_usage.md`、
 > `epigenomics_usage.md`、`phenomics_usage.md`、`single_cell_usage.md`、`spatial_usage.md`、
 > `rice_databases.md`），可独立验证各模块。
+> 另配 `docs/tools_navigation.md`（水稻生信工具导航与许可评估：BSA/GWAS 引擎/后 GWAS/
+> 变异设施/GUI 工具箱，含 TBtools 等许可红线说明）。
 
 ### v3.1 进阶分析扩展（v3.1 新增）
 
