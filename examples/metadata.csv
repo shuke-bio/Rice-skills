@@ -1,0 +1,7 @@
+﻿sample_id,group,batch,variety,tiller_number,Na_content
+CTRL_1,control,1,Nipponbare,12.4,0.31
+CTRL_2,control,2,Nipponbare,11.8,0.29
+CTRL_3,control,1,Nipponbare,12.9,0.33
+SALT_1,salt,2,Nipponbare,8.1,1.87
+SALT_2,salt,1,Nipponbare,7.6,1.92
+SALT_3,salt,2,Nipponbare,8.5,1.80

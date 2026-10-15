@@ -1,0 +1,409 @@
+<!--
+  report_template.Rmd -- Rice-skills full-pipeline analysis report template
+
+  Title:    Rice-skills analysis report (R Markdown)
+  Description:
+    Parameterised R Markdown report covering the whole Rice-skills
+    pipeline: transcriptome QC, differential expression, enrichment/GSEA,
+    WGCNA, metabolome preprocessing/OPLS-DA, biomarkers and multi-omics
+    integration. Every result section reads its tables and figures from the
+    results tree produced by the scripts under scripts/; missing files never
+    interrupt knitting -- a short note is printed instead.
+
+  Usage:
+    rmarkdown::render(
+      "templates/report_template.Rmd",
+      params = list(
+        title   = "盐胁迫水稻多组学分析报告",
+        author  = "张三",
+        results_dir = "results"
+        # transcriptome_dir / metabolome_dir / integration_dir default to
+        # file.path(results_dir, "<module>") and rarely need to be set.
+      ),
+      output_file = "report.html"
+    )
+
+  Output formats:
+    - html_document (default): self-contained, TOC, numbered sections.
+    - pdf_document (commented out in the YAML below): Chinese PDF output
+      requires the xelatex engine and the ctex LaTeX package. To enable it,
+      uncomment the pdf_document block; make sure TinyTeX/TeXLive provides
+      xelatex + ctex (see docs/installation.md).
+
+  Notes:
+    - Narrative text is Chinese; all code comments are English.
+    - Code chunks are robust by design: file.exists()/dir.exists() guards
+      keep knitting alive for partial result trees.
+    - Figures are embedded with knitr::include_graphics(); SVG is preferred
+      for HTML output and PDF for LaTeX output (both are written by
+      save_nature_figure()).
+-->
+---
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r params$date`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    code_folding: show
+    df_print: kable
+  # pdf_document:            # 中文 PDF：需 xelatex 引擎 + ctex 宏包（见文件头说明）
+  #   latex_engine: xelatex
+  #   pandoc_args: ["-V", "documentclass=ctexart"]
+params:
+  title: "水稻多组学联合分析报告"
+  author: "（请填写作者姓名）"
+  date: !r format(Sys.time(), "%Y-%m-%d")
+  species: "Oryza sativa"
+  results_dir: "results"
+  transcriptome_dir: null
+  metabolome_dir: null
+  integration_dir: null
+---
+
+```{r setup, include=FALSE}
+# Resolve module directories (NULL params fall back to results/<module>).
+transcriptome_dir <- if (is.null(params$transcriptome_dir)) {
+  file.path(params$results_dir, "transcriptome")
+} else {
+  params$transcriptome_dir
+}
+metabolome_dir <- if (is.null(params$metabolome_dir)) {
+  file.path(params$results_dir, "metabolome")
+} else {
+  params$metabolome_dir
+}
+integration_dir <- if (is.null(params$integration_dir)) {
+  file.path(params$results_dir, "integration")
+} else {
+  params$integration_dir
+}
+
+# Markdown snippet for the first figure matching `pattern` in `dir`.
+# SVG is preferred for HTML output, PDF for LaTeX output (both formats are
+# produced by save_nature_figure()).
+figure_md <- function(dir, pattern, caption = NULL) {
+  if (!dir.exists(dir)) {
+    return(paste0("结果目录不存在：`", dir, "`，请先运行对应分析步骤。\n\n"))
+  }
+  exts <- if (knitr::is_latex_output()) {
+    c("pdf", "png", "svg", "tiff", "tif")
+  } else {
+    c("svg", "png", "pdf", "tiff", "tif")
+  }
+  hits <- character(0)
+  for (ext in exts) {
+    hits <- list.files(dir, pattern = paste0(pattern, "\\.", ext, "$"),
+                       full.names = TRUE, ignore.case = TRUE)
+    if (length(hits) > 0) break
+  }
+  if (length(hits) == 0) {
+    return(paste0("未在 `", dir, "` 找到匹配 `", pattern, "` 的图片。\n\n"))
+  }
+  img <- knitr::include_graphics(hits[1])
+  if (is.null(caption)) {
+    paste0(img, "\n\n")
+  } else {
+    paste0(img, "\n\n*图：", caption, "*\n\n")
+  }
+}
+
+# Read the first CSV in `dir` matching one of `patterns` (NULL + message on
+# failure, so a partial results tree never breaks the report).
+load_result_csv <- function(dir, patterns, what) {
+  if (!dir.exists(dir)) {
+    cat("结果目录不存在：`", dir, "`，请先运行对应分析步骤。\n\n", sep = "")
+    return(NULL)
+  }
+  for (p in patterns) {
+    hits <- list.files(dir, pattern = p, full.names = TRUE)
+    if (length(hits) > 0) {
+      return(tryCatch(
+        utils::read.csv(hits[1], stringsAsFactors = FALSE, check.names = FALSE),
+        error = function(e) {
+          cat("无法解析", what, "：`", hits[1], "`\n\n", sep = "")
+          NULL
+        }
+      ))
+    }
+  }
+  cat("未在 `", dir, "` 找到", what, "（匹配模式：",
+      paste(patterns, collapse = "; "), "）。\n\n", sep = "")
+  NULL
+}
+
+# Render the head of a table with knitr::kable (no-op for NULL input).
+show_table <- function(df, caption, n = 10) {
+  if (is.null(df)) return(invisible(NULL))
+  cat(knitr::kable(utils::head(df, n), caption = caption, row.names = FALSE),
+      "\n\n")
+}
+
+# Collect provenance rows from every run_info.txt under `dirs`.
+collect_run_info <- function(dirs) {
+  rows <- list()
+  for (d in unique(dirs)) {
+    if (!dir.exists(d)) next
+    files <- list.files(d, pattern = "^run_info\\.txt$", recursive = TRUE,
+                        full.names = TRUE)
+    for (f in sort(files)) {
+      lines <- readLines(f, warn = FALSE)
+      get_val <- function(prefix) {
+        hit <- grep(paste0("^", prefix, ":"), lines, value = TRUE)
+        if (length(hit) == 0) return("")
+        trimws(sub(paste0("^", prefix, ":\\s*"), "", hit[1]))
+      }
+      rows[[length(rows) + 1L]] <- data.frame(
+        step = basename(dirname(f)),
+        script = get_val("script"),
+        run_time = get_val("run_time"),
+        version = if (nzchar(get_val("R_version"))) {
+          get_val("R_version")
+        } else {
+          get_val("python_version")
+        },
+        stringsAsFactors = FALSE
+      )
+    }
+  }
+  if (length(rows) == 0) NULL else do.call(rbind, rows)
+}
+
+knitr::opts_chunk$set(
+  echo = FALSE,        # set to TRUE to display the analysis code in the report
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  out.width = "100%",
+  cache = FALSE
+)
+```
+
+## 摘要 {.unnumbered}
+
+> （占位）请用 200–300 字概括：研究背景与目的、实验设计（处理/对照、重复数）、
+> 主要发现（差异基因/代谢物数量、关键通路、生物标志物、整合模式）与结论。
+> 本模板中的图表与表格均从 `results/` 目录自动读取，缺失步骤会以提示文字代替，
+> 不会中断渲染。
+
+## 材料与方法
+
+### 数据来源
+
+本报告基于水稻（*`r params$species`*）转录组与代谢组数据，分析流程遵循
+Rice-skills Skill 规范（见仓库根目录 `SKILL.md` 第 2 节与 `examples/` 目录）：
+所有输入为 UTF-8 编码、逗号分隔的 CSV 文件，样本 ID 在三个文件中严格一致。
+
+| 输入文件 | 结构 | 要求 |
+|---|---|---|
+| `counts.csv` | 行 = 基因，列 = 样本 | 整数计数，不允许缺失值 |
+| `metabolites.csv` | 行 = 代谢物，列 = 样本 | 推荐 `metabolite_name`/`class`/`kegg_id` 注释列，允许缺失值 |
+| `metadata.csv` | 首列 `sample_id`，必含 `group` | 可选 `batch`、`variety` 及 WGCNA 性状列 |
+
+差异表达分析采用 DESeq2（`~ batch + group` 设计可选），富集分析基于
+clusterProfiler 与 `org.Osativa.eg.db`，代谢组差异代谢物采用 OPLS-DA
+（VIP 阈值可调），多组学整合采用 MOFA / DIABLO / O2PLS 与基因–代谢物相关性网络。
+
+### 软件与版本
+
+```{r software, results='asis'}
+# Summarise provenance from the run_info.txt files written by every pipeline
+# step; fall back to sessionInfo() when the results tree is not available.
+run_info_df <- collect_run_info(c(transcriptome_dir, metabolome_dir, integration_dir))
+if (!is.null(run_info_df)) {
+  cat(knitr::kable(run_info_df,
+                   caption = "各分析步骤运行信息（汇总自 run_info.txt）"), "\n\n")
+} else {
+  cat("未找到任何 run_info.txt；以下为当前 R 会话的软件版本（sessionInfo()）。\n\n")
+  si <- sessionInfo()
+  vers <- vapply(si$otherPkgs, function(p) as.character(p$Version), character(1))
+  pkgs <- data.frame(Package = names(vers), Version = vers, stringsAsFactors = FALSE)
+  cat(knitr::kable(pkgs, caption = "R 会话软件版本"), "\n\n")
+}
+```
+
+## 结果
+
+### 转录组数据质控（QC）
+
+低表达基因过滤与样本层面质控（PCA、样本相关性、文库大小）由
+`scripts/transcriptomics/01_qc_filter.py` 完成，是后续差异表达可信度的基础。
+
+```{r qc, results='asis'}
+qc_dir <- file.path(transcriptome_dir, "01_qc")
+qc_mat <- load_result_csv(qc_dir, c("^counts_filtered\\.csv$"), "过滤后 count 矩阵")
+if (!is.null(qc_mat)) {
+  cat("过滤后保留 ", nrow(qc_mat), " 个基因、", ncol(qc_mat) - 1, " 个样本。\n\n", sep = "")
+  show_table(qc_mat, "过滤后 count 矩阵预览（前 10 行）", n = 10)
+}
+cat(figure_md(qc_dir, "pca", "样本 PCA：检查批次效应与分组分离度"))
+cat(figure_md(qc_dir, "corr|correlation", "样本间相关性热图：识别异常样本"))
+cat(figure_md(qc_dir, "lib|box", "文库大小/表达分布箱线图"))
+```
+
+### 差异表达分析
+
+差异表达由 `scripts/transcriptomics/02_deseq2.R` 计算（默认阈值
+|log2FC| ≥ 1 且 padj < 0.05，可在脚本中调整）。下表汇总各比较的上/下调基因数，
+火山图与 MA 图展示全局分布与标注基因。
+
+```{r de-summary, results='asis'}
+de_dir <- file.path(transcriptome_dir, "02_de")
+de_files <- if (dir.exists(de_dir)) {
+  list.files(de_dir, pattern = "^de_(all|sig)_.*\\.csv$", full.names = TRUE)
+} else {
+  character(0)
+}
+if (length(de_files) == 0) {
+  cat("未找到差异表达结果，请先运行 `scripts/transcriptomics/02_deseq2.R`。\n\n")
+} else {
+  rows <- lapply(de_files, function(f) {
+    d <- utils::read.csv(f, stringsAsFactors = FALSE, check.names = FALSE)
+    sig <- if ("significant" %in% names(d)) {
+      toupper(as.character(d$significant))
+    } else {
+      rep("NS", nrow(d))
+    }
+    data.frame(
+      comparison = sub("\\.csv$", "", basename(f)),
+      genes = nrow(d),
+      up = sum(grepl("^UP", sig)),
+      down = sum(grepl("^DOWN", sig)),
+      not_significant = sum(!grepl("^(UP|DOWN)", sig)),
+      stringsAsFactors = FALSE
+    )
+  })
+  cat(knitr::kable(do.call(rbind, rows),
+                   caption = "差异表达基因统计（按比较）"), "\n\n")
+  de_sig <- load_result_csv(de_dir, c("^de_sig_.*\\.csv$"), "显著差异基因表")
+  show_table(de_sig, "显著差异基因预览（前 10 行）")
+}
+cat(figure_md(de_dir, "volcano", "火山图：显著基因以语义色标注（上调红/下调蓝）"))
+cat(figure_md(de_dir, "ma|_ma\\b", "MA 图：log2FC 随平均表达量的分布"))
+```
+
+### 功能富集与 GSEA
+
+GO（BP/CC/MF）与 KEGG 富集由 `scripts/transcriptomics/03_enrichment.R` 完成；
+GSEA 由 `04_gsea.R` 基于自定义 GMT（水稻无 MSigDB）运行。
+
+```{r enrichment, results='asis'}
+enr_dir <- file.path(transcriptome_dir, "03_enrichment")
+enr <- load_result_csv(enr_dir, c("^(go|kegg|reactome).*\\.csv$", "\\.csv$"),
+                       "富集结果表")
+show_table(enr, "富集结果预览（前 10 条）")
+cat(figure_md(enr_dir, "dot|enrich|bubble", "富集点图/气泡图"))
+gsea_dir <- file.path(transcriptome_dir, "04_gsea")
+gsea <- load_result_csv(gsea_dir, c("^gsea.*\\.csv$", "\\.csv$"), "GSEA 结果表")
+show_table(gsea, "GSEA 结果预览（前 10 条）")
+cat(figure_md(gsea_dir, "gsea|running|curve", "GSEA 富集曲线"))
+```
+
+### WGCNA 共表达网络
+
+WGCNA 由 `scripts/transcriptomics/05_wgcna.R` 运行：软阈值筛选、模块识别、
+模块–性状关联与 Hub 基因鉴定（`blockwiseModules` 分块以控制内存）。
+
+```{r wgcna, results='asis'}
+wgcna_dir <- file.path(transcriptome_dir, "05_wgcna")
+hub <- load_result_csv(wgcna_dir, c("hub", "\\.csv$"), "Hub 基因表")
+show_table(hub, "模块 Hub 基因预览（前 10 行）")
+cat(figure_md(wgcna_dir, "module|trait|dendro", "模块识别与模块–性状关联热图"))
+```
+
+### 代谢组预处理与 OPLS-DA
+
+代谢组预处理（缺失值汇总与填充、归一化、异常样本检查）由
+`scripts/metabolomics/01_preprocess.py` 完成；OPLS-DA 与 VIP 由 `02_oplsda.R`
+计算（默认 VIP > 1 且 p < 0.05）。
+
+```{r metab-preprocess, results='asis'}
+pre_dir <- file.path(metabolome_dir, "01_preprocess")
+cat(figure_md(pre_dir, "missing|na_", "缺失值分布热图"))
+cat(figure_md(pre_dir, "pca", "归一化前后样本 PCA 对比"))
+cat(figure_md(pre_dir, "box", "归一化前后表达分布箱线图"))
+oplsda_dir <- file.path(metabolome_dir, "02_oplsda")
+vip <- load_result_csv(oplsda_dir, c("vip", "\\.csv$"), "VIP 表")
+show_table(vip, "VIP 排序预览（前 10 行）")
+cat(figure_md(oplsda_dir, "score|oplsda", "OPLS-DA 得分图"))
+cat(figure_md(oplsda_dir, "s_?plot", "S-plot：VIP 与 p 值联合视角"))
+```
+
+### 生物标志物筛选
+
+生物标志物由 `scripts/metabolomics/05_biomarker.R` 通过 ROC/AUC 与随机森林
+重要性联合筛选。
+
+```{r biomarker, results='asis'}
+bio_dir <- file.path(metabolome_dir, "05_biomarker")
+imp <- load_result_csv(bio_dir, c("importance|rf|random", "\\.csv$"),
+                       "标志物重要性表")
+show_table(imp, "生物标志物重要性预览（前 10 行）")
+cat(figure_md(bio_dir, "roc", "候选标志物 ROC 曲线"))
+cat(figure_md(bio_dir, "importance|bar", "标志物重要性排序"))
+```
+
+### 多组学整合分析
+
+整合分析（`scripts/integration/`）包括 MOFA 潜在因子、DIABLO/O2PLS 判别整合、
+基因–代谢物相关性网络与联合通路分析。
+
+```{r integration, results='asis'}
+mofa_dir <- file.path(integration_dir, "01_mofa")
+cat(figure_md(mofa_dir, "variance|r2|explained", "MOFA 因子方差解释率"))
+diablo_dir <- file.path(integration_dir, "02_diablo")
+cat(figure_md(diablo_dir, "score|diablo", "DIABLO/O2PLS 联合得分图"))
+corr_dir <- file.path(integration_dir, "03_correlation")
+corr_pairs <- load_result_csv(corr_dir, c("correlation|pairs", "\\.csv$"),
+                              "基因–代谢物相关性对表")
+show_table(corr_pairs, "相关性显著的基因–代谢物对预览（前 10 行）")
+cat(figure_md(corr_dir, "corr|heatmap", "基因–代谢物相关性热图"))
+path_dir <- file.path(integration_dir, "04_joint_pathway")
+joint <- load_result_csv(path_dir, c("joint|pathway", "\\.csv$"), "联合通路表")
+show_table(joint, "联合富集通路预览（前 10 条）")
+net_dir <- file.path(integration_dir, "06_plot_integration")
+cat(figure_md(net_dir, "network|sankey|circos|upset", "多组学整合网络/桑基图"))
+```
+
+## 讨论 {.unnumbered}
+
+> （占位）请结合以下要点展开：① 差异表达/差异代谢物与表型的关联；
+> ② 关键通路（如苯丙烷代谢、氨基酸代谢、渗透调节）在盐胁迫下的作用；
+> ③ WGCNA 模块与性状的对应关系及枢纽基因；④ 整合分析揭示的基因–代谢物
+> 调控模式；⑤ 与已发表研究的比较；⑥ 局限性（重复数、检测平台、批次）。
+
+## 结论 {.unnumbered}
+
+> （占位）请用 3–5 句话总结主要结论与后续验证方向（如 qPCR 验证关键基因、
+> 靶向代谢物验证、转基因材料功能鉴定）。
+
+## 附录 {.unnumbered}
+
+### 会话信息
+
+```{r session-info}
+# Full reproducibility record of the R session used to render this report.
+sessionInfo()
+```
+
+### 复现命令
+
+```{r repro-commands, results='asis'}
+# Placeholder for the run_pipeline.sh invocation recorded for this report.
+log_file <- file.path(params$results_dir, "pipeline_log.txt")
+example_cmd <- paste(
+  "bash run_pipeline.sh \\",
+  "    --counts counts.csv --metadata metadata.csv \\",
+  "    --metabolites metabolites.csv \\",
+  paste0("    --outdir ", params$results_dir, " --stages all"),
+  sep = "\n"
+)
+if (file.exists(log_file)) {
+  cat("本次分析的完整运行日志见 `", log_file, "`。调用命令模板：\n\n", sep = "")
+} else {
+  cat("未找到 `", log_file, "`。以下为调用命令模板，请替换为实际记录：\n\n", sep = "")
+}
+cat("```bash\n", example_cmd, "\n```\n\n", sep = "")
+```

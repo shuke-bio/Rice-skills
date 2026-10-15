@@ -1,0 +1,73 @@
+# Rice-skills conda environment
+#
+# Usage:
+#   conda env create -f environment.yml
+#   conda activate rice-skills
+#
+# Notes:
+#   - If a package below is unavailable for your platform, comment it out and
+#     install it from inside R instead:
+#       Rscript -e 'BiocManager::install(c("DESeq2", "org.Osativa.eg.db"))'
+#     See docs/installation.md for the full fallback list.
+#   - Creating this environment installs a large Bioconductor stack; expect
+#     20-40 minutes on a typical connection.
+
+name: rice-skills
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  # ---- base ----
+  - python=3.11
+  - r-base=4.3
+  - pip
+
+  # ---- R core (conda-forge) ----
+  - r-jsonlite
+  - r-ggplot2
+  - r-ggrepel
+  - r-pheatmap
+  - r-igraph
+  - r-ggraph
+  - r-dplyr
+  - r-readr
+  - r-tidyr
+  - r-stringr
+  - r-tibble
+  - r-upsetr
+  - r-ggalluvial
+  - r-circlize
+  - r-patchwork       # multi-panel figure composition
+  - r-proc
+  - r-randomforest
+  - r-ragg            # high-quality raster (TIFF) device; optional but recommended
+
+  # ---- Bioconductor (bioconda) ----
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-clusterprofiler
+  - bioconductor-org.osativa.eg.db   # rice (Oryza sativa Japonica) annotation
+  - bioconductor-reactomepa
+  - bioconductor-fgsea
+  - bioconductor-wgcna
+  - bioconductor-mofa2
+  - bioconductor-mixomics
+  - bioconductor-complexheatmap
+  - bioconductor-metabanalystr
+  - bioconductor-imputelcmd
+
+  # ---- R package not on conda-forge: install via pip-free fallback in docs ----
+  # r-ropls (OPLS-DA): install from CRAN after env creation:
+  #   Rscript -e 'install.packages("ropls", repos="https://cloud.r-project.org")'
+
+  # ---- v3.0 optional toolchains (install on demand; see module docs) ----
+  # Variant calling : conda install -c bioconda bwa samtools bcftools gatk4 snpeff
+  # Pangenome       : conda install -c bioconda minigraph cactus pggb minimap2 syri
+  # Proteomics/QTL/Epigenomics/Phenomics: no extra dependencies (pure R/Python)
+  # Single-cell/Spatial: use a SEPARATE env (scanpy+squidpy; docs/single_cell_usage.md)
+
+  # ---- Python ----
+  - pip:
+      - -r requirements.txt

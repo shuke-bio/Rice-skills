@@ -1,0 +1,36 @@
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Analysis outputs (keep the folder, ignore its contents)
+results/*
+!results/.gitkeep
+
+# Demo / temporary data
+demo_data/
+*.log
+
+# Runtime-fetched annotation cache (RAP-DB / PlantTFDB downloads)
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Agent workspace memory (never publish)
+.workbuddy/
+
+# filter-branch temp dir (never commit)
+.git-rewrite/

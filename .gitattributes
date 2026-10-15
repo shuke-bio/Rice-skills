@@ -1,0 +1,12 @@
+# Normalise line endings across platforms.
+# Shell scripts MUST stay LF, otherwise `bash run_pipeline.sh` fails on
+# Linux/macOS clones with "bad interpreter: No such file or directory".
+* text=auto
+*.sh  text eol=lf
+*.R   text eol=lf
+*.py  text eol=lf
+*.Rmd text eol=lf
+*.yml text eol=lf
+*.md  text eol=lf
+*.json text eol=lf
+*.csv text eol=lf

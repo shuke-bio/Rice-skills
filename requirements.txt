@@ -1,0 +1,24 @@
+# RiceMultiOmics Python dependencies
+# Install: pip install -r requirements.txt   (or let conda do it via environment.yml)
+#
+# Core (required by scripts/*.py):
+numpy>=1.26
+pandas>=2.0
+scipy>=1.11
+scikit-learn>=1.3
+matplotlib>=3.8
+seaborn>=0.13
+pillow>=10.0        # TIFF export for Nature-style figures
+
+# Optional (enable extra features, scripts degrade gracefully without them):
+# networkx>=3.1     # Python-side network export helpers
+# gseapy>=1.1       # pure-Python GSEA alternative to R fgsea
+# statsmodels>=0.14 # additional statistical tests
+# primer3-py>=2.0   # primer design engine (scripts/design/02_primer_design.py)
+
+# v3.0 single-cell / spatial modules (recommend a SEPARATE conda env;
+# see docs/single_cell_usage.md and docs/spatial_usage.md):
+# scanpy>=1.10
+# squidpy>=1.4
+# leidenalg
+# harmony-pytorch   # batch integration (optional)

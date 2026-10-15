@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use Rice-skills in your research, please cite this repository."
+title: "Rice-skills: all-omics + genomics + breeding analysis skill package for rice"
+abstract: >-
+  An open-source skill package for rice (Oryza sativa) covering transcriptomics,
+  metabolomics and their integration, GWAS, population genetics, pangenome, QTL,
+  proteomics, epigenomics, phenomics, single-cell and spatial omics, gene-family
+  evolution, and CRISPR/primer design. 18 analysis modules, 76 R/Python scripts
+  with synthetic-data self-tests, publication-grade figures, and 528 curated
+  third-party agent skills.
+version: 3.2.0
+date-released: "2026-10-15"
+type: software
+license: MIT
+repository-code: "https://github.com/shuke-bio/Rice-skills"
+keywords:
+  - rice
+  - Oryza sativa
+  - bioinformatics
+  - multi-omics
+  - GWAS
+  - population-genetics
+  - pangenome
+  - single-cell
+  - plant-breeding
+  - agent-skills
+authors:
+  - name: "shuke-bio"
+    website: "https://github.com/shuke-bio"

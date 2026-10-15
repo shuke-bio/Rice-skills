@@ -1,0 +1,67 @@
+{
+  "name": "Rice-skills-Nature",
+  "version": "1.0.0",
+  "description": "Low-saturation, colorblind-friendly palette shared by the R (ggplot2/ComplexHeatmap) and Python (matplotlib) backends. Inspired by Nature-series illustration guidelines; implemented from scratch (no third-party source copied).",
+  "semantic": {
+    "up": "#CE6A6B",
+    "down": "#5B84AE",
+    "not_significant": "#C9C4BE",
+    "highlight": "#E8A33D",
+    "reference_line": "#8A8578"
+  },
+  "series12": [
+    "#5B84AE",
+    "#CE6A6B",
+    "#8FBF9F",
+    "#D8A657",
+    "#9B8FBF",
+    "#7FB5B5",
+    "#D9B8A6",
+    "#A8BF6A",
+    "#B58A5B",
+    "#8A6A8F",
+    "#6A8FBF",
+    "#C7A96B"
+  ],
+  "groups5": [
+    "#5B84AE",
+    "#CE6A6B",
+    "#8FBF9F",
+    "#D8A657",
+    "#9B8FBF"
+  ],
+  "diverging7": [
+    "#2F5D7C",
+    "#6E93AC",
+    "#BCC9D4",
+    "#F5F2EC",
+    "#DFB9B4",
+    "#C2726A",
+    "#96382F"
+  ],
+  "sequential6": [
+    "#EDF2F6",
+    "#C9D8E4",
+    "#9DBACE",
+    "#6E9AB4",
+    "#3F7296",
+    "#1F4E6E"
+  ],
+  "typography": {
+    "font_family": "Arial",
+    "fallback_family": "Helvetica",
+    "base_size_pt": 8,
+    "title_size_pt": 9,
+    "tick_size_pt": 7,
+    "legend_size_pt": 7,
+    "line_width_pt": 0.5,
+    "axis_line_width_pt": 0.5
+  },
+  "figure": {
+    "single_column_mm": 89,
+    "onehalf_column_mm": 120,
+    "double_column_mm": 180,
+    "dpi_raster": 300,
+    "formats": ["pdf", "svg", "tiff"]
+  }
+}
