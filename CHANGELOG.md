@@ -26,6 +26,12 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 - **QTL/BSA interval SNP extraction** (`scripts/qtl/04_qtl_region_snps.py`) —
   two-parent genotype/ΔAF comparison, promoter/UTR/exon/intron gene-region
   annotation, region VCF + 3-sheet Excel output.
+- **Genome-wide BSA / QTL-seq scan** (`scripts/qtl/05_bsa_scan.py`) —
+  ΔSNP-index + G′ sliding windows with simulation-based confidence lines,
+  candidate-region merging, genome-wide two-track figure; completes the
+  BSA chain upstream of 04.
+- Tool navigation (`docs/tools_navigation.md`), promoter/TF usage guide
+  (`docs/tf_promoter_usage.md`), v3.2 smoke tests in `tests/test_pipeline.sh`.
 - `docs/skill_routing.md` — 528 curated skills routed to analysis modules.
 - Bilingual README (English + Chinese), cover image, workflow prompt tables.
 - CITATION.cff, CONTRIBUTING.md, this changelog.

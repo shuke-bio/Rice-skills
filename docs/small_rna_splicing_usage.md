@@ -95,3 +95,23 @@ suppa.py diffSplice -m tpm.tsv -i events.ioe -p psi_* -e cond1_rep1.psicon,cond1
 | miRNA-DEG 反负相关 | miRNA 表达 × 靶基因表达 Spearman（负相关筛调控对）→ 模块 3 网络 |
 | 差异 AS 基因 | 与 DEG 交集 → "转录与剪接双重调控"基因清单 |
 | 空间/单细胞中的剪接 | Scanpy 的 spliced/unspliced 层 → scVelo（模块 17 已引） |
+
+---
+
+## v3.2 新增：本地 miRNA 靶基因预测 `02_mirna_targets.py`
+
+零依赖的 psRNATarget 式打分（前文流程模板的"本地预筛"环节；正式分析仍建议
+psRNATarget 在线版 + 降解组验证）：
+
+```bash
+python scripts/evolution/02_mirna_targets.py \
+    --mirna mirna.fasta --transcripts cds.fasta \
+    --max-score 4.0 --outdir results/evolution/02_mirna_targets
+```
+
+- 打分规则：21 nt 窗口反平行配对；种子区（miRNA 第 2–8 位）错配重罚、3' 区轻罚、
+  G:U 计半配对；**cleavage 级** = 种子完美 + 第 10–11 位完美配对，其余为 inhibition 级
+- 输出 `mirna_targets.csv`（miRNA/靶标/位置/分数/模式/错配数）；`--demo` 自检
+  （完美位点 score=0 判 cleavage、种子错配判 inhibition、无位点靶标不出现在结果）
+- 与 miRDeep2 流程衔接：miRDeep2 得到成熟 miRNA 序列 → 本脚本全 CDS 扫描 → 候选靶
+  基因列表 → 模块 1 富集 / 表达负相关分析

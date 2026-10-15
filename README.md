@@ -16,7 +16,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-77-teal)
+![Scripts](https://img.shields.io/badge/scripts-78-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-528-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -75,6 +75,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 **Pangenome & QTL**
 - SV / PAV detection and Pan-GWAS
 - eQTL / mQTL / pQTL mapping and GWAS×QTL colocalization
+- Genome-wide BSA / QTL-seq scan (ΔSNP-index + G′, simulation-based confidence)
 - QTL/BSA interval SNP extraction with gene-region annotation (promoter/UTR/exon/intron) — region VCF + 3-sheet Excel
 
 **Proteomics**
@@ -165,7 +166,7 @@ automatically.
 ## 🧭 What's inside
 
 <details open>
-<summary><b>Module map (18 modules, 77 scripts)</b></summary>
+<summary><b>Module map (18 modules, 78 scripts)</b></summary>
 
 - **Module 1 · Transcriptome**: QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA →
   WGCNA → TF (PlantTFDB) → PPI
@@ -197,7 +198,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Synthetic demo data for every module
-├── scripts/                        # 77 R/Python analysis scripts (18 modules)
+├── scripts/                        # 78 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 528 curated skills, 6 upstream libraries (NOTICE.md)
@@ -251,7 +252,7 @@ Per-module guides and lab protocols live in [`docs/`](docs/) (Chinese):
 [installation](docs/installation.md) · [pipeline usage](docs/usage.md) ·
 [GWAS & popgen](docs/genomics_usage.md) · [design](docs/design_usage.md) ·
 [pangenome](docs/pangenome_usage.md) · [QTL](docs/qtl_usage.md) ·
-[skill routing](docs/skill_routing.md) · [tool navigation](docs/tools_navigation.md).
+[skill routing](docs/skill_routing.md) · [tool navigation](docs/tools_navigation.md) · [promoter/TF usage](docs/tf_promoter_usage.md).
 
 <div align="right">
 

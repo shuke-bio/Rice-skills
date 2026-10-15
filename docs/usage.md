@@ -267,3 +267,24 @@ Rscript scripts/integration/06_plot_integration.R \
 
 **Q6 想换物种？**
 改三处：注释包（`org.Osativa.eg.db`）、KEGG 代码（`--org`，如 `zma`/`ath`）、TF 注释来源。流程不变。
+
+---
+
+## v3.2 新增脚本（模块 3 扩展）
+
+### TF 调控网络推断 `07_grn_boost.py`
+
+从表达矩阵推断**有方向**的 TF → 靶基因调控边（GRNBoost2 算法内核的 sklearn 实现，
+无需安装 Java/arboreto；WGCNA 给共表达模块，本脚本给调控边排序）：
+
+```bash
+python scripts/integration/07_grn_boost.py \
+    --expr demo_data/transcriptomics/counts_norm.csv \
+    --tfs assets/annotations/rice_tfs_planttfdb.csv \
+    --top-edges 5 --outdir results/integration/07_grn
+```
+
+- 对每个靶基因以候选 TF 为特征拟合梯度提升回归（250 树、subsample 0.632），
+  特征重要性即调控分数；`--all-genes` 可放开全部基因作候选
+- 输出 `grn_edges.csv`（全量排序边）+ `top_edges.csv`（每靶基因 top-K）；`--demo` 自检
+- 重要程度是关联分数、非直接结合证据——与 SCENIC/WGCNA、motif 分析（tf 模块）交叉验证

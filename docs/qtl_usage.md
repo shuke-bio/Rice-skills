@@ -92,3 +92,55 @@ results/qtl/01_eqtl/
 > 引擎为自研实现（OLS + 保守 BH），无需 MatrixEQTL 等外部依赖；
 > 大规模计算（上万基因 × 百万 SNP）建议用 MatrixEQTL/FastGWA 等专用工具，
 > 本模块适合常规规模（≤ 数千特征）与教学/预分析。
+
+---
+
+## v3.2 新增脚本
+
+### BSA / QTL-seq 完整链（05 → 04）
+
+**1) 全基因组扫描 `05_bsa_scan.py`**（ΔSNP-index + G′ 滑窗，零外部依赖）
+
+```bash
+python scripts/qtl/05_bsa_scan.py \
+    --vcf bulk.vcf --bulk-high HighPool --bulk-low LowPool \
+    --window 2000000 --step 100000 --ci 0.99 \
+    --outdir results/qtl/05_bsa_scan
+```
+
+- 输入：双混池 VCF（每池一个样本列，`AD` 字段承载池内等位计数；无 AD 时加 `--use-gt`）
+- 统计：每 SNP `SNP-index = ALT/(REF+ALT)`；窗内均值差 ΔSNP-index 与 G′；显著性用
+  正态模拟（`sd = sqrt(0.25*(1/n_high + 1/n_low))`）取 99% 分位作阈值
+- 输出：`bsa_windows.csv`（每窗）、`bsa_peaks.csv`（候选区间）、`bsa_scan.png/pdf`（全基因组双轨图）
+- `--demo` 自检：合成 3 染色体植入 Chr2 QTL → 精确回收、无 QTL 染色体零假阳性
+- 与 QTLseqr 的关系：本脚本为轻量自研筛查；发表级分析可与 QTLseqr（R 包）互相印证，
+  见 `docs/tools_navigation.md`
+
+**2) 峰区间精细提取 `04_qtl_region_snps.py`**（把 05 找到的区间"放大看"）
+
+```bash
+python scripts/qtl/04_qtl_region_snps.py \
+    --vcf filtered.vcf.gz --gff annotation.gff3.gz \
+    --region Chr7:20000000-25000000 \
+    --sample-a ParentA --sample-b ParentB --promoter 2000 \
+    --outdir results/qtl/04_region_snps
+```
+
+- 功能：区间 VCF（双亲选择）→ 每 SNP 的 GT/深度/AD/突变频率/ΔAF/差异判定/携带归属 →
+  GFF 五级注释（启动子/5'UTR/外显子/内含子/3'UTR/基因间区）→ 区间 VCF + **三表 Excel**
+  （全部位点 / 仅差异位点 / 区间基因列表）
+- 输出 Excel 需 `openpyxl`（缺失时自动降级三份 CSV）；`--demo` 内置合成 VCF+GFF 自检
+
+**3) 贝叶斯共定位 `03_coloc_bayesian.R`**（02 筛查的定量升级）
+
+```bash
+Rscript scripts/qtl/03_coloc_bayesian.R \
+    --gwas results/qtl/02_coloc/gwas_region.csv \
+    --qtl  results/qtl/02_coloc/qtl_region.csv \
+    --outdir results/qtl/03_coloc_bayes
+```
+
+- 自实现 coloc.abf（近似 Bayes 因子 + H0–H4 后验 + SNP 级共享因果后验），**零依赖**
+- 区域 CSV 需 `snp_id, beta, se` 三列（两文件按 SNP 自动对齐）；`--demo` 共享因果
+  PP4=0.994 / 不同因果 PP3>PP4
+- 判定：PP4≥0.8 强共定位；0.5–0.8 提示；PP3>PP4 提示两个独立信号

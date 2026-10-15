@@ -100,3 +100,38 @@ Rscript scripts/proteomics/03_plot_proteome.R \
 
 > 演示数据：`python scripts/utils/make_demo_proteomics.py --outdir demo_data/proteomics`
 > （1200 蛋白 × 24 样本，80 个真差异蛋白含 ground_truth.csv；演示检出 69/80、0 假阳性）。
+
+---
+
+## v3.2 新增脚本
+
+### UniProt 映射自动化 `04_uniprot_mapping.py`
+
+从 UniProt 参考 proteome（UP000059680，日本晴）自动生成 `protein_gene_map.csv`
+（蛋白 → MSU/RAP-DB 基因 ID），供本模块与模块 1 富集分析衔接：
+
+```bash
+python scripts/proteomics/04_uniprot_mapping.py --outdir results/proteomics/04_mapping
+# 网络受限（TLS 拦截）：--insecure；或浏览器下载 TSV 后 --tsv-file 传入（完全离线）
+python scripts/proteomics/04_uniprot_mapping.py --tsv-file uniprot_up000059680.tsv --outdir ...
+```
+
+- 解析规则：Gene Names 同时含 MSU（`LOC_Os04g55560`）与 RAP-DB（`Os04g0649100`）两种
+  风格时 **MSU 优先**；版本号自动剥离；输出含 `id_style` 列与 `unmatched.csv` 诊断
+- 首次下载后自动缓存（`data/annotations/`），之后离线可用；`--demo` 合成数据自检
+
+### 差异蛋白结构域富集 `05_interpro_domains.py`
+
+InterProScan TSV（`-T` 输出或 EBI 在线版）解析 + 结构域过度表示分析（蛋白版 GO 富集）：
+
+```bash
+python scripts/proteomics/05_interpro_domains.py \
+    --interpro results/proteomics/interproscan.tsv \
+    --de results/proteomics/02_diffpro/de_proteins.csv \
+    --background results/proteomics/01_preprocess/proteins_filtered.csv \
+    --outdir results/proteomics/05_domains
+```
+
+- 超几何检验 + BH FDR；`--level signature` 可切到 PFAM 签名级视图
+- **强烈建议传 `--background`**（实测蛋白全集）——质谱缺失非随机，用全域蛋白做背景会偏
+- 输出 `domain_enrichment.csv`（含 fold、p_adj）+ top 结构域条形图；`--demo` 自检

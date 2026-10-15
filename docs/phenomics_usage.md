@@ -94,3 +94,25 @@ fit <- kin.blup(data = blups, geno = "line_id", pheno = "grain_yield", K = G)
 
 > 演示数据：`python scripts/utils/make_demo_phenomics.py --outdir demo_data/phenomics`
 > （60 品系 × 3 环境 × 2 性状 + 5 个注入异常值；40 小区光谱含盐处理效应）。
+
+---
+
+## v3.2 新增脚本
+
+### 功效与样本量分析 `05_power_analysis.R`（零依赖）
+
+实验设计阶段先回答"要多少样本/能检出多大效应"：
+
+```bash
+Rscript scripts/phenomics/05_power_analysis.R --demo        # 三段全部演示
+Rscript scripts/phenomics/05_power_analysis.R \
+    --ttest --gwas --gs --outdir results/phenomics/05_power
+```
+
+- **两群表型比较**（如处理 vs 对照）：给定 Cohen's d 与每组 n 算功效，或反推 80% 功效
+  所需 n（与 R 内置 `power.t.test` 对拍一致）
+- **GWAS 位点检测**：非中心 χ²（`ncp = n·PVE/(1−PVE)`），给定样本量/MAF 算检出功效，
+  或反推 80% 功效所需 PVE；默认 Bonferroni 5e-8
+- **GS 训练群大小**：Daetwyler 式 `ρ² = Nh²/(Nh²+Me)`，给定 h²/Me 算准确率或反推所需 N
+- 输出 `power_ttest.csv / power_gwas.csv / gs_accuracy_curve.csv + power_report.txt`；
+  `--demo` 全部锚点对拍通过（示例：d=0.8 需每组 26 样本达 80% 功效）

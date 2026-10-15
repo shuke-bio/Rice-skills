@@ -20,7 +20,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-77-teal)
+![Scripts](https://img.shields.io/badge/scripts-78-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-528-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -36,7 +36,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**合成数据**（性状名为演示占位，可任意替换）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**77 个 R/Python 脚本**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**78 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配合成数据生成器与独立文档。
 
@@ -81,6 +81,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 **泛基因组与 QTL**
 - SV / PAV 检测与 Pan-GWAS
 - eQTL / mQTL / pQTL 映射与 GWAS×QTL 共定位
+- BSA / QTL-seq 全基因组扫描（ΔSNP-index + G′，模拟法置信线）
 - QTL/BSA 区间 SNP 提取与基因区域注释（启动子/UTR/外显子/内含子，含 ΔAF 与差异判定）——区间 VCF + 三表 Excel
 
 **蛋白质组**
@@ -186,7 +187,7 @@ Rice-skills/
 │   ├── design/                     # 01_sgrna_design.py · 02_primer_design.py（v2.1 · 靶点/引物设计）
 │   ├── variants/                   # BWA→GATK/bcftools→过滤→SnpEff 注释（v3.0）
 │   ├── pangenome/                  # 图构建模板 · SV · PAV · Pan-GWAS（v3.0）
-│   ├── qtl/                        # eQTL/mQTL/pQTL 映射（v3.0）· QTL/BSA 区间 SNP 提取（v3.2）
+│   ├── qtl/                        # eQTL/mQTL/pQTL 映射（v3.0）· BSA 扫描 + 区间 SNP 提取（v3.2）
 │   ├── proteomics/                 # 预处理 · 差异蛋白(limma) · 火山/热图（v3.0）
 │   ├── epigenomics/                # 甲基化 DMR · ATAC/ChIP 差异区域（v3.0）
 │   ├── phenomics/                  # BLUP/遗传力 · 光谱指数（v3.0）· 功效/样本量（v3.2）
@@ -222,6 +223,7 @@ Rice-skills/
 │   ├── spatial_usage.md            # 空间组学模块 + RICE scGPT（v3.0）
 │   ├── rice_databases.md           # 水稻数据库资源导航（v3.0）
 │   ├── tools_navigation.md         # 生信工具导航 + 许可评估（v3.2）
+│   ├── tf_promoter_usage.md        # 启动子 motif 与 TF 匹配模块（v3.2）
 │   ├── small_rna_splicing_usage.md # 小 RNA 与可变剪接流程模板（v3.1）
 │   ├── lab_protocols.md            # 水稻 CRISPR 敲除实验参考（靶点/构建/提取/鉴定，整理自公开协议）
 │   ├── protocols_molecular.md      # 分子实验协议手册（引物/载体/蛋白/LUC/GUS/TAIL-PCR）
@@ -446,6 +448,7 @@ PlantTFDB 水稻 TF 列表 1,862 个 / 56 家族、53 个 TF 家族 GSEA 基因�
 - [docs/spatial_usage.md](docs/spatial_usage.md) — 空间组学（Stereo-seq/Visium + RSTA 对接）
 - [docs/rice_databases.md](docs/rice_databases.md) — 水稻数据库资源导航
 - [docs/tools_navigation.md](docs/tools_navigation.md) — 水稻生信工具导航（QTLseqr/rMVP/RicePilaf/TBtools 许可评估）
+- [docs/tf_promoter_usage.md](docs/tf_promoter_usage.md) — 启动子 motif 与 TF 匹配模块使用说明
 - [docs/small_rna_splicing_usage.md](docs/small_rna_splicing_usage.md) — 小 RNA 与可变剪接流程模板
 - [docs/lab_protocols.md](docs/lab_protocols.md) — 水稻 CRISPR 敲除实验参考（整理自公开协议）
 - [docs/protocols_molecular.md](docs/protocols_molecular.md) — 分子实验协议手册（引物设计/载体构建/蛋白纯化/LUC/GUS/TAIL-PCR）

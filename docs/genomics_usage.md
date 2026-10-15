@@ -122,3 +122,26 @@ ADMIXTURE 与 PLINK 仅在上游（.Q 矩阵、VCF 转换）需要，脚本均�
   得到"变异 × 表达"的高置信候选（eQTL 思路的手工版）；
 - 群体结构 PCA 得分可直接作为主包分析的分层变量；
 - 候选基因列表可回到 `06_tf_analysis.R` / `03_enrichment.R` 做通路层面的解读。
+
+---
+
+## v3.2 新增脚本
+
+### 2D-GWAS 成对性状关联 `08_2d_association.R`（零依赖）
+
+找"只在某个背景性状的极端群体中才显现"的关联位点（标准 GWAS 会漏掉的
+条件特异/上位性效应；方法思路整理自 PATOWAS，见 `docs/references/patowas-2d-association.md`）：
+
+```bash
+Rscript scripts/gwas/08_2d_association.R \
+    --geno demo_data/genomics/genotype_matrix.csv \
+    --pheno demo_data/genomics/phenotypes.csv \
+    --traits traitA,traitB --tail 0.1 --p-cutoff 0.01 \
+    --outdir results/gwas/08_2d
+```
+
+- 逻辑：按性状 A 取上下极端组（`--tail`，默认 10%）→ 组内分别做 B ~ SNP 检验 →
+  只在单侧极端组显著的位点记为"A 条件特异"，方向 +A / -A
+- 输出 `2d_results.csv`（每 SNP 双侧 p 值、Δlog10p、方向）+ `2d_scatter.png`（高 × 低组散点）
+- `--demo` 自检：植入的上位性 SNP 以 +A 方向正确回收；命中后建议回到标准 GWAS
+  （模块 7）与共定位（02/03）在条件性状上做验证

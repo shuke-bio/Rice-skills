@@ -587,6 +587,80 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 9. v3.2 smoke tests (Bayesian coloc / 2D-GWAS / power / UniProt mapping /
+#    InterPro domains / GRN / miRNA targets / motif-TF / QTL region SNPs /
+#    genome-wide BSA scan -- all built-in --demo self-tests)
+# ---------------------------------------------------------------------------
+if [ -n "$PYTHON" ] && [ -n "$RSCRIPT" ]; then
+  V32="$(mktemp -d 2>/dev/null || echo "${TEMP:-/tmp}/rice_v32_selftest_$$")"
+  mkdir -p "$V32"
+
+  if "$PYTHON" scripts/proteomics/04_uniprot_mapping.py --demo --outdir "$V32/map" >/dev/null 2>&1; then
+    pass "UniProt mapping (04_uniprot_mapping.py --demo)"
+  else
+    fail "UniProt mapping (04_uniprot_mapping.py --demo)"
+  fi
+
+  if "$PYTHON" scripts/proteomics/05_interpro_domains.py --demo --outdir "$V32/ipr" >/dev/null 2>&1; then
+    pass "InterPro domain enrichment (05_interpro_domains.py --demo)"
+  else
+    fail "InterPro domain enrichment (05_interpro_domains.py --demo)"
+  fi
+
+  if "$RSCRIPT" scripts/phenomics/05_power_analysis.R --demo --outdir "$V32/power" >/dev/null 2>&1; then
+    pass "power analysis (05_power_analysis.R --demo)"
+  else
+    fail "power analysis (05_power_analysis.R --demo)"
+  fi
+
+  if "$RSCRIPT" scripts/qtl/03_coloc_bayesian.R --demo --outdir "$V32/coloc" >/dev/null 2>&1; then
+    pass "Bayesian coloc (03_coloc_bayesian.R --demo)"
+  else
+    fail "Bayesian coloc (03_coloc_bayesian.R --demo)"
+  fi
+
+  if "$RSCRIPT" scripts/gwas/08_2d_association.R --demo --outdir "$V32/2d" >/dev/null 2>&1; then
+    pass "2D-GWAS (08_2d_association.R --demo)"
+  else
+    fail "2D-GWAS (08_2d_association.R --demo)"
+  fi
+
+  if "$PYTHON" scripts/integration/07_grn_boost.py --demo --outdir "$V32/grn" >/dev/null 2>&1; then
+    pass "GRN inference (07_grn_boost.py --demo)"
+  else
+    fail "GRN inference (07_grn_boost.py --demo)"
+  fi
+
+  if "$PYTHON" scripts/evolution/02_mirna_targets.py --demo --outdir "$V32/mirna" >/dev/null 2>&1; then
+    pass "miRNA targets (02_mirna_targets.py --demo)"
+  else
+    fail "miRNA targets (02_mirna_targets.py --demo)"
+  fi
+
+  if "$PYTHON" scripts/tf/02_motif_tf_match.py --demo --outdir "$V32/motif" >/dev/null 2>&1; then
+    pass "motif-TF matching (02_motif_tf_match.py --demo)"
+  else
+    fail "motif-TF matching (02_motif_tf_match.py --demo)"
+  fi
+
+  if "$PYTHON" scripts/qtl/04_qtl_region_snps.py --demo --outdir "$V32/region" >/dev/null 2>&1; then
+    pass "QTL region SNP extraction (04_qtl_region_snps.py --demo)"
+  else
+    fail "QTL region SNP extraction (04_qtl_region_snps.py --demo)"
+  fi
+
+  if "$PYTHON" scripts/qtl/05_bsa_scan.py --demo --outdir "$V32/bsa" >/dev/null 2>&1; then
+    pass "genome-wide BSA scan (05_bsa_scan.py --demo)"
+  else
+    fail "genome-wide BSA scan (05_bsa_scan.py --demo)"
+  fi
+
+  rm -rf "$V32" 2>/dev/null
+else
+  skip "v3.2 smoke tests" "python or Rscript not available"
+fi
+
+# ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
 echo
