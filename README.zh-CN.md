@@ -327,6 +327,8 @@ python scripts/design/02_primer_design.py --mode qpcr \
 | 跑自己的 GWAS | 我有基因型CSV、SNP信息和表型CSV，按 docs/genomics_usage.md 帮我跑完整GWAS流程。 |
 | 给目的基因设计 sgRNA 和引物 | 给 demo_gene.fa 设计 CRISPR sgRNA 和 qPCR 引物，输出到 results/design/。 |
 | 试试贝叶斯共定位 | 运行 scripts/qtl/03_coloc_bayesian.R --demo 给我看 PP4 输出格式。 |
+| 用混池测序找 QTL（BSA） | 用 05_bsa_scan.py 对这两个混池 VCF 做全基因组扫描，输出候选区间和 ΔSNP-index 曲线。 |
+| 放大看 QTL 区间 | 用 04_qtl_region_snps.py 提取 Chr7:20-25Mb 区间的双亲差异 SNP，标注基因区域，出 Excel。 |
 | 估算 GWAS 样本量够不够 | 我的 GWAS 大约 300 份材料，用 05_power_analysis.R 估计能检出多大的效应。 |
 | 预测 miRNA 靶基因 | 用 02_mirna_targets.py 把这批 miRNA 对水稻 CDS 做靶基因预测。 |
 | 富集 motif 对上转录因子 | 01_promoter_kmer.py 找到的 top k-mer，用 02_motif_tf_match.py 匹配已知 TF。 |
