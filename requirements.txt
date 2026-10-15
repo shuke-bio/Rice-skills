@@ -15,6 +15,7 @@ pillow>=10.0        # TIFF export for Nature-style figures
 # gseapy>=1.1       # pure-Python GSEA alternative to R fgsea
 # statsmodels>=0.14 # additional statistical tests
 # primer3-py>=2.0   # primer design engine (scripts/design/02_primer_design.py)
+# openpyxl>=3.1     # Excel output for scripts/qtl/04_qtl_region_snps.py (CSV fallback without it)
 
 # v3.0 single-cell / spatial modules (recommend a SEPARATE conda env;
 # see docs/single_cell_usage.md and docs/spatial_usage.md):

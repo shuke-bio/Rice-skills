@@ -16,7 +16,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-76-teal)
+![Scripts](https://img.shields.io/badge/scripts-77-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-528-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -28,6 +28,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 
 ## 📑 Contents
 
+- [What you can do](#-what-you-can-do)
 - [Requirements](#-requirements)
 - [Install](#-install)
 - [Quick start — just talk to your AI](#-quick-start--just-talk-to-your-ai)
@@ -37,6 +38,73 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - [Troubleshooting](#-troubleshooting)
 - [License](#-license)
 - [Documentation](#-documentation)
+
+## 🎯 What you can do
+
+**Transcriptome**
+- Full pipeline from FASTQ to differential expression (QC → alignment → counts → DESeq2 / edgeR)
+- Volcano / heatmap / batch correction / time-series differential expression
+- GO / KEGG / Reactome enrichment and GSEA
+- WGCNA co-expression modules and hub genes
+- Transcription-factor identification (PlantTFDB) and PPI networks
+
+**Metabolome**
+- Preprocessing, missing-value handling, normalization and QC
+- OPLS-DA with VIP-based marker selection
+- KEGG metabolite pathway enrichment
+- Biomarker discovery (ROC + random forest) and metabolite–trait networks
+
+**Multi-omics integration**
+- MOFA latent factors; DIABLO / O2PLS discriminant integration
+- Gene–metabolite correlation networks, joint KEGG pathways and Circos visualization
+- GRNBoost2-style TF regulatory network inference
+
+**Variant calling & annotation**
+- Full chain: BWA alignment → GATK variant calling → VCF filtering → SnpEff annotation
+
+**GWAS & genomics**
+- PLINK QC → rMVP / GAPIT / built-in GLM association tests
+- Publication-grade Manhattan / QQ plots and significant-locus annotation
+- Meta-GWAS · haplotype (EM) analysis · 2D pairwise-trait GWAS
+- Bayesian colocalization (PP4) · power and sample-size analysis
+
+**Population genetics**
+- PCA structure + kinship · LD decay · Fst / π · ADMIXTURE · phylogeny
+- XP-EHH selection scans
+
+**Pangenome & QTL**
+- SV / PAV detection and Pan-GWAS
+- eQTL / mQTL / pQTL mapping and GWAS×QTL colocalization
+- QTL/BSA interval SNP extraction with gene-region annotation (promoter/UTR/exon/intron) — region VCF + 3-sheet Excel
+
+**Proteomics**
+- Preprocessing and differential abundance; UniProt protein→gene mapping automation
+- InterProScan domain enrichment
+
+**Epigenomics**
+- WGBS methylation DMR analysis; ATAC / ChIP differential regions
+
+**Phenomics & breeding**
+- BLUP / heritability; spectral indices (NDVI …)
+- GBLUP genomic selection with cross-validation; AMMI / GGE biplots
+
+**Single-cell & spatial**
+- Scanpy pipeline (clustering / marker genes / PAGA)
+- Squidpy spatial domains and Moran's I; RSTA / scGPT foundation-model integration guide
+
+**Evolution & regulation**
+- KA/KS gene-family evolution
+- Promoter k-mer enrichment; motif→TF matching; miRNA target prediction
+- Alternative-splicing analysis playbook (rMATS / SUPPA2) and small-RNA pipeline (miRDeep2)
+
+**Design & lab**
+- qPCR primer design; CRISPR sgRNA design with off-target search
+- Lab protocols: knockout constructs, DNA extraction, edit detection, LUC/GUS assays …
+
+**Figures & writing**
+- CNS-/Nature-grade figures — PDF / SVG / TIFF at 300 dpi with one shared palette
+- Manuscript writing / polishing / reviewer-response workflows (bundled skills)
+- Paper-to-PPT conversion and literature citation management
 
 ## 🖥 Requirements
 
@@ -97,7 +165,7 @@ automatically.
 ## 🧭 What's inside
 
 <details open>
-<summary><b>Module map (18 modules, 76 scripts)</b></summary>
+<summary><b>Module map (18 modules, 77 scripts)</b></summary>
 
 - **Module 1 · Transcriptome**: QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA →
   WGCNA → TF (PlantTFDB) → PPI
@@ -129,7 +197,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Synthetic demo data for every module
-├── scripts/                        # 76 R/Python analysis scripts (18 modules)
+├── scripts/                        # 77 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 528 curated skills, 6 upstream libraries (NOTICE.md)

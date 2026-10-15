@@ -23,6 +23,9 @@ Versioning follows [Semantic Versioning](https://semver.org/).
   psRNATarget-style seed/pairing scoring, dependency-free.
 - **motif→TF matching** (`scripts/tf/02_motif_tf_match.py`) — MEME PWM libraries,
   log-odds matching, TF ranking.
+- **QTL/BSA interval SNP extraction** (`scripts/qtl/04_qtl_region_snps.py`) —
+  two-parent genotype/ΔAF comparison, promoter/UTR/exon/intron gene-region
+  annotation, region VCF + 3-sheet Excel output.
 - `docs/skill_routing.md` — 528 curated skills routed to analysis modules.
 - Bilingual README (English + Chinese), cover image, workflow prompt tables.
 - CITATION.cff, CONTRIBUTING.md, this changelog.

@@ -20,7 +20,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-76-teal)
+![Scripts](https://img.shields.io/badge/scripts-77-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-528-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -36,7 +36,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**合成数据**（性状名为演示占位，可任意替换）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**76 个 R/Python 脚本**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**77 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配合成数据生成器与独立文档。
 
@@ -44,6 +44,73 @@
 transcriptomics, metabolomics and their integration, plus genomics (variants/GWAS/popgen/pangenome/eQTL),
 proteomics, epigenomics, phenomics, single-cell and spatial omics, and primer/CRISPR design —
 with Nature-grade figures. See `docs/` for full documentation (Chinese).
+
+## 🎯 能做什么
+
+**转录组**
+- FASTQ 到差异表达全流程（质控 → 比对 → counts → DESeq2 / edgeR）
+- 火山图 / 热图 / 批次校正 / 时间序列差异分析
+- GO / KEGG / Reactome 富集与 GSEA
+- WGCNA 共表达模块与 Hub 基因
+- 转录因子鉴定（PlantTFDB）与 PPI 网络
+
+**代谢组**
+- 预处理、缺失值处理、归一化与质控
+- OPLS-DA 与 VIP 标志物筛选
+- KEGG 代谢物通路富集
+- 生物标志物发现（ROC + 随机森林）与代谢物-性状关联网络
+
+**多组学联合**
+- MOFA 潜在因子；DIABLO / O2PLS 判别整合
+- 基因-代谢物相关网络、联合 KEGG 通路与 Circos 可视化
+- GRNBoost2 式 TF 调控网络推断
+
+**变异检测与注释**
+- 完整链路：BWA 比对 → GATK 变异检测 → VCF 过滤 → SnpEff 注释
+
+**GWAS 与基因组学**
+- PLINK 质控 → rMVP / GAPIT / 内置 GLM 关联检验
+- 出版级曼哈顿 / QQ 图与显著性位点注释
+- Meta-GWAS · 单倍型（EM）分析 · 2D 成对性状 GWAS
+- 贝叶斯共定位（PP4）· 功效与样本量分析
+
+**群体遗传**
+- PCA 群体结构 + 亲缘关系 · LD 衰减 · Fst / π · ADMIXTURE · 系统发育
+- XP-EHH 选择扫描
+
+**泛基因组与 QTL**
+- SV / PAV 检测与 Pan-GWAS
+- eQTL / mQTL / pQTL 映射与 GWAS×QTL 共定位
+- QTL/BSA 区间 SNP 提取与基因区域注释（启动子/UTR/外显子/内含子，含 ΔAF 与差异判定）——区间 VCF + 三表 Excel
+
+**蛋白质组**
+- 预处理与差异丰度分析；UniProt 蛋白→基因映射自动化
+- InterProScan 结构域富集
+
+**表观基因组**
+- WGBS 甲基化 DMR 分析；ATAC / ChIP 差异区域
+
+**表型组与育种**
+- BLUP / 遗传力；光谱指数（NDVI 等）
+- GBLUP 基因组选择（含交叉验证）；AMMI / GGE biplot
+
+**单细胞与空间组学**
+- Scanpy 全流程（聚类 / marker 基因 / PAGA）
+- Squidpy 空间域与 Moran's I；RSTA / scGPT 基础模型集成指引
+
+**进化与调控**
+- KA/KS 基因家族进化
+- 启动子 k-mer 富集；motif→TF 匹配；miRNA 靶基因预测
+- 可变剪接分析流程模板（rMATS / SUPPA2）与小 RNA 测序流程（miRDeep2）
+
+**设计与实验**
+- qPCR 引物设计；CRISPR sgRNA 设计（含脱靶搜索）
+- 实验协议：敲除构建、DNA 提取、编辑鉴定、LUC/GUS 检测……
+
+**绘图与写作**
+- CNS / Nature 级图表——统一调色板，PDF / SVG / TIFF 300 dpi
+- 论文写作 / 润色 / 审稿回复工作流（内置技能）
+- 论文转 PPT 与文献引用管理
 
 ## ✨ 功能特性
 
@@ -119,7 +186,7 @@ Rice-skills/
 │   ├── design/                     # 01_sgrna_design.py · 02_primer_design.py（v2.1 · 靶点/引物设计）
 │   ├── variants/                   # BWA→GATK/bcftools→过滤→SnpEff 注释（v3.0）
 │   ├── pangenome/                  # 图构建模板 · SV · PAV · Pan-GWAS（v3.0）
-│   ├── qtl/                        # eQTL/mQTL/pQTL 映射（v3.0）
+│   ├── qtl/                        # eQTL/mQTL/pQTL 映射（v3.0）· QTL/BSA 区间 SNP 提取（v3.2）
 │   ├── proteomics/                 # 预处理 · 差异蛋白(limma) · 火山/热图（v3.0）
 │   ├── epigenomics/                # 甲基化 DMR · ATAC/ChIP 差异区域（v3.0）
 │   ├── phenomics/                  # BLUP/遗传力 · 光谱指数（v3.0）· 功效/样本量（v3.2）
