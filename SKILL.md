@@ -184,6 +184,7 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 |---|---|---|---|
 | 01 | `01_sgrna_design.py` | SpCas9 靶点设计：标准方案七原则全部代码化（CDS 优先 / GC 40-80% / 禁连续≥4T / 骨架配对≥7bp 剔除 / 中上游偏好 / BsaI 位点检查 / 序列内脱靶统计）+ **双靶点自动配对**（间隔 ≥100 bp）+ **pYLCRISPR/Cas9 构建引物自动生成**（gRT#+/U6#T#-、SP-L1/SP-R、通用引物表） | 候选表（含逐条通过/剔除原因）、推荐双靶点、构建引物、靶点分布图 |
 | 02 | `02_primer_design.py` | 引物设计（primer3 引擎）：qPCR 跨内含子（逐结合点定向）/ CRISPR 靶点验证（±flank）/ 通用克隆；Tm、GC、发夹、同源/异源二聚体完整质量指标 | 引物表、质量报告、覆盖图 |
+| 03 | `03_qpcr_analysis.py`（v3.2） | **qPCR 相对定量（2^-ΔΔCt）**：长表 Ct 输入（技术重复自动平均）→ 校准组=1 相对表达 → 每基因条形图（mean±SD）+ 全部基因 grid；可选 **qPCR↔RNA-seq 相关性验证**（Pearson/Spearman + 散点） | ddct_table、rel_expression_summary、qpcr_*.pdf、相关性表 |
 
 配套实验参考（三份文档互补）：
 - `docs/lab_protocols.md`：靶点原则、双靶点构建流程、CTAB/TPS 提取、编辑体鉴定与解码（整理自公开发表的 pYLCRISPR/Cas9 协议并注明出处）；

@@ -95,3 +95,50 @@ results/design/
 - 构建体系引用：Ma X, Zhang Q, Zhu Q, et al. *A robust CRISPR/Cas9 system for convenient
   high-efficiency multiplex genome editing in monocot and dicot plants.* Mol Plant, 2015;
   实验流程参考 Ma X, Liu Y-G. Curr Protoc Mol Biol, 2016.
+
+---
+
+## v3.2 新增脚本
+
+### qPCR 相对定量 `03_qpcr_analysis.py`（设计-验证闭环）
+
+引物设计后的湿实验数据落地：把 qPCR 仪导出的 **Ct/Cp 值**变成出版级相对表达图：
+
+```bash
+python scripts/design/03_qpcr_analysis.py \
+    --ct-table ct_values.csv --ref-gene OsUBQ5 --calibrator Control \
+    --outdir results/design/03_qpcr
+
+# 附转录组交叉验证（qPCR vs RNA-seq 相关性）
+python scripts/design/03_qpcr_analysis.py --ct-table ct_values.csv \
+    --ref-gene OsUBQ5 --calibrator Control \
+    --rna-table rnaseq_values.csv --rna-format fpkm \
+    --outdir results/design/03_qpcr
+```
+
+**输入格式（长表，从仪器导出后整理一次即可）**：
+
+```csv
+gene,group,bio_rep,ct
+GeneA,Control,1,18.20
+GeneA,Control,1,18.15     # 同一 bio_rep 多行 = 技术重复，自动取均值
+GeneA,Treat,1,16.10
+RefGene,Control,1,22.00   # 内参基因以普通 gene 行出现（--ref-gene 指定名称）
+```
+
+**计算**：技术重复均值 → ΔCt（同组同重复）→ ΔΔCt（校准组）→ **2^-ΔΔCt**；
+校准组均值≈1（生物个体差异保留在 SD 中）。
+
+**输出**：
+- `ddct_table.csv`（逐重复明细：Ct/ΔCt/ΔΔCt/相对表达）
+- `rel_expression_summary.csv`（gene × group：mean/SD/SEM/n）
+- `qpcr_<gene>.pdf/png`（每基因条形图，mean±SD，Nature 配色）
+- `qpcr_all_genes_grid.pdf`（≤24 基因总览）
+- 加 `--rna-table` 时：`correlation_qpcr_rnaseq.csv` + 散点图（Pearson/Spearman）
+
+**注意事项**：
+- "Undetermined"/空值自动剔除并告警；缺内参 Ct 的样本自动跳过
+- `--rna-format counts` 时自动 log2(x+1) 变换后再相关
+- 组间显著性检验建议在 2^-ΔΔCt 值上用 Welch t 或 Mann-Whitney
+  （样本量估计见 `phenomics/05_power_analysis.R`）
+- `--demo` 用合成 Ct（已知 4×/2×/0.5× 效应）自检，数值精确回收

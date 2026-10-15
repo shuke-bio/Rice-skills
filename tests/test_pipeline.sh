@@ -328,6 +328,15 @@ if [ -n "$PYTHON" ]; then
     skip "qPCR primer design" "primer3-py not installed (pip install primer3-py)"
   fi
 
+  if "$PYTHON" scripts/design/03_qpcr_analysis.py --demo \
+       --outdir "$DTMP/qpcr" >/dev/null 2>&1 &&
+     [ -f "$DTMP/qpcr/ddct_table.csv" ] &&
+     [ -f "$DTMP/qpcr/rel_expression_summary.csv" ]; then
+    pass "qPCR quantification (03_qpcr_analysis.py --demo)"
+  else
+    fail "qPCR quantification (03_qpcr_analysis.py --demo)"
+  fi
+
   rm -f "$DTMP"/*/*/* "$DTMP"/*/* "$DTMP"/* 2>/dev/null
   rmdir "$DTMP"/sgrna "$DTMP"/primers "$DTMP"/data "$DTMP" 2>/dev/null
 else

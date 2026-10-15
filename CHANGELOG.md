@@ -72,3 +72,11 @@ Versioning follows [Semantic Versioning](https://semver.org/).
   (QC → DE → enrichment → WGCNA; OPLS-DA → pathway → biomarker; MOFA/DIABLO),
   dual R/Python backends, shared Nature-style figure specification, synthetic
   demo data and end-to-end self-tests.
+
+## [Unreleased]
+
+### Added
+- **qPCR relative quantification** (`scripts/design/03_qpcr_analysis.py`) —
+  2^-ddCt from long-format Ct tables (technical-replicate averaging, calibrator
+  group = 1), per-gene bar plots with SD, all-gene grid, and optional
+  qPCR↔RNA-seq Pearson/Spearman cross-check with scatter.

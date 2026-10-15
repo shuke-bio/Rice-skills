@@ -20,7 +20,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-78-teal)
+![Scripts](https://img.shields.io/badge/scripts-79-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-528-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -36,7 +36,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**合成数据**（性状名为演示占位，可任意替换）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**78 个 R/Python 脚本**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**79 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配合成数据生成器与独立文档。
 
@@ -106,6 +106,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 
 **设计与实验**
 - qPCR 引物设计；CRISPR sgRNA 设计（含脱靶搜索）
+- **qPCR 相对定量分析**（2^-ΔΔCt，每基因条形图含 SD）与 qPCR↔RNA-seq 相关性验证
 - 实验协议：敲除构建、DNA 提取、编辑鉴定、LUC/GUS 检测……
 
 **绘图与写作**
@@ -184,7 +185,7 @@ Rice-skills/
 │   ├── integration/                # 01_mofa.R … 06_plot_integration.R
 │   ├── gwas/                       # 01_plink_qc.sh … 07_haplotype.R（v2.0/v3.0/v3.1 · GWAS 全链 + Meta + 单倍型）
 │   ├── popgen/                     # 01_pca_structure.R … 06_phylogeny.R（v2.0 · 群体遗传）
-│   ├── design/                     # 01_sgrna_design.py · 02_primer_design.py（v2.1 · 靶点/引物设计）
+│   ├── design/                     # 01_sgrna_design.py · 02_primer_design.py · 03_qpcr_analysis.py（靶点/引物设计 + qPCR 定量，v3.2）
 │   ├── variants/                   # BWA→GATK/bcftools→过滤→SnpEff 注释（v3.0）
 │   ├── pangenome/                  # 图构建模板 · SV · PAV · Pan-GWAS（v3.0）
 │   ├── qtl/                        # eQTL/mQTL/pQTL 映射（v3.0）· BSA 扫描 + 区间 SNP 提取（v3.2）

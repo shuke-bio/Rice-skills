@@ -16,7 +16,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-78-teal)
+![Scripts](https://img.shields.io/badge/scripts-79-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-528-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -100,6 +100,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 
 **Design & lab**
 - qPCR primer design; CRISPR sgRNA design with off-target search
+- **qPCR relative quantification** (2^-ddCt, per-gene bar plots with SD) and
+  qPCR↔RNA-seq correlation validation
 - Lab protocols: knockout constructs, DNA extraction, edit detection, LUC/GUS assays …
 
 **Figures & writing**
@@ -168,7 +170,7 @@ automatically.
 ## 🧭 What's inside
 
 <details open>
-<summary><b>Module map (18 modules, 78 scripts)</b></summary>
+<summary><b>Module map (18 modules, 79 scripts)</b></summary>
 
 - **Module 1 · Transcriptome**: QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA →
   WGCNA → TF (PlantTFDB) → PPI
@@ -200,7 +202,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Synthetic demo data for every module
-├── scripts/                        # 78 R/Python analysis scripts (18 modules)
+├── scripts/                        # 79 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 528 curated skills, 6 upstream libraries (NOTICE.md)
