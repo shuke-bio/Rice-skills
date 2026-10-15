@@ -102,7 +102,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - Lab protocols: knockout constructs, DNA extraction, edit detection, LUC/GUS assays …
 
 **Figures & writing**
-- CNS-/Nature-grade figures — PDF / SVG / TIFF at 300 dpi with one shared palette
+- CNS-grade figures — PDF / SVG / TIFF at 300 dpi with one shared palette
 - Manuscript writing / polishing / reviewer-response workflows (bundled skills)
 - Paper-to-PPT conversion and literature citation management
 
@@ -251,7 +251,7 @@ Per-module guides and lab protocols live in [`docs/`](docs/) (Chinese):
 [installation](docs/installation.md) · [pipeline usage](docs/usage.md) ·
 [GWAS & popgen](docs/genomics_usage.md) · [design](docs/design_usage.md) ·
 [pangenome](docs/pangenome_usage.md) · [QTL](docs/qtl_usage.md) ·
-[skill routing](docs/skill_routing.md).
+[skill routing](docs/skill_routing.md) · [tool navigation](docs/tools_navigation.md).
 
 <div align="right">
 

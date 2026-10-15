@@ -31,7 +31,7 @@
 > 水稻（*Oryza sativa*）**全组学分析 Skill（v3.2）**：转录组 + 代谢组 + 联合分析 +
 > **基因组学（变异检测/GWAS/群体遗传/泛基因组/eQTL/Meta-GWAS/单倍型/共定位/XP-EHH）** + **蛋白质组** + **表观基因组** +
 > **表型组（BLUP/光谱/GBLUP/AMMI-GGE）** + **单细胞与空间组学** + **基因家族进化（KA/KS）与启动子 motif** +
-> **引物与 CRISPR 靶点设计**，输出 Nature 级出版图表。
+> **引物与 CRISPR 靶点设计**，输出 CNS 级出版图表。
 >
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**合成数据**（性状名为演示占位，可任意替换）。
@@ -43,7 +43,7 @@
 **English**: Rice-skills is a ready-to-publish, all-omics analysis skill for rice (Oryza sativa) —
 transcriptomics, metabolomics and their integration, plus genomics (variants/GWAS/popgen/pangenome/eQTL),
 proteomics, epigenomics, phenomics, single-cell and spatial omics, and primer/CRISPR design —
-with Nature-grade figures. See `docs/` for full documentation (Chinese).
+with CNS-grade figures. See `docs/` for full documentation (Chinese).
 
 ## 🎯 能做什么
 
@@ -108,7 +108,7 @@ with Nature-grade figures. See `docs/` for full documentation (Chinese).
 - 实验协议：敲除构建、DNA 提取、编辑鉴定、LUC/GUS 检测……
 
 **绘图与写作**
-- CNS / Nature 级图表——统一调色板，PDF / SVG / TIFF 300 dpi
+- CNS 级图表——统一调色板，PDF / SVG / TIFF 300 dpi
 - 论文写作 / 润色 / 审稿回复工作流（内置技能）
 - 论文转 PPT 与文献引用管理
 
@@ -133,7 +133,7 @@ with Nature-grade figures. See `docs/` for full documentation (Chinese).
 - **模块 12 · QTL 映射（v3.0）**：eQTL/mQTL/pQTL——自研 cis/trans 引擎（向量化 + 保守 BH）、
   经典 cis-距离图、Manhattan、每特征最佳命中表
 - **模块 13 · Meta-GWAS + 数据库导航（v3.0）**：多研究逆方差合并（Q/I²/随机效应）+ 森林图；
-  另含 `docs/rice_databases.md` 水稻数据库资源导航（12 个核心库）
+  另含 `docs/rice_databases.md` 水稻数据库资源导航（12 个核心库）与 `docs/tools_navigation.md` 生信工具导航（含 TBtools 等许可评估）
 - **模块 14 · 蛋白质组（v3.0）**：过滤/归一化/批次校正 → limma 差异蛋白 → 火山图 + 热图；
   与转录组形成"转录-蛋白"互证
 - **模块 15 · 表观基因组（v3.0）**：WGBS 区域甲基化 DMR（hyper/hypo）+ ATAC/ChIP 差异区域（DAR/DHR）；
@@ -158,7 +158,7 @@ with Nature-grade figures. See `docs/` for full documentation (Chinese).
 - **实验协议配套（v2.1.1）**：`docs/protocols_molecular.md`（引物评估 9 原则、同源重组、RNAi、
   蛋白纯化与 SDS-PAGE、亚细胞定位、LUC 互补、mhiTAIL-PCR、GUS 染色、BioEdit）+ 
   `docs/research_workflow_tf.md`（转录因子研究全流程路线图）——与设计模块直接衔接
-- **Nature 级绘图**：R（ggplot2/ComplexHeatmap）与 Python（matplotlib）双后端共用同一份
+- **CNS 级绘图**：R（ggplot2/ComplexHeatmap）与 Python（matplotlib）双后端共用同一份
   调色板（`config/nature_palette.json`）；Arial/Helvetica 8 pt；PDF + SVG + TIFF(300 dpi)
 - **工程化**：每个输出目录自动生成 `run_info.txt`（参数 + 包版本 + 种子）；固定 `seed=42`；
   友好的错误提示；分块/并行友好的大规模计算设计
@@ -221,6 +221,7 @@ Rice-skills/
 │   ├── single_cell_usage.md        # 单细胞模块 + RSTA 集成（v3.0）
 │   ├── spatial_usage.md            # 空间组学模块 + RICE scGPT（v3.0）
 │   ├── rice_databases.md           # 水稻数据库资源导航（v3.0）
+│   ├── tools_navigation.md         # 生信工具导航 + 许可评估（v3.2）
 │   ├── small_rna_splicing_usage.md # 小 RNA 与可变剪接流程模板（v3.1）
 │   ├── lab_protocols.md            # 水稻 CRISPR 敲除实验参考（靶点/构建/提取/鉴定，整理自公开协议）
 │   ├── protocols_molecular.md      # 分子实验协议手册（引物/载体/蛋白/LUC/GUS/TAIL-PCR）
@@ -444,6 +445,7 @@ PlantTFDB 水稻 TF 列表 1,862 个 / 56 家族、53 个 TF 家族 GSEA 基因�
 - [docs/single_cell_usage.md](docs/single_cell_usage.md) — 单细胞（Scanpy 流程 + RSTA/RICE scGPT）
 - [docs/spatial_usage.md](docs/spatial_usage.md) — 空间组学（Stereo-seq/Visium + RSTA 对接）
 - [docs/rice_databases.md](docs/rice_databases.md) — 水稻数据库资源导航
+- [docs/tools_navigation.md](docs/tools_navigation.md) — 水稻生信工具导航（QTLseqr/rMVP/RicePilaf/TBtools 许可评估）
 - [docs/small_rna_splicing_usage.md](docs/small_rna_splicing_usage.md) — 小 RNA 与可变剪接流程模板
 - [docs/lab_protocols.md](docs/lab_protocols.md) — 水稻 CRISPR 敲除实验参考（整理自公开协议）
 - [docs/protocols_molecular.md](docs/protocols_molecular.md) — 分子实验协议手册（引物设计/载体构建/蛋白纯化/LUC/GUS/TAIL-PCR）
