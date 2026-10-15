@@ -1,99 +1,44 @@
-# `nature-paper2ppt` skill
+# `nature-paper2ppt` 技能
 
-A journal-club and lab-meeting skill for turning scientific papers into concise Chinese
-PowerPoint decks with a Nature-style evidence narrative.
+[English](README_EN.md)
 
-The skill accepts a paper PDF, preprint, article text, abstract plus figure legends, or
-structured reading notes. It identifies the paper type, extracts the scientific argument,
-selects only the figures that support that argument, writes Chinese slide content and
-speaker notes, builds a real `.pptx`, and performs lightweight package QA.
+`nature-paper2ppt` 用于把科研论文、预印本、PDF、图注或阅读笔记转换为中文 PowerPoint，适合组会、文献汇报、论文分享和答辩前讲稿准备。
 
-## What it does
+## 适合用它做什么
 
-- converts a scientific paper into a 10-16 slide Chinese presentation
-- keeps the paper's argument as the slide spine instead of copying section order
-- classifies the paper type before choosing the narrative logic
-- selects key figures, tables, or panels as evidence rather than decoration
-- crops dense figure panels when full figures would be unreadable
-- writes Chinese titles, concise bullets, captions, takeaways, and speaker notes
-- creates an actual editable `.pptx` deck as the primary deliverable
-- records used figure assets in an asset manifest when figures are extracted
-- runs lightweight QA on slide count, embedded media, speaker notes, and PPTX package structure
+- 将论文重组为 10-16 页中文汇报，而不是照搬原文章节。
+- 提取研究问题、关键 claim、核心证据、局限和可复用价值。
+- 选择支撑叙事的关键图表，并对密集图版进行裁剪或拆分。
+- 生成可编辑 `.pptx`、speaker notes 和轻量 QA 报告。
+- 将 Nature 风格证据叙事转化为现场报告的短句和页面结构。
 
-## Source and design hierarchy
+## 典型请求
 
-- Nature-style scientific reporting logic: problem, gap, claim, evidence, validation,
-  reuse value, limitations, and discussion
-- Academic journal-club practice: short live-presentation slides rather than dense
-  reading notes
-- Evidence-first slide design: one dominant figure or table per result slide when possible
-- Low-overhead production: avoid exhaustive OCR, figure extraction, and rendering unless
-  they materially improve the deck
+- “把这篇 Nature Communications 论文做成 12 页中文组会 PPT。”
+- “根据摘要和图注先做一版文献汇报，不要太密。”
+- “把这篇机器学习论文做成方法、结果、局限都清楚的 PPT。”
 
-## File structure
+## 你需要提供
 
-```text
-nature-paper2ppt/
-├── SKILL.md
-└── README.md
-```
+- 论文 PDF、DOI、arXiv 链接、出版社页面、摘要加图注或阅读笔记。
+- 报告时长、听众背景、页数范围和是否需要 speaker notes。
+- 是否必须保留原图、是否允许裁剪或重画示意图。
 
-## When to use
+## 产出
 
-- making a PPT or PPTX from a research paper PDF
-- preparing a journal club, group meeting, lab meeting, paper sharing, or thesis seminar
-- summarising a Nature-family paper into Chinese slides
-- turning article text, figure legends, or reading notes into a presentation
-- creating a figure-integrated deck rather than only an outline or summary
-- needing speaker notes, source labels, and a QA report for the deck
+- 可编辑 PowerPoint 文件。
+- 图表资产清单和裁剪/引用说明。
+- 每页标题、要点、takeaway 和 speaker notes。
+- 包体检查结果，例如媒体嵌入、页数、备注和布局风险。
 
-## Default output package
+## 边界
 
-The expected default output is a small working folder containing:
+- 不会把论文内容改写成无法回溯来源的泛泛介绍。
+- 图像质量不足、PDF 扫描质量差或原图无法提取时，会说明替代方案。
+- 如果任务是全文翻译或逐段阅读，优先使用 `nature-reader`。
 
-```text
-output/
-├── final_presentation_cn.pptx
-├── qa_report.md
-├── asset_manifest.md          # when source figures/tables are extracted
-└── assets/
-    └── figures/
-```
+## 相关技能
 
-Optional outline or script files may be created when they help review or debugging, but
-the `.pptx` remains the main deliverable.
-
-## Presentation logic
-
-The default arc helps the audience answer:
-
-1. Why does this problem matter?
-2. What gap or bottleneck does the paper address?
-3. What did the authors do?
-4. What is the key evidence?
-5. Why should we trust the result?
-6. What is new, reusable, or broadly meaningful?
-7. Where are the boundaries and open questions?
-
-The skill adapts this arc by paper type. Discovery papers use a question-to-evidence
-logic; methods, AI, and tool papers use problem-to-solution; resources and atlases use
-workflow-to-validation; reviews use an evidence-map structure.
-
-## Design intent
-
-The skill should create a deck that can be used directly in an academic oral report. It
-should be concise, figure-led, and evidence-aware. It should not fabricate values,
-methods, mechanisms, datasets, or figure interpretations that are not supported by the
-source paper.
-
-Dense result visuals should be cropped, split, or given their own slide instead of being
-shrunk into a symmetrical two-column layout. Explanatory text should stay short on slides,
-with deeper interpretation moved into speaker notes.
-
-## Notes
-
-- Default language is Simplified Chinese while preserving important technical terms,
-  abbreviations, gene names, model names, equations, and statistical terms in English.
-- The skill is designed for research papers across domains, not only biomedical papers.
-- When no reliable headless renderer is available, the skill performs structural QA and
-  records that rendered preview QA was skipped.
+- `nature-reader`：先建立全文中英对照和图表 source map。
+- `nature-figure`：重画汇报中的机制图或方法图。
+- `presentations`：对生成的 PPTX 做进一步版式编辑。

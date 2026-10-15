@@ -21,7 +21,7 @@
 ![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-79-teal)
-![Skills](https://img.shields.io/badge/curated%20skills-528-orange)
+![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)
@@ -109,10 +109,16 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - **qPCR 相对定量分析**（2^-ΔΔCt，每基因条形图含 SD）与 qPCR↔RNA-seq 相关性验证
 - 实验协议：敲除构建、DNA 提取、编辑鉴定、LUC/GUS 检测……
 
-**绘图与写作**
-- CNS 级图表——统一调色板，PDF / SVG / TIFF 300 dpi
-- 论文写作 / 润色 / 审稿回复工作流（内置技能）
-- 论文转 PPT 与文献引用管理
+**默认自动（无需额外指令）**
+- CNS 级图表——统一调色板，PDF / SVG / TIFF 300 dpi，每个分析脚本跑完自动出图（绘图技能按图表类型自动路由）
+- 结果解读与总结（关键发现、统计口径、结论边界）
+
+**按需加载（你明确要求才触发，不强制路由）**
+- 文献多源检索、全文合法下载、结构化精读
+- 论文各章节写作、Nature 风格英文润色、引用规范与参考文献多源核验
+- 统计报告审查、投稿前预审稿模拟、审稿意见逐条回复
+- 论文转 PPT、论文翻译、开题报告、专利交底、实验日志
+- 文献监测管线（每日/每周跟踪一个研究方向）
 
 ## ✨ 功能特性
 
@@ -202,7 +208,7 @@ Rice-skills/
 │   └── report_template.Rmd         # 全流程分析报告模板
 ├── examples/                       # 数据格式说明 + metadata 模板（默认不含真实数据）
 ├── third_party/
-│   ├── nature-skills/              # Nature 科研工作流 9 项：绘图/润色/写作/检索/引用/数据/论文转PPT/精读/审稿回复（MIT，含 LICENSE 与 NOTICE 溯源）
+│   ├── nature-skills/              # Nature 科研全流程 22 项：绘图/写作/润色/检索/下载/精读/引用核验/统计/预审稿/审稿回复/PPT/翻译/开题/专利（Apache-2.0，含 LICENSE 与 NOTICE 溯源）
 │   ├── bioskills/                  # 生信技能精选 354 项：10 类基础 + 31 类扩展（单细胞/空间/表观/蛋白/调控/基因组/因果）（MIT）
 │   ├── kdense-scientific-skills/   # K-Dense 精选 28 项：单细胞/GRN/质谱/表观/进化/CRISPR/功效分析（MIT）
 │   ├── omicverse-skills/           # OmicVerse 官方 61 项：单细胞基础模型/轨迹/代谢组多因子/微生物组（MIT 文档；主包 GPL-3.0 运行时安装）
@@ -334,6 +340,10 @@ python scripts/design/02_primer_design.py --mode qpcr \
 | 预测 miRNA 靶基因 | 用 02_mirna_targets.py 把这批 miRNA 对水稻 CDS 做靶基因预测。 |
 | 富集 motif 对上转录因子 | 01_promoter_kmer.py 找到的 top k-mer，用 02_motif_tf_match.py 匹配已知 TF。 |
 | 推断调控网络 | 用 07_grn_boost.py 从表达矩阵推断 TF 调控网络，top 边输出。 |
+| 总结分析结果 | 根据 results/ 里的差异表达和富集结果写一份结果解读，指出关键发现和结论边界。 |
+| 查一个基因的文献 | 查一下 OsGATA 近期高影响力文献，按 SKILL.md §5.3 走检索→下载→精读。 |
+| 润色论文 | 把这份中文稿的 Discussion 按 nature-polishing 规范润色成 Nature 风格英文。 |
+| 投稿前自检 | 投稿前帮我校验参考文献、审查统计报告、做一次预审稿模拟。 |
 
 不确定用哪个技能？直接描述任务即可——SKILL.md 的触发词列表（水稻转录组 /
 GWAS / 泛基因组 / CRISPR / 多组学联合分析…）会自动路由。
@@ -410,16 +420,18 @@ python tests/test_utils.py     # Python 主题/出图/数据IO 冒烟测试
 
 ## 🙏 第三方组件与致谢
 
-本仓库 `third_party/nature-skills/` 内置了 [xiaolai/nature-skills](https://github.com/xiaolai/nature-skills)
-（MIT License, Copyright (c) 2026 Yuan Yizhe）的三个 skill **源码与参考资料**，用于补充
-Nature 级**图表规范**（nature-figure）与**论文写作/润色**（nature-writing、nature-polishing）能力：
+本仓库 `third_party/nature-skills/` 内置了 [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills)
+（作者主仓最新版，**Apache License 2.0**）的 22 个 skill **源码与参考资料**，覆盖从文献到发表的
+完整科研流程：检索/下载/精读、写作/润色、引用核验、统计规范、预审稿/审稿回复、论文转 PPT 等：
 
-- 仅复制源码与参考文档；上游约 30 MB 的演示资产（`assets/`，含 figures4papers 第三方素材）未包含；
-- 上游 LICENSE 已保留在 `third_party/nature-skills/LICENSE`，获取版本与范围见 `NOTICE.md`；
+- 仅复制源码与参考文档；上游演示资产（`assets/`，含已发表论文演示素材）未包含；
+- 上游 LICENSE 已保留在 `third_party/nature-skills/LICENSE`，获取版本与排除范围见 `NOTICE.md`；
+  其中 nature-downloader / nature-image2ppt 自带 MIT LICENSE，nature-literature-pipeline /
+  nature-experiment-log / nature-proposal-writer 在 SKILL.md 声明 MIT（均与 Apache-2.0 兼容）；
 - 本包自身的绘图主题（`config/nature_palette.json` + `scripts/utils/plot_theme.*`）为自研实现，
   与上游代码相互独立，两者不冲突。
 
-本仓库还精选集成了另外两个 MIT 许可的科研技能库（均含 LICENSE 与 NOTICE 溯源）：
+本仓库还精选集成了另外 5 个科研技能库（均含 LICENSE 与 NOTICE 溯源）：
 
 | 目录 | 来源 | 内容 |
 |---|---|---|

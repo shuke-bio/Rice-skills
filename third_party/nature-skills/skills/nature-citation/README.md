@@ -1,92 +1,45 @@
-# `nature-citation` skill
+# `nature-citation` 技能
 
-A citation-search skill for turning manuscript text or standalone claims into strict Nature / CNS-family reference exports with segment-level mapping and reference-manager-ready downloads.
+[English](README_EN.md)
 
-This skill is bilingual-aware. It accepts Chinese manuscript text and citation requests such as "分段引用", "Nature系列引用", "CNS及子刊", "补引用", "支撑文献", or "导出 Zotero", then searches with English scientific concepts while returning Chinese review notes by default.
+`nature-citation` 用于把论文段落、手稿片段或单条科学判断拆成可引用的 claim，并为每个 claim 寻找 Nature Portfolio、Science family 和 Cell Press 范围内的支撑文献。
 
-## What it does
+## 适合用它做什么
 
-- splits manuscript text into citable segments with stable IDs such as `S001`, `S002`, and `S003`
-- converts each segment into search queries for Crossref-led discovery
-- filters results to Nature Portfolio, the AAAS Science family, Cell Press, or flagship-only scope
-- maps each segment to candidate citations and suggested in-text insertion markers
-- exports one reference-manager file in `ENW`, `RIS`, or Zotero `RDF`
-- optionally builds JSON, TSV, Markdown, and HTML review artifacts for manual screening
-- supports long-article batch processing with partial checkpoints
-- retries transient Crossref failures instead of failing immediately
-- supports limiting one run to part of a long manuscript
-- supports DOI-only export when the user already knows which records should be included
+- 给 introduction、discussion 或 reviewer response 中的关键判断补引用。
+- 将长段落拆成稳定编号的 claim 单元，例如 `S001`、`S002`。
+- 限定只查 Nature、Science、Cell 及其子刊，或只保留旗舰刊。
+- 为每个候选文献说明支撑位置、证据强度和插入建议。
+- 默认导出可检查的 RIS 文件，并在导出前拦截缺失名字、仅有姓氏或作者列表不完整的记录。
+- 通过 DOI 或 PMID 获取结构化作者信息，保留作者顺序、名字/首字母、后缀和团体作者。
 
-## Source hierarchy
+## 典型请求
 
-- Crossref structured metadata and DOI records
-- PubMed / NCBI E-utilities for biomedical cross-checking when relevant
-- Official publisher pages from Nature Portfolio, AAAS Science, and Cell Press
-- Secondary scholarly indexes only as discovery aids, never as the sole support basis
+- “把这段 introduction 分段补 Nature 系列引用。”
+- “只用 CNS 及子刊，为这些 claim 找近五年的支撑文献。”
+- “我已经确认这些 DOI，帮我导出 Zotero 可导入文件。”
 
-## File structure
+## 你需要提供
 
-```text
-nature-citation/
-├── SKILL.md
-├── README.md
-├── references/
-│   ├── journal-scope.md
-│   ├── ris-endnote.md
-│   └── search-strategy.md
-└── scripts/
-    └── nature_citation.py
-```
+- 待引用的段落、claim 列表、DOI 清单或 PMID 清单。
+- 期刊范围、时间范围、是否允许综述、是否只要旗舰刊。
+- 目标引用格式和导出格式，例如 `RIS`、`ENW` 或 Zotero `RDF`。
 
-## When to use
+## 产出
 
-- adding citations to a paragraph, abstract, introduction, results, or discussion section
-- turning long text into segment-by-segment citation candidates
-- restricting references to `Nature系列`, `CNS`, `CNS及其子刊`, or `只看正刊`
-- exporting references for EndNote, Zotero, or other citation managers
-- screening whether a sentence has direct support, partial support, or only background support
-- producing an HTML review page where the user filters by year, selects citations, and downloads only the records they want
+- claim 分段表和候选文献表。
+- 每个 claim 的建议插入位置、候选 DOI、期刊、年份和支撑说明。
+- 可选的 JSON、TSV、Markdown、HTML 审查材料。
+- 可导入文献管理器的引用文件。默认使用 RIS，EndNote 导入时选择 `Reference Manager (RIS)`。
 
-## Long-text behavior
+## 边界
 
-This skill now has a safer path for long inputs such as a full Introduction or multi-paragraph text.
+- 只把论文作为候选支撑，不会替作者保证其必然适合最终引用。
+- 不会使用博客、新闻稿或搜索摘要作为唯一依据。
+- 当文献只能支撑相邻但不完全相同的 claim 时，会明确标注证据偏差。
 
-- for short inputs, it still works as a normal one-pass citation search
-- for longer inputs, it can process segments in batches
-- after each batch, it writes a partial export checkpoint so progress is not lost if a later batch fails
-- transient Crossref failures are retried automatically
+## 相关技能
 
-Useful rules of thumb:
-
-- 1-10 segments: normal run
-- 11-25 segments: prefer batch mode
-- 26+ segments: prefer section-by-section runs
-
-## Design intent
-
-The skill should prioritize defensibility over volume. It is designed to help the user find likely in-scope papers, not to pretend that metadata alone proves a claim. Every exported record should preserve real metadata, avoid fabricated fields, and make the evidence-review burden explicit.
-
-For long manuscripts, the design goal is not only citation quality but also run stability: fewer lost runs, smaller batches, and a reviewable checkpoint trail.
-
-## Reference map
-
-- `search-strategy.md`: claim decomposition, support grades, and common retrieval failure modes
-- `journal-scope.md`: Nature / Science / Cell family boundaries and flagship-only interpretation
-- `ris-endnote.md`: ENW, RIS, and Zotero RDF export guidance
-- `scripts/nature_citation.py`: local CLI for segmentation, Crossref retrieval, export, and HTML review generation
-
-## Useful CLI options
-
-- `--batch-size 2`: process long text in smaller batches
-- `--max-segments 12`: cap the number of segments processed in one run
-- `--max-retries 2`: retry transient Crossref failures
-- `--sleep 0.3`: shorter default pause between requests
-- `--with-artifacts`: generate HTML, TSV, JSON, and Markdown review files
-
-## Notes
-
-- Default output is a single reference-manager file; additional artifacts are opt-in.
-- `metadata-only candidate` means the abstract or full text still needs human review before citation.
-- The HTML review page can export selected references as `ENW`, `RIS`, or Zotero `RDF`.
-- For long texts, `--with-artifacts` is strongly recommended because the HTML browser is the easiest way to curate results.
-- Batch mode writes `.partial.enw` / `.partial.ris` / `.partial.rdf` checkpoints during the run before the final export is written.
+- `nature-academic-search`：更宽范围的文献搜索和引用指标审计。
+- `nature-ref-verifier`：校验已选参考文献的元数据。
+- `nature-writing`：把引用选择整合回手稿论证。

@@ -1,127 +1,60 @@
 ---
 name: nature-response
 description: >-
-  Draft, audit, or revise point-by-point reviewer response letters for Nature-family
-  manuscript revisions. Use when the user provides reviewer comments, editor decision
-  letters, revision notes, response drafts, or asks how to respond to major/minor
-  revision requests, rebuttal letters, response to reviewers, peer-review reports,
-  审稿意见回复, 逐点回复, 修回信, 大修回复, 小修回复, or 如何回复 reviewer.
-version: 0.1.0
-status: Beta
+  Draft, audit, or revise responses to peer review, revision cover letters, and
+  marked-manuscript or LaTeX revision packages. Use for 审稿意见回复、逐点回复、返修信、
+  rebuttals and edits to existing response drafts. Initial-submission materials
+  belong to nature-writing; simulated peer review belongs to nature-reviewer.
 ---
 
-# Nature Reviewer Response Skill
+# Nature Reviewer Response — Router
 
-Use this skill to convert editor decision letters, reviewer comments, author notes, or
-draft rebuttals into an auditable point-by-point response package for manuscript revisions.
+## Routing protocol
 
-The response letter is an editor-facing verification document. The goal is to show that every
-reviewer concern has been understood, addressed, and mapped to a concrete manuscript change,
-justified scientific response, or unresolved author action.
+For a new task, load the core and matching resources below. Reuse already loaded guidance on follow-ups; load more only when the task needs it.
 
-## Default stance
+### 1. Load the manifest and the core layer
 
-- Preserve each reviewer comment faithfully before responding.
-- Every reviewer concern must be answered, cross-referenced, or explicitly marked as unresolved.
-- Map every response to manuscript evidence, a revision location, a justified disagreement, or `AUTHOR_INPUT_NEEDED`.
-- Do not invent experiments, analyses, citations, line numbers, figure panels, supplementary materials, editor instructions, reviewer identities, or manuscript changes.
-- Prefer concise, evidence-linked replies over long defensive explanations.
-- When disagreeing, acknowledge the concern first, then give a scientific or scope-based reason.
-- When a reviewer misunderstood the manuscript, first consider whether the manuscript presentation caused the misunderstanding.
-- Treat rebuttal letters as potentially public review artifacts; write with professional tone and traceability.
+Read [manifest.yaml](manifest.yaml). Then read every file listed under `always_load`:
 
-## Accepted inputs
+- `static/core/stance.md` — the editor-facing purpose, the default stance, the red lines, and the source hierarchy that apply to every response job.
+- `static/core/workflow.md` — accepted inputs, the revision correspondence workflow, and the output package format.
 
-The skill may receive:
+### 2. No content axis — identify mode and language inline
 
-- editor decision letter
-- reviewer comments
-- previous response draft
-- manuscript change notes
-- tracked-change summary
-- line or page numbers
-- figure, table, and supplement list
-- author notes in Chinese or English
-- journal name and article type
+Unlike nature-writing or nature-figure, nature-response has no fragment axis. Its variation is identified at runtime, not by loading different content bodies:
 
-If reviewer boundaries or comment segmentation are ambiguous, flag the ambiguity instead of
-inventing reviewer structure.
+- **task mode** — `draft` / `audit` / `revise` / `triage-only` / `cover-letter` / `revision-package` / `latex-template` / `appeal-like`.
+- **decision type** — minor revision, major revision, revise-and-resubmit, transfer after review, or unclear.
+- **user language** — if the user writes Chinese, also produce the 中文核对 block.
 
-## Workflow
+Decision type is required for a new package-level revision strategy or complete response package.
+First extract it from the editor letter or task context. If it remains unclear, ask whether this
+is a `Major Revision` or `Minor Revision` and pause only decision-dependent work. A local wording
+edit, audit of an existing reply, or comment-level triage may proceed with decision type marked
+unknown. Do not infer the decision from the number, tone, or difficulty of reviewer comments.
 
-1. Identify task mode and input readiness: `draft`, `audit`, `revise`, `triage-only`, or `appeal-like`.
-2. Identify decision type: minor revision, major revision, revise-and-resubmit, transfer after review, or unclear.
-3. Extract editor instructions first and assign IDs such as `E.1`, then split reviewer comments with IDs such as `R1.1`, `R1.2`, and `R2.1`.
-4. Classify each item by category, severity, action label, missing input, readiness state, and risk.
-5. Create a response strategy summary before drafting prose.
-6. Draft responses using preserved reviewer comments unless the mode is `triage-only` or `appeal-like`.
-7. Map each claimed change to manuscript location, figure, table, supplement, citation, or explicit placeholder.
-8. Flag missing author input rather than fabricating details.
-9. Run QA for completeness, traceability, factuality, tone, and unresolved risk.
-10. Return the response package with package readiness: `ready_to_submit`, `draft_with_placeholders`, `needs_author_input`, or `blocked`.
+Use `references/intake-and-routing.md` to fix the task mode, minimum inputs, and readiness state before drafting. Route appeal-like cases separately; do not draft an appeal as the default path.
 
-## Output format
+For a local edit or bounded audit, return the revised passage or findings and relevant missing
+facts. Do not expand it into a master tracker, cover letter, or complete revision package unless
+requested. Apply the package workflow below only to the parts needed for the requested output.
 
-Unless the user asks for another format, return:
+### 3. Run the workflow
 
-```text
-Response strategy summary
-- Decision type:
-- Overall posture:
-- Major risks:
-- Suggested ordering:
+Follow the workflow in `core/workflow.md`: if the user pasted a journal email, first parse manuscript metadata, decision type, editor instructions, reviewer reports, required files, deadlines, and reviewer-visibility rules from the email; identify mode and pass the decision-type gate; apply the Major- or Minor-Revision strategy without downgrading the severity of individual comments; extract editor instructions (IDs `E.1`) then reviewer comments (`R1.1`, `R2.1`) when present; classify each item by response action and independently verified work status; build an internal/editor master strategy and tracker; draft a standalone privacy-filtered response for each mutually blind reviewer; when a reviewer missed material already present in the manuscript, treat that as a clarity signal and revise the presentation instead of replying that the point was already stated; draft a revision cover letter when required; map every claimed change to a manuscript location or explicit placeholder; mark changed manuscript text in red on a backed-up copy when editing; format quoted revised manuscript text in the response letter in italics; flag missing author input; run QA; and derive package readiness from the per-item statuses and blocking state.
 
-Comment-response tracker
-| ID | Reviewer concern | Type | Severity | Proposed action | Missing author input |
-|---|---|---|---|---|---|
+Whenever a response proposes or performs a manuscript main-text edit, also load
+`../nature-shared/core/main-text-discipline.md`. Answer the reviewer completely
+in the letter, but keep the manuscript change to the shortest text needed for
+the reader. Prefer replacement or compression over appending, and route
+non-central robustness or reconciliation detail to SI unless it changes the
+central interpretation.
 
-Draft point-by-point response letter
-[editor-readable English response]
+Never invent experiments, citations, line numbers, figure panels, supplementary items, editor instructions, or manuscript changes. Mark anything the author must supply as `AUTHOR_INPUT_NEEDED`.
 
-Manuscript change checklist
-- [specific manuscript changes or placeholders]
+### 4. Reach for references only when needed
 
-Missing information / risk flags
-- [specific unresolved items or "None"]
+The files under `references/` and `templates/` are deep resources, not defaults. Open them on demand per the `references.on_demand` table in the manifest — for example `references/comment-taxonomy.md` to classify comments, `references/action-mapping.md` for tracker fields, `references/tone-and-stance.md` for disagreement wording, `references/difficult-cases.md` for impossible experiments / conflicting reviewers / appeal-like cases, `references/chinese-author-alignment.md` for Chinese author notes, `references/latex-templates.md` for `.tex` cover/response/redline outputs, `../nature-shared/core/main-text-discipline.md` for reviewer-driven manuscript additions and evidence relocation, `references/package-consistency-audit.md` whenever the manuscript is edited alongside the letter or the package is about to be compiled and delivered, and `references/qa-checklist.md` before finalizing.
 
-中文核对
-- [when the user writes in Chinese; otherwise omit unless useful]
-```
-
-## Red lines
-
-- Do not ignore any reviewer comment.
-- Do not rephrase reviewer comments in a way that changes their meaning.
-- Do not claim a revision was made unless the user supplied it.
-- Do not invent line numbers, figure panels, citations, statistical results, or supplementary items.
-- Do not use hostile or accusatory language.
-- Do not cite time, money, or convenience as the primary reason for not doing a requested experiment.
-- Do not hide limitations.
-- Do not generate an appeal letter as the default path. Route appeal-like cases separately.
-- Do not generate a cover letter in the MVP. Mention it only as adjacent revision-package material when relevant.
-
-## Related files
-
-| File | Open when |
-|---|---|
-| [references/intake-and-routing.md](references/intake-and-routing.md) | Before drafting, to identify task mode, minimum inputs, editor IDs, readiness state, and clarifying-question need |
-| [references/source-basis.md](references/source-basis.md) | You need source hierarchy, rule provenance, or policy-vs-advice boundaries |
-| [references/response-structure.md](references/response-structure.md) | You need the response package format or point-by-point letter anatomy |
-| [references/comment-taxonomy.md](references/comment-taxonomy.md) | You need to classify reviewer comments by category and severity |
-| [references/action-mapping.md](references/action-mapping.md) | You need action labels, tracker fields, and missing-input states |
-| [references/tone-and-stance.md](references/tone-and-stance.md) | You need recommended language, forbidden phrasing, or disagreement tone |
-| [references/chinese-author-alignment.md](references/chinese-author-alignment.md) | The user writes in Chinese or provides Chinese author notes |
-| [references/difficult-cases.md](references/difficult-cases.md) | The comments involve impossible experiments, factual errors, conflicting reviewers, citations, statistics, compliance, transfer, or appeal-like cases |
-| [references/qa-checklist.md](references/qa-checklist.md) | Before finalizing an output or auditing a draft response |
-
-## Source hierarchy
-
-Use sources in this order:
-
-1. Target journal instructions and the editor decision letter.
-2. Nature / Nature Portfolio / Springer Nature revision and peer-review process guidance.
-3. Springer Nature editorial advice on rebuttal letters.
-4. Local manuscript facts supplied by the author.
-
-If a policy detail may have changed, verify the current journal page before giving final
-submission advice.
+`qa-checklist.md` and `package-consistency-audit.md` are complementary and both apply to a final package: the first asks whether the response is complete, honest, and well-toned; the second asks whether the marked manuscript, the clean manuscript, and the letter actually agree with each other after editing. For a LaTeX package, run `scripts/check_package_consistency.py` after the first complete draft, after every manuscript edit, and immediately before delivery. Any manuscript edit invalidates the letter's verbatim quotes and page references, so re-run the audit rather than treating it as a one-time final check.

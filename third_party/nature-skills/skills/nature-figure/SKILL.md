@@ -1,188 +1,145 @@
 ---
 name: nature-figure
 description: >-
-  Submission-grade Nature/high-impact journal figure workflow for Python or R. Use whenever the user asks to create, revise, audit, or polish manuscript figures, multi-panel scientific plots, figures4papers-style matplotlib plots, or journal-ready SVG/PDF/TIFF outputs, especially for Nature-family or other high-impact journals. Before plotting, define the figure's conclusion, evidence logic, export needs, and review risks. If the user has not chosen Python or R, ask "Python or R?" and stop. Use only the selected backend for figure generation, previewing, exporting, and QA. Supports matplotlib/seaborn and ggplot2/patchwork/ComplexHeatmap. Not for dashboards or Illustrator/Figma-first infographics.
+  Create, revise, audit, and export manuscript scientific figures in Python or R.
+  Use for 论文配图、科研绘图、多面板图 and submission-ready plots, or explicitly
+  requested AI-generated graphical abstracts and mechanism schematics. Not for
+  interactive dashboards, data cleaning, or statistics-only analysis.
 ---
 
-# Nature Figure Making Skill
+# Nature Figure Making — Router
 
-A guide for producing publication-quality scientific figures as a visual argument, not
-as isolated pretty plots. Every figure starts from a claim, an evidence hierarchy, and a
-review-risk check before code or aesthetics.
+## Routing protocol
 
-The older Python/matplotlib rules in this skill remain valid. The skill now also supports
-R, especially `ggplot2 + patchwork + ComplexHeatmap + ggrepel + svglite/cairo_pdf + ragg`.
-If the user provides a private plotting template collection, use it only as an internal
-adaptation source and do not reveal its path, filenames, or provenance in user-facing output.
+For a new task, load the core and matching resources below. Reuse already loaded guidance on follow-ups; load more only when the task needs it.
 
-Color policy: prefer **unified method families across all panels** over maximal hue separation.
-For dense Nature Machine Intelligence-style figure pages, use the low-saturation `NMI pastel`
-family described in `references/api.md` and reserve green/red mainly for gains, drops, and other directional cues.
+### 0. Check for graphical-abstract and AI-schematic routes
 
-## First move: figure contract before plotting
+For every graphical-abstract planning, generation, revision, or audit task that
+uses AI, read
+[references/ai-graphical-abstract-workflow.md](references/ai-graphical-abstract-workflow.md)
+first. It owns the message/audience brief, composition and palette workflow,
+policy gate, human scientific review, disclosure boundary, and provenance
+requirements. A Nature Careers article is practitioner advice, not submission
+clearance; verify the current official policy for the exact target journal.
 
-Before generating or editing code, establish the contract below.
+If the request is planning or auditing only, do not ask for Python or R unless
+the user also asks to render or revise a data-driven figure.
 
-**Backend selection is a blocking gate.** If the user has not explicitly chosen Python
-or R in the current request or provided a clearly language-specific input file/workflow,
-ask one concise question: **Python or R?** Then stop and wait for the user's answer.
-Do not generate mock data, write scripts, create figures, or choose Python/R by default.
-This overrides general autonomy/default-execution behavior for figure tasks.
+If the user explicitly asks to generate a manuscript schematic, graphical abstract, mechanism diagram, concept illustration, or paper schematic with OpenRouter, GPT Image 2, an image-generation API, or similar wording, do **not** ask "Python or R?". This is a non-plotting AI-schematic route.
 
-**The selected backend is exclusive for all figure generation.** Once Python or R is
-selected, every plotting script, preview image, SVG/PDF/TIFF/PNG export, QA render,
-and visual workaround must be produced by that same backend. Do not use Python to
-draw a preview for an R figure, and do not use R to draw a preview for a Python figure,
-even if the selected runtime or packages are missing locally. The non-selected language
-may only be used for non-visual file inspection or data conversion when it does not
-open a graphics device, import plotting libraries, create image/vector files, or
-change the final visual appearance.
+For this route:
 
-**Missing runtime/package rule.** After the backend is selected, check the selected
-runtime early (`Rscript`/R for R; Python and required plotting packages for Python).
-If the selected runtime or required packages are unavailable, stop before rendering
-and report the exact blocker. You may provide a selected-backend script and installation
-commands, or ask permission to install dependencies, but you must not fall back to the
-other language to make a substitute figure.
+1. Read [manifest.yaml](manifest.yaml) and the `always_load` files.
+2. Read [references/ai-graphical-abstract-workflow.md](references/ai-graphical-abstract-workflow.md).
+3. Read [references/openrouter-image-generation.md](references/openrouter-image-generation.md).
+4. Use [scripts/generate_openrouter_schematic.py](scripts/generate_openrouter_schematic.py) when the user wants a real API call or a reproducible payload.
+5. Treat output as a draft schematic / graphical abstract, not as a quantitative data panel. Do not invent experimental values, author logos, institutional marks, or unsupported mechanisms. Keep internal usefulness separate from submission eligibility.
 
-Only recommend a backend when the user explicitly asks you to choose or recommend one.
-In that case, use `references/backend-selection.md`, state the reason, and then proceed
-with the recommended backend.
+If the user wants a hand-built, editable vector schematic (architecture, pipeline, agent or model block diagram, or mechanism flow) rather than an AI-generated image, do **not** ask "Python or R?". Read [references/vector-schematic-workflow.md](references/vector-schematic-workflow.md) and [references/vector-schematic-style-rules.md](references/vector-schematic-style-rules.md), confirm the brief with the user before drawing, and run `scripts/audit_svg_schematic.py` on the SVG before delivery. This route never plots data.
 
-1. Core conclusion: write the one-sentence claim the figure must defend.
-2. Evidence chain: map each planned panel to the claim, and drop panels that do not carry
-   a unique piece of evidence.
-3. Archetype: classify the figure as `quantitative grid`, `schematic-led composite`,
-   `image plate + quant`, or `asymmetric mixed-modality figure`.
-4. Backend: use the selected Python or R track exclusively for all figure drawing,
-   previewing, exporting, and visual QA. Do not cross-render with the other language.
-5. Journal/export contract: set final dimensions, editable text, source data, statistics,
-   image-integrity notes, and export formats before styling.
+Only continue to the Python/R backend gate for plotting, charting, data visualization, or manuscript figure assembly tasks that are not explicit OpenRouter AI image-generation requests.
 
-The highest-priority rule is: **the chart serves the scientific logic**. Aesthetic polish,
-template matching, and complex layout are subordinate to making the core conclusion clear,
-defensible, and reviewable.
+### 1. Load the manifest and the core layer
 
-## User-facing privacy rule
+Read [manifest.yaml](manifest.yaml). It declares the `backend` axis, the allowed values, and the file paths each value maps to.
 
-Do not disclose private local paths, private filenames, chat-attachment names, internal
-reference filenames, template identifiers, or the provenance of private working materials
-in user-facing replies, generated code comments, figure legends, reports, or manuscript
-text. Use generic descriptions such as "the provided R template collection", "a private
-working draft", or "the internal figure contract". Only reveal an exact path or source
-file when the user explicitly asks for that audit trail.
+Also read every file listed under `always_load` (`static/core/contract.md` and `static/core/stance.md`). These hold the figure contract, the backend gate, the missing-runtime rule, the privacy rule, and the default operating stance that apply to every figure job.
 
-## Python quick-start
+### 2. Resolve the plotting backend
 
-**Python-only execution rule.** When the user has selected Python, do all figure
-drawing, previewing, exporting, and visual QA in Python. Do not call R/ggplot2,
-ComplexHeatmap, patchwork, or any R graphics device to create a temporary preview,
-fallback export, or layout approximation. If Python or required Python plotting
-packages are missing, stop before rendering and report the missing dependency. You
-may still write the Python script, provide `pip`/environment install commands, or
-ask permission to install dependencies, but do not cross-render the figure in R.
+Backend selection applies only to rendering or editing plotting code. Reuse a choice already established in the same task and its follow-ups; do not ask again merely because a new message omits the language. Read-only figure review and backend-independent data inspection may proceed without this choice. If the backend remains unresolved, retain the one-time Python/R question and pause only dependent plotting steps. Explicit approval requirements and backend exclusivity remain in force.
 
-```python
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+Resolve the plotting backend from the current task before consulting the saved default. Decide the `backend` value in this order:
 
-mpl.rcParams.update({
-    "font.family": "sans-serif",
-    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
-    "svg.fonttype": "none",     # editable text in SVG
-    "pdf.fonttype": 42,         # editable TrueType text in PDF
-    "font.size": 7,             # use 15-24 only for large slide-sized panels
-    "axes.spines.right": False,
-    "axes.spines.top": False,
-    "axes.linewidth": 0.8,
-    "legend.frameon": False,
-})
+1. If the current request explicitly chooses Python or R, use that backend and save it with `scripts/nature_figure_backend.py set python` or `scripts/nature_figure_backend.py set r`.
+2. If the request provides a clearly language-specific input file/workflow, use that backend and save it.
+3. Otherwise reuse a Python/R choice already established in this task. If none exists, run `scripts/nature_figure_backend.py get` and use a returned `python` or `r` preference.
+4. If neither a task choice nor a saved preference exists, ask exactly one concise question — **Python or R? I will remember this as your default.** — and pause only dependent plotting steps. After the user answers, save the answer before proceeding.
 
-def save_pub_py(fig, filename, dpi=600):
-    fig.savefig(f"{filename}.svg", bbox_inches="tight")
-    fig.savefig(f"{filename}.pdf", bbox_inches="tight")
-    fig.savefig(f"{filename}.tiff", dpi=dpi, bbox_inches="tight")
+- `python` — matplotlib / seaborn.
+- `r` — ggplot2 / patchwork / ComplexHeatmap.
+
+Do not guess or choose a backend by aesthetics alone. Only recommend a backend when the user explicitly asks you to choose; then use `references/backend-selection.md`, state the reason, save the selected backend, and proceed. Once selected, the backend is **exclusive** for all drawing, previewing, exporting, and visual QA (see `core/contract.md`). This gate does not apply to the explicit OpenRouter AI-schematic route above.
+
+### 3. Load the matching backend fragment
+
+After the backend is resolved, Read the mapped fragment (`static/fragments/backend/python.md` or `static/fragments/backend/r.md`). It carries the backend-only execution rule and the publication quick-start (rcParams/theme and export helper). Do **not** load the other backend's fragment.
+
+### 4. Build the figure using the loaded material
+
+Apply the loaded material in this order:
+
+1. Figure contract (`core/contract.md`) — write the core conclusion, map the evidence chain, classify the archetype, set the journal/export contract, before any code.
+2. Multi-panel evidence architecture — when planning, restructuring, or auditing a labelled multi-panel figure, load `references/multipanel-evidence-architecture.md`. Make the figure answer one Results-level scientific question; assign panels different inferential roles, not merely different metrics. When figure order must follow the manuscript argument, also load `../nature-shared/core/nature-results-discussion.md`.
+3. Default stance (`core/stance.md`) — archetype-first composition, hero panel, restrained palette, statistics/integrity as part of the figure.
+4. Backend fragment — the exclusive Python or R quick-start and execution rule.
+5. Template adaptation — when reusing built-in original examples, licensed external material, or user-provided plotting code, load `references/asset-adaptation.md` before mapping data or changing the script.
+6. Rendered QA and delivery preflight — load `references/qa-contract.md`, run the render-time panel-alignment gate for every multi-panel figure, `scripts/validate_figure.py` on the plotting source, `scripts/audit_pdf_text.py` on the exported PDF, and `scripts/audit_figure_collisions.py` on the same final PDF. Then inspect every panel and the complete figure at final physical size. Automated checks do not replace the panel-by-panel uncertainty, salience, spacing, and ambiguity audit.
+
+For every figure containing two or more comparable panels, measure the **final
+rendered plot-area rectangles** before export and preserve the alignment JSON.
+Python figures must call `require_matplotlib_panel_alignment()` from
+`scripts/audit_panel_alignment.py` after the final layout draw. R/patchwork
+figures must source `scripts/panel_alignment.R`, write the patchwork layout
+manifest at the final export dimensions, and run the same backend-neutral JSON
+auditor. Use a default physical tolerance of `1.5 pt` for shared edges, widths,
+heights, panel-label anchors and repeated gutters. `FIX BEFORE DELIVERY` or exit
+code `1` blocks export; `NOT AUDITABLE` or exit code `2` blocks any claim that
+alignment passed. A horizontal row of three or four equal-grid-span panels must
+have equal final plot-area widths as well as equal heights and gutters; an
+intentional unequal-width design requires a recorded `panel-width` exemption.
+Structured unequal-span grids—including two stacked panels
+beside one panel spanning both rows, in either column—must be inferred from
+shared grid start/stop boundaries and checked automatically. Nested grids,
+free-positioned hero panels, insets and colorbars may be excluded only through
+explicit comparable groups or a recorded exemption with a reason. Do not
+weaken the global tolerance to hide one intentional exception.
+
+After every generated or revised Python/R scientific figure, export the final
+PDF and run the collision audit again; this is mandatory after any change to
+data geometry, text, fonts, legends, annotations, axes, error bars, panel size
+or layout, not only at final submission. Use:
+
+```bash
+python skills/nature-figure/scripts/audit_figure_collisions.py figure.pdf \
+  --json-out figure.collision-audit.json \
+  --overlay-pdf figure.collision-audit.pdf
 ```
 
-Use `text.usetex = True` only when LaTeX is installed and math-rich labels are required.
+- `FIX BEFORE DELIVERY` or exit code `1`: repair the figure, re-export with the
+  selected plotting backend, and rerun all rendered QA.
+- `REVIEW REQUIRED`: inspect every WARN at final physical size; record why an
+  intentional overlay is acceptable. Use `--strict` when WARN must block.
+- `NOT AUDITABLE` or exit code `2`: report the dependency/PDF blocker and do not
+  claim collision validation. Install `requirements.txt` when PyMuPDF is absent.
 
-## R quick-start
+The collision audit reads PDF geometry for both Python and R output. It does not redraw
+the scientific figure or authorize cross-backend plotting. Its optional marked
+PDF is a QA-only diagnostic artifact and must never replace the selected
+backend's source or submission files.
 
-```r
-library(ggplot2)
-library(patchwork)
+When the target is the flagship journal Nature, also load
+`references/nature-article-requirements.md`. It separates initial-review files
+from accepted-in-principle main and Extended Data production contracts and owns
+the flagship legend limit.
 
-theme_set(
-  theme_classic(base_size = 6.5, base_family = "Arial") +
-    theme(
-      axis.line = element_line(linewidth = 0.35, colour = "black"),
-      axis.ticks = element_line(linewidth = 0.35, colour = "black"),
-      legend.title = element_text(size = 6.2),
-      legend.text = element_text(size = 5.8),
-      strip.text = element_text(size = 6.2, face = "bold"),
-      plot.title = element_text(size = 7, face = "bold"),
-      panel.grid = element_blank()
-    )
-)
+When the target is Nature Machine Intelligence, instead load
+`../nature-shared/journal-formats/nature-machine-intelligence.md`. Apply its
+combined six-item main display budget, ten-item Extended Data maximum,
+initial-versus-production boundary, 300-dpi/180-mm production checks and source-
+data contract. NMI's current live pages do not assign a standalone per-legend
+number, but its official 2018 brief guide set a historical advisory ceiling of
+fewer than 300 English words per complete figure legend. Count the whole legend,
+not each panel; aim for 150–250 words and keep it below 300 unless the live
+submission system or editor gives a newer instruction. Do not import flagship
+Nature's limit.
 
-save_pub_r <- function(plot, filename, width_mm = 183, height_mm = 120, dpi = 600) {
-  w <- width_mm / 25.4
-  h <- height_mm / 25.4
-  svglite::svglite(paste0(filename, ".svg"), width = w, height = h)
-  print(plot)
-  dev.off()
-  grDevices::cairo_pdf(paste0(filename, ".pdf"), width = w, height = h, family = "Arial")
-  print(plot)
-  dev.off()
-  ragg::agg_tiff(paste0(filename, ".tiff"), width = w, height = h, units = "in", res = dpi)
-  print(plot)
-  dev.off()
-}
-```
+The chart serves the scientific logic; aesthetic polish is subordinate to making the core conclusion clear, defensible, and reviewable.
 
-## Default operating stance
+### 5. Reach for references only when needed
 
-- Start by classifying the requested figure into one of four archetypes:
-  `quantitative grid`, `schematic-led composite`, `image plate + quant`, or `asymmetric mixed-modality figure`.
-- Prefer one **hero panel** plus subordinate evidence panels over filling the canvas with equal-sized subplots.
-- If the user asks for a single chart, still identify its role in the manuscript claim:
-  discovery, mechanism, validation, comparison, robustness, or clinical/biological relevance.
-- Keep the background white for plots and diagrams; switch to black only for microscopy / volume-rendering image plates.
-- Prefer direct labels over legends when categories are spatially fixed or the legend would force unnecessary eye travel.
-- Keep one restrained palette per figure: usually one neutral family, one signal family, and one accent family.
-- Treat statistics, `n`, error-bar definitions, source-data traceability, and image-integrity notes as part of the figure,
-  not as optional caption cleanup.
-- When the user asks for broad `Nature` style rather than ML/NMI-specific style, read `references/nature-2026-observations.md` before choosing layout.
-- When the user references `figures4papers` or the older `scientific-figure-making` skill,
-  treat this skill as the successor and open `references/demos.md` for bundled Python demo scripts.
+The files under `references/` are deep references, not defaults. Open them on demand per the `references.on_demand` table in the manifest — for example `references/figure-contract.md` to build the contract, `references/multipanel-evidence-architecture.md` to turn one Results-level question into complementary panel roles and a claim-escalating figure sequence, `references/asset-adaptation.md` to reuse a plotting template safely, `references/template-catalog.md` for validated Python CSV templates, `references/api.md` for the Python palette and numerical/layout safety helpers, `references/r-workflow.md` for R, `references/design-theory.md` for color/typography/export rationale, `references/common-patterns.md` and `references/chart-types.md` for layout/chart recipes, `references/nature-2026-observations.md` for real Nature page archetypes, `references/qa-contract.md` before final delivery, `references/nature-article-requirements.md` for exact flagship Nature stage and upload rules, `../nature-shared/journal-formats/nature-machine-intelligence.md` for exact NMI figure rules, `references/ai-graphical-abstract-workflow.md` for AI-assisted graphical-abstract planning, policy gating, human verification, and provenance, and `references/tutorials.md` / `references/demos.md` for worked examples.
 
-## When to load this skill
-
-- Python or R figures for **papers, slides, or reports** targeting Nature, Science, Cell, NeurIPS, ICLR, or similar venues.
-- Requests involving **grouped bars, trend lines, heatmaps, radar plots, multi-panel grids**, or **PDF/SVG/high-DPI** output.
-- Any mention of "Nature style", "publication figure", "paper figure", "SCI figure", "figures4papers", "scientific-figure-making", "R plotting template", or "high-quality scientific plot".
-- Requests to improve a figure's logic, aesthetics, panel layout, figure legend, export quality, or journal-readiness.
-
-## When NOT to load
-
-- Plotly, Altair, Bokeh, or other interactive/web-first plotting.
-- EDA-only plots without a publication target.
-- Primary workflow is 3D, GIS, or non-scientific illustration tooling.
-- Illustrator / Figma–first layout.
-
-## Related files
-
-| File | Open when |
-|------|-----------|
-| [references/figure-contract.md](references/figure-contract.md) | Need to convert a user request into core conclusion, evidence hierarchy, panel map, and review-risk checks |
-| [references/backend-selection.md](references/backend-selection.md) | User has not chosen Python/R, asks for a recommendation, or a mixed Python/R workflow is possible |
-| [references/r-workflow.md](references/r-workflow.md) | User chooses R or provides R scripts/templates/data |
-| [references/r-template-index.md](references/r-template-index.md) | Need to adapt a user-provided or private R template collection without exposing source paths |
-| [references/qa-contract.md](references/qa-contract.md) | Before final delivery, revision package, microscopy/blot figure, or journal-specific audit |
-| [references/design-theory.md](references/design-theory.md) | Typography, color theory, layout rationale, export policy |
-| [references/api.md](references/api.md) | Python PALETTE, helper function signatures, validation rules |
-| [references/common-patterns.md](references/common-patterns.md) | Python layout patterns: hero panels, legend-only axes, dark image plates, asymmetric layouts |
-| [references/nature-2026-observations.md](references/nature-2026-observations.md) | Real `Nature` page archetypes: schematic-led composites, dark image plates, clinical triptychs, asymmetric hero layouts |
-| [references/tutorials.md](references/tutorials.md) | End-to-end walkthroughs: bars, trends, heatmaps |
-| [references/chart-types.md](references/chart-types.md) | Radar, 3D sphere, fill_between, scatter patterns |
-| [references/demos.md](references/demos.md) | Bundled figures4papers Python scripts and output previews for concrete pattern adaptation |
+Do not infer flagship Nature or NMI requirements from a Nature Communications
+corpus or from the visual-style examples in this skill.

@@ -1,6 +1,6 @@
 ---
 name: rice-skills
-description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；引物与 CRISPR 靶点设计；配套分子实验协议参考。全部图表遵循 Nature 级绘图规范（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/SVG/TIFF ≥300 dpi 矢量输出）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析等关键词时触发。
+description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；引物与 CRISPR 靶点设计；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/SVG/TIFF ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告等关键词时触发。
 version: 3.2.0
 license: MIT
 species: Oryza sativa (水稻, Japonica)
@@ -8,6 +8,11 @@ trigger:
   - 水稻转录组
   - 水稻代谢组
   - 多组学联合分析
+  - CNS 级绘图
+  - 发表图
+  - 论文配图
+  - 画图
+  - 绘图
   - 转录组 代谢组 整合
   - WGCNA
   - GSEA
@@ -77,6 +82,19 @@ trigger:
   - k-mer 富集
   - miRNA
   - 可变剪接
+  - 写论文
+  - 论文润色
+  - 英文润色
+  - 查文献
+  - 文献检索
+  - 文献调研
+  - 下载论文
+  - 精读论文
+  - 总结结果
+  - 结果解读
+  - 审稿回复
+  - 论文转PPT
+  - 开题报告
 ---
 
 # Rice-skills — 水稻全组学与基因组学分析 Skill
@@ -132,6 +150,12 @@ SALT_1,salt,1,Nipponbare,8.1,1.87
 
 ## 3. 工作流总览
 
+> **统一约定（默认自动链）**：用户提供输入 → 跑脚本**自动出图**（CNS 级出版图，
+> PDF/SVG/TIFF 300 dpi，见 §4；绘图技能按 §5.1 默认路由自动加载）→ agent
+> **自动产出结果解读与总结**（关键发现、统计口径、结论边界）。这三步无需用户任何
+> 额外指令。**文献检索/下载、论文写作/润色、投稿相关、汇报 PPT 等不属于默认链**——
+> 仅在用户明确要求时按 §5.3–§5.5 加载对应技能执行。
+
 ```
 counts.csv ──┐
              ├─► [模块1 转录组] QC过滤 ─► DESeq2差异表达 ─► GO/KEGG富集 ─► GSEA ─► WGCNA ─► TF/PPI ─► 出版图
@@ -156,6 +180,38 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 多点表型 / 光谱 ─► [16 表型组] BLUP+遗传力 / 植被指数 ─► GWAS / GS
 单细胞 / 空间数据 ─► [17/18] Scanpy / Squidpy 流程 ─► RSTA / RICE scGPT 集成
 ```
+
+**默认自动链（无需用户开口）**：
+
+```
+分析结果 + 出版图（PDF/SVG/TIFF 300 dpi，绘图技能按 §5.1 自动加载）
+   │
+   ▼
+[结果解读与总结] 关键发现 / 统计口径 / 结论边界 / 局限性        ← nature-writing · nature-statistics
+```
+
+**按需链（用户明确要求时才进入，不强制路由）**：
+
+```
+结果总结
+   │  用户说"查文献 / 写论文 / 润色 / 投稿 / 转 PPT"等
+   ▼
+[文献支撑] 多源检索 ─► 全文下载 ─► 结构化精读 ─► 引用规范与核验   ← nature-academic-search · nature-downloader
+   │                                                        nature-reader · nature-paper-card · nature-paper-xray
+   ▼                                                        nature-citation · nature-ref-verifier
+[论文写作] 各章节起草 ─► 英文润色 ─► 统计报告审查 ─► 预审稿       ← nature-writing · nature-polishing
+   │                                                        nature-statistics · nature-reviewer
+   ▼
+[投稿与返修] 审稿意见逐条回复 ─► 数据可用性声明                   ← nature-response · nature-data
+   │
+   ▼
+[汇报转化] 论文转 PPT / 论文翻译 / 开题报告 / 专利交底 / 实验日志  ← nature-paper2ppt · nature-image2ppt · nature-paper-trans
+                                                             nature-proposal-writer · nature-paper-to-patent
+                                                             nature-experiment-log
+```
+
+按需链任一环节用户都可直接开口（如"帮我把结果写成 Discussion""查一下这个基因的最新文献"），
+agent 按 §5 路由表加载对应技能执行。
 
 ### 模块 7：GWAS 全链（scripts/gwas/，v2.0 新增）
 
@@ -273,7 +329,15 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 | 05 | `05_network_integration.R` | 多组学网络：WGCNA 模块 × 代谢物模块/枢纽整合 | WGCNA + igraph | 模块关联表、枢纽基因/代谢物、多层网络图 |
 | 06 | `06_plot_integration.R` | 整合出版图：联合得分图、桑基图、Circos、UpSet | ggplot2/ggalluvial/circlize | 多面板组合图 |
 
-## 4. Nature 级绘图规范（混合后端，全包统一）
+## 4. CNS 级绘图规范（混合后端，全包统一，**自动出图**）
+
+> **默认行为（重要）**：每个分析脚本运行后**自动**在 `--outdir` 生成 CNS 级出版图表
+> （PDF/SVG/TIFF 300 dpi 并存）。绘图逻辑内置于脚本本身
+> （`scripts/utils/plot_theme.R` / `plot_theme.py` + `config/nature_palette.json`），
+> **用户无需开口**——跑完分析即得图。出图时 agent 按 §5.1 路由表**自动加载对应绘图技能**
+> 作规范参考（配色/字体/多面板/期刊模板）。出图后 agent 继续**自动产出结果解读与总结**
+> （§5.2）。**默认链到此为止**：文献检索/下载、论文写作/润色、投稿相关、汇报 PPT 等
+> **不强制路由**，仅在用户明确要求时按 §5.3–§5.5 按需加载。
 
 - **后端策略**：R 分析脚本内使用 ggplot2/ComplexHeatmap；Python 质控/预处理脚本使用
   matplotlib。两端共用 `config/nature_palette.json` 调色板与
@@ -287,31 +351,116 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 - **绘图逻辑**：每张图对应明确科学结论；无意义装饰一律省略；图注科学含义写在生成脚本注释中。
 - **主题实现**：自行实现，未复制任何第三方主题源码（含 `natureskills/nature-figure`）。
 
-## 5. 内置 Nature 图表与写作规范（第三方集成：nature-skills）
+## 5. 第三方技能路由总目录（541 个技能）
 
-本仓库在 `third_party/nature-skills/` 内置了 [nature-skills](https://github.com/xiaolai/nature-skills)
-（MIT License, Copyright (c) 2026 Yuan Yizhe；原始声明见 `third_party/nature-skills/LICENSE`，
-溯源见 `NOTICE.md`）的**九个 skill** 源码，按需加载：
+> **使用规则（两级路由）**：
+> **默认路由（自动，用户无需开口）**——分析后自动出图：agent 按 §5.1 按图表类型加载
+> 对应绘图技能作规范参考；出图后自动产出结果解读与总结（§5.2）。
+> **按需加载（用户明确要求才触发，不强制路由）**——文献检索/下载、论文写作/润色、
+> 投稿相关、汇报 PPT 等（§5.3–§5.5），用户说到"查文献/写论文/润色/投稿/转 PPT"等
+> 才加载对应技能。本包自研主题优先，第三方技能提供规范与模板细节。
 
-| 目录 | 能力 | 加载时机 |
-|---|---|---|
-| `skills/nature-figure/` | Nature 级图表规范与 matplotlib 模板（配色/字体/导出策略/多面板信息层级/图件契约） | "Nature 级作图/出版图规范/多面板组合" |
-| `skills/nature-polishing/` | 英文论文润色（25 条规则：句长、时态、hedging、引用规范、英式拼写） | "润色/翻译为 Nature 风格英文" |
-| `skills/nature-writing/` | 论文各章节写作（摘要/引言/方法/结果/讨论/结论/审稿自查） | "写论文/写摘要/写引言" |
-| `skills/nature-academic-search/` | 学术检索（PubMed/MEDLINE 查询、DOI 提取、RIS/BibTeX 导出） | "查文献/找参考文献/导出引用" |
-| `skills/nature-citation/` | 引用格式规范与转换 | "引用格式/BibTeX" |
-| `skills/nature-data/` | 数据呈现规范（图表中的数据组织） | "数据如何呈现/数据规范" |
-| `skills/nature-paper2ppt/` | 论文一键转 Nature 风格中文汇报 PPTX | "论文转 PPT/组会汇报" |
-| `skills/nature-reader/` | 全文中英对照精读辅助（图表感知） | "精读论文/对照阅读" |
-| `skills/nature-response/` | 审稿意见逐条回复信工作流 | "审稿回复/返修/response letter" |
+### 5.1 绘图技能（40 个，默认路由）
+
+| 图表需求 | 默认加载路径（third_party/ 下） |
+|---|---|
+| 配色 / 字体 / 导出策略 | `bioskills/data-visualization/color-palettes` · `matplotlib-fundamentals` · `ggplot2-fundamentals` |
+| Manhattan / QQ / LocusZoom | `bioskills/data-visualization/manhattan-qq-locuszoom` |
+| 火山图 / MA 图 | `bioskills/data-visualization/volcano-and-ma-plots` |
+| 热图 / 聚类 | `bioskills/data-visualization/heatmaps-clustering` |
+| 多面板组合 | `bioskills/data-visualization/multipanel-figures` · `sciagent-skills/skills/data-visualization/multipanel` |
+| Circos | `bioskills/data-visualization/circos-plots` |
+| 网络图 | `bioskills/data-visualization/network-visualization` |
+| 基因组 tracks | `bioskills/data-visualization/genome-tracks` |
+| 序列 logo / motif | `bioskills/data-visualization/sequence-logos` |
+| 统计标注 / 显著性 | `bioskills/data-visualization/statistical-annotation` · `sciagent-skills/skills/data-visualization/statistical-significance-annotation` |
+| 分布图 | `bioskills/data-visualization/distribution-plots` |
+| UpSet 图 | `bioskills/data-visualization/upset-plots` |
+| 森林图 / 漏斗图 | `bioskills/data-visualization/forest-funnel-plots` |
+| 桑基 / 流转图 | `bioskills/data-visualization/flow-and-transition-plots` |
+| 降维图（PCA/t-SNE/UMAP） | `bioskills/data-visualization/dimensionality-reduction-plots` |
+| 蛋白 lollipop / 突变矩阵 | `bioskills/data-visualization/lollipop-protein-maps` · `oncoprint-mutation-matrices` |
+| 交互图 | `bioskills/data-visualization/interactive-visualization` · `sciagent-skills/skills/data-visualization/plotly-interactive-plots` |
+| 分子 3D | `sciagent-skills/skills/data-visualization/molecular-visualization-3dmol` |
+| 组学图综合 | `sciagent-skills/skills/data-visualization/omics-plotting` · `seaborn-statistical-plots` · `kdense-scientific-skills/skills/scientific-visualization` |
+| **期刊级图表模板** | `nature-skills/skills/nature-figure` · `cell-skills/skills/cell-cns-figure` · `cell-visualization-code` · `cell-data-figure` |
+| **分刊规范**（Nature/Cell/Science/Lancet/NEJM/PNAS/eLife/肿瘤/general） | `sciagent-skills/skills/scientific-writing/` 下 9 个 figure-guide |
+
+### 5.2 结果解读与总结（默认路由）
+
+出图后 agent **自动**产出结果解读与总结；以下技能作为写作规范参考自动加载：
+
+| 场景 | 默认加载路径（third_party/ 下） |
+|---|---|
+| 结果解读 / 讨论 / 结论起草 | `nature-skills/skills/nature-writing` |
+| 统计口径与统计报告措辞 | `nature-skills/skills/nature-statistics` |
+| 证据强度评估 / 批判性阅读结论 | `sciagent-skills/skills/scientific-writing/scientific-critical-thinking` |
+
+### 5.3 文献检索、下载与精读（按需加载，不强制路由）
+
+用户明确要求"查文献/找参考文献/下载论文/精读论文"时才加载：
+
+| 场景 | 按需加载路径（third_party/ 下） |
+|---|---|
+| 多源文献检索 / MeSH 策略 / 引用导出 | `nature-skills/skills/nature-academic-search` |
+| 论文全文合法下载（出版社 API/OA/CNKI/机构会话） | `nature-skills/skills/nature-downloader` |
+| 论文精读（中英对照、图表感知） | `nature-skills/skills/nature-reader` |
+| 结构化论文卡片（01–16 节，来源可约束） | `nature-skills/skills/nature-paper-card` |
+| 论文深读剖析（还原作者思路与证据边界） | `nature-skills/skills/nature-paper-xray` |
+| 引用规范（Nature/CNS 严格引用） | `nature-skills/skills/nature-citation` |
+| 参考文献多源交叉验证（投稿前查错） | `nature-skills/skills/nature-ref-verifier` |
+| 文献监测管线（每日/每周跟踪一个方向） | `nature-skills/skills/nature-literature-pipeline` |
+| 编程检索（PubMed/OpenAlex/bioRxiv API） | `sciagent-skills/skills/scientific-writing/` 下 `pubmed-database` · `openalex-database` · `biorxiv-database` |
+| 检索策略 / 系统综述 | `sciagent-skills/skills/scientific-writing/scientific-literature-search` · `literature-review` |
+
+### 5.4 论文写作、润色与投稿（按需加载，不强制路由）
+
+用户明确要求"写论文/润色/投稿/审稿回复"时才加载：
+
+| 场景 | 按需加载路径（third_party/ 下） |
+|---|---|
+| 论文各章节起草（摘要/引言/方法/结果/讨论/结论） | `nature-skills/skills/nature-writing` |
+| 英文润色 / 中译英 / Nature 风格改写 | `nature-skills/skills/nature-polishing` · `cell-skills/skills/cell-manuscript-editing` |
+| 全文各章节写作（IMRAD、报告规范） | `sciagent-skills/skills/scientific-writing/scientific-manuscript-writing` |
+| 统计报告审查（伪重复/多重比较/显著性滥用） | `nature-skills/skills/nature-statistics` |
+| 投稿前预审稿模拟（审稿人视角压力测试） | `nature-skills/skills/nature-reviewer` |
+| 审稿意见逐条回复信 | `nature-skills/skills/nature-response` · `cell-skills/skills/cell-reviewer-response` |
+| 数据可用性声明（Data Availability） | `nature-skills/skills/nature-data` |
+| 稿件同行评审方法 | `sciagent-skills/skills/scientific-writing/peer-review-methodology` |
+
+### 5.5 汇报与转化（按需加载）
+
+| 场景 | 默认加载路径（third_party/ 下） |
+|---|---|
+| 论文一键转中文汇报 PPTX | `nature-skills/skills/nature-paper2ppt` |
+| 图片/截图/扫描 PDF 还原为可编辑 PPT | `nature-skills/skills/nature-image2ppt` |
+| 英文论文 PDF 翻译为中文图片型 PDF | `nature-skills/skills/nature-paper-trans` |
+| 开题报告 / 项目申请书 / 研究计划 | `nature-skills/skills/nature-proposal-writer` · `cell-skills/skills/cell-plan` |
+| 论文→发明专利技术交底书 | `nature-skills/skills/nature-paper-to-patent` |
+| 实验日志标准化记录 | `nature-skills/skills/nature-experiment-log` |
+| 学术报告幻灯片 | `sciagent-skills/skills/scientific-writing/scientific-slides` |
 
 说明：
-- 仅复制各 skill 的源码与参考资料；上游 `assets/`（约 30 MB 演示资产，含 figures4papers
-  第三方素材）**未包含**，需要时请从上游获取。
+- `third_party/nature-skills/` 内置 [nature-skills](https://github.com/Yuan1z0825/nature-skills)
+  （作者主仓最新版，**Apache License 2.0**，commit `7c1cdd2`；其中 nature-downloader /
+  nature-image2ppt 自带 MIT LICENSE，nature-literature-pipeline / nature-experiment-log /
+  nature-proposal-writer 在 SKILL.md 声明 MIT——均与 Apache-2.0 兼容）。溯源与排除范围
+  （演示 `assets/` 未复制、`nature-social-science` 未收录）见 `third_party/nature-skills/NOTICE.md`；
+  二次分发请保留该目录的 `LICENSE` 与 `NOTICE.md`。
 - 与本包自研绘图主题（`config/nature_palette.json` + `scripts/utils/plot_theme.*`）相互独立：
   本包分析脚本默认使用自研主题（R + Python 双后端，输出 PDF/SVG/TIFF）；
-  nature-figure 作为"规范参考与模板库"按需加载，两者不冲突。
-- 二次分发本项目时请保留 `third_party/nature-skills/LICENSE` 与 `NOTICE.md`。
+  nature-figure 作为"规范参考与模板库"加载，两者不冲突。
+- `nature-skills/skills/nature-shared/` 是上游内部共享参考包（被 writing/polishing/response/
+  reader/paper2ppt 依赖），不作为独立工作流入口。
+
+### 5.6 联网查询能力说明
+
+- **"连接网站查询"不是 third_party 技能，而取决于宿主 agent 的运行时能力**：宿主提供
+  WebSearch/WebFetch/MCP 联网工具时，上述检索技能可直接指导实时查询；
+  宿主完全离线时，`pubmed-database` 等 API 类技能会给出"导出检索结果文件 → 本地处理"的
+  降级路径（RIS/BibTeX/CSV 均可）。
+- 本包自带的 `assets/annotations/` 官方注释快照与 `docs/rice_databases.md` 数据库导航
+  保证离线场景下的基础查询不中断。
 
 此外，`third_party/` 还内置 5 个第三方技能库（均为精选子集，含 LICENSE 与 NOTICE 溯源；
 数量与内容详见 `docs/skill_routing.md` 库速查）：
@@ -338,7 +487,7 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 开箱即用、无需联网；需要更新时运行 `scripts/utils/fetch_rice_annotations.py --force`
 （自动从官方源刷新；网络受限时支持 `--insecure` 或"浏览器下载 + 传本地路径"）。
 
-### 5.1 分析模块 → 第三方技能路由（528 个技能的入口）
+### 5.7 分析模块 → 第三方技能路由（541 个技能的入口）
 
 执行某模块分析前，AI 助手应**先加载对应技能**获取专家经验（版本兼容性、常见陷阱、
 参数选择、可辩护分析规范）。完整路由表见 **`docs/skill_routing.md`**（104 条映射，
@@ -360,7 +509,7 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 | 空间组学 | `bioskills/spatial-transcriptomics/` + `omicverse-skills/skills/single-to-spatial-mapping/` |
 | GRN/共表达进阶（v3.2） | `bioskills/gene-regulatory-networks/` + `kdense-scientific-skills/skills/arboreto/`（GRNBoost2/GENIE3）+ `omicverse-skills/skills/bulk-wgcna-analysis/` |
 | 进化/KA-KS/TF | `bioskills/comparative-genomics/` + `kdense-scientific-skills/skills/biopython/`、`etetoolkit/`、`phylogenetics/` |
-| 出版图规范与论文 | `bioskills/data-visualization/` + `nature-skills/skills/` + `sciagent-skills/skills/scientific-writing/`（七刊图规范） |
+| 出版图规范与论文全流程 | `bioskills/data-visualization/` + `nature-skills/skills/`（绘图/写作/润色/检索/下载/精读/统计/预审稿/审稿回复，22 个）+ `sciagent-skills/skills/scientific-writing/`（七刊图规范 + 写作/检索 API） |
 
 ## 6. 参数配置
 

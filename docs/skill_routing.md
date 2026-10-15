@@ -1,6 +1,6 @@
 # 第三方技能路由表（分析模块 → 技能映射）
 
-> **目的**：`third_party/` 内置 6 个库共 **528 个技能**。本表把每个分析模块（自研脚本）
+> **目的**：`third_party/` 内置 6 个库共 **541 个技能**。本表把每个分析模块（自研脚本）
 > 映射到对应的第三方技能路径，让 AI 助手在执行该模块分析前**先加载对应技能**获取
 > 专家经验（版本兼容性、常见陷阱、参数选择、可辩护分析规范）。
 >
@@ -8,7 +8,11 @@
 > → 按其规范指导分析。技能是方法论参考，不替代自研脚本；两者冲突时以自研脚本 +
 > `docs/usage.md` 为准。技能清单与许可溯源见各库 `NOTICE.md`。
 >
-> 路径均相对 `third_party/`；所有条目已核对实际存在（2026-10-15）。
+> **两级路由**（与 SKILL.md §5 一致）：**绘图技能**（分析后自动出图）与**结果解读总结**
+> 为默认路由——agent 自动加载，用户无需开口；**文献检索/下载、论文写作/润色、
+> 投稿相关、汇报转化**等为按需加载——仅当用户明确要求时才触发，不强制路由。
+>
+> 路径均相对 `third_party/`；所有条目已核对实际存在（2026-10-16）。
 
 ---
 
@@ -20,7 +24,7 @@
 | `kdense-scientific-skills/` | "可辩护分析"规范 + 单细胞/GRN/质谱/统计功效 | 28 个 |
 | `omicverse-skills/` | OmicVerse 工作流指引（单细胞基础模型/代谢多因子/微生物组；主包 GPL-3.0 运行时装） | 61 个 |
 | `sciagent-skills/` | 多组学/CellChat/分子生物学/分刊图规范/科研写作 | 64 个 |
-| `nature-skills/` | Nature 级图表/写作/润色/检索/审稿回复 | 9 个 |
+| `nature-skills/` | 完整科研流程：Nature 级图表/写作/润色/检索/下载/精读/统计/预审稿/审稿回复/PPT（Apache-2.0） | 22 个 |
 | `cell-skills/` | Cell 风格科研全流程（选题/绘图/PPT/投稿） | 12 个 |
 
 ---
@@ -172,10 +176,15 @@
 
 | 场景 | 技能路径 |
 |---|---|
-| 出版级绘图规范（配色/多面板/统计标注） | `bioskills/data-visualization/`（19 个：color-palettes、multipanel-figures、statistical-annotation、heatmaps-clustering、volcano-and-ma-plots、circos-plots、upset-plots、sequence-logos、genome-tracks 等）+ `kdense-scientific-skills/skills/scientific-visualization/` |
-| 分刊图规范（Nature/Cell/Science/Lancet/NEJM/PNAS/eLife） | `sciagent-skills/skills/scientific-writing/`（七刊 figure-guide）+ `nature-skills/skills/nature-figure/` + `cell-skills/skills/cell-cns-figure/` |
-| 统计方法选择/报告 | `kdense-scientific-skills/skills/statistical-analysis/` + `sciagent-skills/skills/biostatistics/`（4 个） |
-| 论文写作/润色/审稿回复/检索 | `nature-skills/skills/`（9 个）+ `cell-skills/skills/`（12 个）+ `sciagent-skills/skills/scientific-writing/`（manuscript-writing、peer-review-methodology、literature-review、pubmed/openalex/biorxiv 数据库） |
+| 出版级绘图规范（配色/多面板/统计标注） | **默认路由**：按图表类型加载（SKILL.md §5.1 总目录 40 个技能——`bioskills/data-visualization/` 19 个、`sciagent-skills/data-visualization/` 7 个、`kdense/scientific-visualization/`、期刊模板 `nature-skills/nature-figure` + `cell-skills/cell-*`）；本包自研主题（`plot_theme.*` + `nature_palette.json`）为基底 |
+| 分刊图规范（Nature/Cell/Science/Lancet/NEJM/PNAS/eLife） | 默认路由：`sciagent-skills/skills/scientific-writing/` 下 9 个 figure-guide（用户要求某期刊规范时直接读对应刊） |
+| 统计方法选择/报告 | `kdense-scientific-skills/skills/statistical-analysis/` + `sciagent-skills/skills/biostatistics/`（4 个）+ `nature-skills/skills/nature-statistics`（统计报告文本规范） |
+| 结果解读与总结（出图后自动） | **默认路由**：`nature-skills/skills/nature-writing`（结果/讨论措辞）+ `nature-skills/skills/nature-statistics`（统计口径）+ `sciagent-skills/skills/scientific-writing/scientific-critical-thinking`（证据强度） |
+| 论文写作/润色（按需） | `nature-skills/skills/nature-writing`、`nature-polishing` + `cell-skills/skills/cell-manuscript-editing` + `sciagent-skills/skills/scientific-writing/scientific-manuscript-writing` |
+| 文献检索/下载/精读（按需） | `nature-skills/skills/nature-academic-search`、`nature-downloader`、`nature-reader`、`nature-paper-card`、`nature-paper-xray`、`nature-literature-pipeline` + `sciagent-skills/skills/scientific-writing/`（pubmed/openalex/biorxiv 数据库、scientific-literature-search、literature-review） |
+| 引用规范/参考文献核验（按需） | `nature-skills/skills/nature-citation`、`nature-ref-verifier` |
+| 预审稿/审稿回复/数据可用性（按需） | `nature-skills/skills/nature-reviewer`、`nature-response`、`nature-data` + `cell-skills/skills/cell-reviewer-response` + `sciagent-skills/skills/scientific-writing/peer-review-methodology` |
+| 汇报转化（按需） | `nature-skills/skills/nature-paper2ppt`、`nature-image2ppt`、`nature-paper-trans`、`nature-proposal-writer`、`nature-paper-to-patent`、`nature-experiment-log` + `sciagent-skills/skills/scientific-writing/scientific-slides` |
 | 分析报告/表格输出 | `bioskills/reporting/`（rmarkdown-reports、quarto-reports、publication-tables、figure-export、jupyter-reports） |
 | 数据库 API/批量下载 | `bioskills/database-access/`（15 个）+ `kdense-scientific-skills/skills/bioservices/`、`gget/` |
 | VCF/BAM 程序化处理 | `kdense-scientific-skills/skills/pysam/` + `bioskills/variant-calling/`（13 个） |

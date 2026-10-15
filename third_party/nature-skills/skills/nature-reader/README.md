@@ -1,41 +1,47 @@
-# nature-reader
+# `nature-reader` 技能
 
-Markdown-first reading workflow for full papers.
+[English](README_EN.md)
 
-## What it does
+`nature-reader` 用于把论文 PDF、DOI、arXiv、出版社 HTML 或粘贴文本转换为可回溯的全文 Markdown 阅读材料，包含中英对照、图表定位、可直接阅读的公式和 source map。
 
-`nature-reader` turns a PDF, DOI, arXiv link, publisher HTML page, or pasted manuscript into a complete Markdown reading artifact with:
+## 适合用它做什么
 
-- paragraph-level original text and Chinese translation in prose form
-- extracted figures and tables placed near the discussion that first substantively references them
-- original captions plus Chinese caption translations
-- stable page and block anchors for traceability
-- tight figure crops and a full-document source map
+- 制作论文全文中英对照 Markdown。
+- 在首次实质性讨论处插入对应图表和图注翻译。
+- 为每段文本、图、表建立页码和来源锚点。
+- 将公式渲染为 Markdown 数学块，并为每个独立公式建立 `E...` 锚点。
+- 扫描件或无法可靠转写的公式会保留原图裁剪，不会用猜测出的 LaTeX 替代原式。
+- 从 PDF、HTML 或预印本文本中提取可复核阅读材料。
+- 生成适合后续写作、汇报或引用核查的阅读底稿。
 
-## Primary outputs
+## 典型请求
 
-- `paper.md`
-- `source_map.json`
-- `translation_notes.md`
-- `assets/`
+- “把这篇 PDF 做成中英对照全文 Markdown。”
+- “翻译并解读这篇论文，图表要放在对应正文附近。”
+- “根据 DOI 获取论文内容，生成带 source map 的阅读材料。”
 
-`reader.html` can be generated as a secondary preview, but the skill is Markdown-first and does not default to an interactive Q&A panel.
+## 你需要提供
 
-## Trigger phrases
+- PDF、DOI、arXiv 链接、出版社 HTML、题名或粘贴文本。
+- 输出目录和是否需要图片裁剪。
+- 是否保留英文原文、中文翻译、图表、表格和翻译备注。
 
-Use this skill when the user asks for:
+## 产出
 
-- full-paper translation
-- 原文对照
-- 中英文对照
-- 图文对应
-- 图表提取
-- 翻译解读
-- 全文 Markdown
-- paper md
-- source-grounded reading notes
+- `paper.md`：全文阅读材料。
+- `source_map.json`：页码、文本块和图表来源映射。
+- `translation_notes.md`：术语、无法确认内容和翻译说明。
+- `assets/`：图表、裁剪图片和必要附件。
+- `assets/equations/`：低置信度或图片化公式的原始裁剪（按需生成）。
 
-## Notes
+## 边界
 
-Do not use this skill for summaries, keyword bullets, or citation-only search tasks.
-When triggered, do not output only a Chinese summary. The default artifact is `paper.md` with visible `Original` / `中文` pairs and figure/table cards inserted at the relevant source locations.
+- 默认以 Markdown 为中心，不默认生成交互式问答面板。
+- 扫描 PDF、双栏错序或版权受限全文可能需要额外人工校对；图片化公式会优先显示原图并标记转写置信度。
+- 无法合法获取全文时，会基于可用摘要/元数据说明限制。
+
+## 相关技能
+
+- `nature-downloader`：先合法获取 PDF 或 HTML 全文。
+- `nature-paper2ppt`：把阅读材料转成中文汇报 PPT。
+- `nature-citation`：从阅读材料中抽取需要引用支撑的 claim。

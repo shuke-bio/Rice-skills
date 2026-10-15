@@ -3,6 +3,29 @@
 All notable changes to Rice-skills are documented here.
 Versioning follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- **`third_party/nature-skills/` upgraded to the author's latest release** — 22 skills
+  (was 9), now under Apache-2.0 (repo-level LICENSE, upstream
+  [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) commit
+  `7c1cdd2`); demo `assets/` and the off-topic `nature-social-science` skill excluded
+  (full provenance in `third_party/nature-skills/NOTICE.md`). New capabilities:
+  paper full-text download, structured paper cards / x-ray deep reading, reference
+  cross-verification, statistical-reporting review, pre-submission reviewer
+  simulation, literature monitoring pipelines, paper translation, proposals,
+  patent drafts, experiment logs.
+- **Two-tier skill routing (SKILL.md §5)** — **default route (automatic, no user
+  instruction needed)**: CNS-grade plotting (§5.1, 40 skills routed by chart type)
+  plus result interpretation & summary (§5.2). **On-demand (loaded only when the
+  user explicitly asks — never force-routed)**: literature search/download/reading
+  (§5.3), manuscript writing / polishing / submission (§5.4), presentation
+  conversion (§5.5). §5.6 documents that live web query depends on the host
+  agent's tools rather than third_party skills. SKILL.md §3 now shows the default
+  chain and the on-demand chain separately.
+- Curated third-party skill count 528 → 541; `docs/skill_routing.md` and both
+  READMEs (capability lists, prompt tables, license notes) updated accordingly.
+
 ## [3.2.0] — 2026-10-15
 
 ### Added

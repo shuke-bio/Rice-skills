@@ -1,159 +1,125 @@
 ---
 name: nature-writing
-description: Draft, restructure, or plan Nature-style manuscript sections from author-provided claims, results, figures, notes, or Chinese drafts. Use when the user wants to write or rebuild an abstract, introduction, results narrative, discussion, conclusion, title, or full manuscript argument rather than only polish finished prose.
-version: 0.2.0
-author: Community contribution based on curated Nature/Nature Communications writing patterns and open research-writing notes
+description: Draft or restructure scientific manuscript arguments, sections, and initial-submission materials from author-provided evidence. Use for 论文写作、章节起草、论证重构、正文压缩、首次投稿材料. Use nature-polishing for language-only edits to existing prose and nature-response for post-decision correspondence.
 ---
 
-# Nature-Style Scientific Writing
+# Nature-Style Scientific Writing — Router
 
-Use this skill when the user needs help creating or rebuilding manuscript prose,
-not merely polishing existing sentences.
+## Routing protocol
 
-## Core stance
+For a new drafting task, follow the routing below. For follow-up edits, reuse established task choices and already loaded guidance; read additional fragments only when the requested scope changes.
 
-- Author evidence comes first. Do not invent results, mechanisms, references,
-  methods, novelty, sample sizes, statistics or limitations.
-- Write the argument before writing the sentences.
-- Make the paper easy to judge: relevance, novelty, trust, reuse and meaning.
-- Use ambitious but bounded claims.
-- If essential evidence is missing, write a placeholder or ask for the missing
-  input instead of filling the gap.
+### 1. Load the manifest and the core layer
 
-## When to open extra files
+Read [manifest.yaml](manifest.yaml). It declares the axes (`task`, `paper_type`, `section`, `language`, `journal`), the allowed values, and the file paths each value maps to.
 
-| File | Open when |
-|---|---|
-| [references/article-architecture.md](references/article-architecture.md) | You need section-level structure, argument order, or published-article writing patterns |
-| [references/abstract.md](references/abstract.md) | Drafting or revising an abstract, especially challenge-contribution and challenge-insight-contribution forms |
-| [references/introduction.md](references/introduction.md) | Drafting or revising an Introduction, task framing, technical challenge, contribution framing, or teaser/pipeline logic |
-| [references/related-work.md](references/related-work.md) | Rebuilding Related Work as topic synthesis instead of a paper-by-paper list |
-| [references/method.md](references/method.md) | Writing Method sections, pipeline modules, module motivation, technical advantages, or implementation details |
-| [references/experiments.md](references/experiments.md) | Planning or writing Experiments/Results around baselines, ablations, metrics, tables, figures, and claim support |
-| [references/conclusion.md](references/conclusion.md) | Writing a bounded conclusion with contribution, evidence, impact, limitation, and future direction |
-| [references/paragraph-flow.md](references/paragraph-flow.md) | User asks whether a paragraph flows, makes sense, or is clear; use reverse outlining and paragraph-message checks |
-| [references/paper-review.md](references/paper-review.md) | Final manuscript self-review, rejection-risk audit, claim-evidence alignment, or reviewer-facing critique |
-| [references/chinese-author-workflow.md](references/chinese-author-workflow.md) | The user's notes are Chinese, mixed Chinese-English, or organized as lab notes rather than manuscript prose |
-| [references/examples/index.md](references/examples/index.md) | You need concrete abstract, introduction, or method examples after choosing the relevant guide |
+Also read every file listed under `always_load`. These hold the default stance, writing workflow, and output format that apply to every drafting job.
 
-## Intake
+### 2. Detect the axis values for this request
 
-Before drafting, identify:
+For each axis in the manifest, decide the value using the manifest's `detect:` hint and the user's input:
 
-- manuscript section: title, abstract, introduction, results, discussion,
-  conclusion, significance paragraph or full outline
-- paper type: mechanism, method, resource, device, model, clinical, materials,
-  computational or interdisciplinary
-- core claim: what the paper actually demonstrates
-- evidence: figures, measurements, comparisons, datasets, statistics or examples
-- boundary: where the claim stops
-- target journal or word limit, if provided
+- `task` — manuscript / submission-package. Use `submission-package` for first-submission materials, never for revision correspondence.
+- `paper_type` — research / methods / hypothesis / algorithmic / review. Default: research.
+- `section` — abstract / intro / related-work / method / experiments / discussion / conclusion / title. May be multiple. Ask the user if it is ambiguous and matters for the draft.
+- `language` — en or zh-to-en. Detect from the user's notes themselves.
+- `journal` — nature / nature-family / nat-comms / nat-mach-intell / generic.
+  Default: generic. Use `nature` only for the flagship journal Nature,
+  `nat-comms` for Nature Communications, `nat-mach-intell` for Nature Machine
+  Intelligence (NMI), and `nature-family` for other Nature Portfolio titles or
+  an unspecified Nature-family request.
 
-If any of `core claim`, `evidence` or `boundary` is absent, expose the gap before
-drafting. You may still produce a scaffold with explicit placeholders.
+State the detected axis values in one short line to the user before drafting, so they can correct you cheaply. This is a progress update, not an approval gate; continue unless a necessary decision remains unresolved.
 
-## Writing workflow
+### 3. Load the matching fragments
 
-1. Build a one-sentence argument: `In [system/problem], we show [advance] using
-   [approach], supported by [evidence], with [boundary].`
-2. Choose the section architecture from `references/article-architecture.md`.
-3. Map each paragraph to one job: context, gap, approach, result, comparison,
-   mechanism, implication or limitation.
-4. Draft from evidence outward. Keep claims near the data that support them.
-5. Calibrate verbs: `show`, `demonstrate`, `suggest`, `indicate`, `enable`,
-   `may`, `could`.
-6. Remove unsupported novelty and universal claims.
-7. Run a paragraph-flow check: one paragraph, one message, with a clear first
-   sentence and explicit sentence-to-sentence relation.
-8. Return prose plus concise notes on assumptions and missing inputs.
+For each axis value, Read the file mapped in the manifest. Skip the `section` axis when the task is `submission-package` or when the user explicitly asks for a free-floating argument paragraph with no section context.
 
-## Section defaults
+Do **not** read every fragment in `static/`. Load only what step 2 selected.
 
-### Abstract
+### 4. Draft using the loaded material
 
-Default Nature pattern:
+Apply the loaded fragments in this priority order:
 
-`context/problem -> gap -> approach -> key result -> implication -> boundary`
+1. Core stance + intake (`core/stance.md`) — surface missing claim / evidence / boundary before drafting.
+2. Paper-type playbook — argument chain, drafting order.
+3. Section-specific drafting rules and structure.
+4. Task-specific submission rules when `task=submission-package`.
+5. Journal-specific framing and constraints.
+6. Language-specific sentence and paragraph rules (apply last).
 
-For technical AI, ML, CV or method-heavy manuscripts, open
-`references/abstract.md` and choose one of:
+For `task=manuscript`, use `core/workflow.md` at the requested scale. Plan the argument for a new section or substantial restructuring; a title, single paragraph, or local follow-up needs only the applicable evidence, wording, and consistency checks. Complete the requested prose unless a material unresolved decision blocks it or the user requested an outline for approval first.
 
-- `challenge -> contribution`
-- `challenge -> insight -> contribution`
-- `multiple contributions`
+When drafting or restructuring Results, or compressing a full manuscript's main
+text, also load `../nature-shared/core/main-text-discipline.md` before building
+the paragraph map. Classify every result by function, allocate it across main
+text, captions, Methods/source data, and SI, then draft the shortest sufficient
+evidence chain. Do not equate a complete analysis record with a complete main
+text.
 
-Keep it compact. Include quantitative or comparative detail when the user
-provided it. End with what the work enables, not generic importance.
+When the target is flagship Nature, Nature Communications, Nature Machine
+Intelligence, or another Nature Portfolio title, load the matching shared
+Nature-style corpus guidance for the section being drafted:
 
-### Introduction
+- Results or Discussion →
+  `../nature-shared/core/nature-results-discussion.md`
+- Introduction or whole-manuscript narrative →
+  `../nature-shared/core/nature-introduction.md`
+- Abstract → `../nature-shared/core/nature-abstract.md`
 
-Use:
+Use these files for claim escalation, question-chain alignment,
+discovery-centred compression, and synthesis. They were initially distilled
+from published NMI papers and generalized as Nature-style defaults; do not
+present them as official policy, and let the target journal's current rules
+override them.
 
-`field scale -> bottleneck -> prior attempts -> unresolved gap -> present study`
+For any Discussion drafting, restructuring, or section audit, also load
+`../nature-shared/core/discussion-argument-language.md`. Use it to select the
+opening anchor, control the reverse-funnel expansion, distinguish literature
+positioning from citation decoration, calibrate modal strength to evidence,
+and turn limitations and future work into claim-specific reasoning. This is
+general writing guidance rather than an official journal rule.
 
-For method-heavy papers, open `references/introduction.md` and reason backward
-from the technical challenge and contribution before drafting forward.
+For `task=submission-package`, follow `static/fragments/task/submission-package.md` and `references/submission-package.md` instead. Build the deliverable matrix and readiness audit; do not force manuscript paragraph architecture onto administrative submission materials.
 
-Do not summarize all results. The final paragraph should state what this paper
-does and how it addresses the gap.
+If essential evidence or boundary is missing, write a placeholder and list it under `Assumptions or missing inputs:` instead of inventing content.
 
-### Results narrative
+### 5. Reach for references only when needed
 
-Use an evidence ladder:
+The files under `references/` are deep references and the example library, not defaults. Open them on demand per the `references.on_demand` table in the manifest. Typical triggers:
 
-`system/workflow -> validation -> main result -> baseline comparison ->
-mechanism/diagnostic analysis -> application or generalization`
+- The user asks for a concrete example or template → `references/examples/index.md`.
+- A section's draft has structural problems that the section fragment alone does not explain → the matching `references/<section>.md`.
+- The user needs a broad-audience `Nature` abstract opening or asks about a `summary paragraph` → `references/nature-summary-paragraph.md`.
+- The user asks "does this paragraph flow?" → `references/paragraph-flow.md`.
+- The user asks for a self-review or rejection-risk audit → `references/paper-review.md`.
+- The user asks what belongs in the main text, captions, or SI; wants a shorter
+  Results section; or is adding reviewer-driven explanation →
+  `../nature-shared/core/main-text-discipline.md`.
+- The user requests a complete first-submission package, templates, or a submission-readiness audit → `references/submission-package.md`.
+- The target is the flagship journal Nature and exact submission or formatting
+  requirements matter → `../nature-shared/journal-formats/nature.md`.
+- The target is Nature Machine Intelligence and exact content-type, submission,
+  data/code or production requirements matter →
+  `../nature-shared/journal-formats/nature-machine-intelligence.md`.
+- Any Nature / Nature Portfolio target needs Results claim progression,
+  evidence-bound interpretation, robustness placement, or Discussion synthesis
+  → `../nature-shared/core/nature-results-discussion.md`.
+- Any target needs a Discussion function chain, evidence-calibrated modal
+  language, claim-specific limitations, non-redundant literature positioning,
+  or uncertainty-driven future work →
+  `../nature-shared/core/discussion-argument-language.md`.
+- Any Nature / Nature Portfolio target needs an Introduction funnel, exact gap,
+  literature logic, question-first novelty, study roadmap, or alignment with
+  Results → `../nature-shared/core/nature-introduction.md`.
+- Any Nature / Nature Portfolio target needs abstract evidence-chain,
+  main/supporting-claim, numeric-result, or final-payoff decisions →
+  `../nature-shared/core/nature-abstract.md`.
+- The work involves regulated or specialist research compliance →
+  `../nature-shared/core/research-compliance.md`.
 
-Each subsection should have a claim-first opening and then data support.
+## Submission boundary
 
-For ML/conference-style experiment sections, open `references/experiments.md`
-and make sure each major claim is backed by comparison, ablation, or stress-test
-evidence.
-
-### Related Work
-
-Use:
-
-`topic scope -> representative methods -> limitation tied to this paper ->
-distinction`
-
-Group prior work by technical topic and mechanism, not by publication year.
-
-### Discussion
-
-Use:
-
-`central advance -> evidence meaning -> relation to prior work -> constraints ->
-future use`
-
-This is where interpretation and limitations belong. Do not repeat the Results
-section figure by figure.
-
-### Conclusion
-
-Use:
-
-`contribution -> decisive evidence -> implication -> boundary`
-
-No new data. No unsupported promises.
-
-### Title
-
-Prefer concrete titles that combine:
-
-`system/object + action/capability + application or consequence`
-
-Avoid slogan titles, grant-style aims and overbroad field claims.
-
-## Output format
-
-Default output:
-
-1. `Draft:` with the requested prose.
-2. `Section outline:` with `3-7` compact bullets when the task involves a full section.
-3. `Assumptions or missing inputs:` with only material issues.
-4. `Claim-evidence map:` for major claims, using `Claim: ... | Evidence: ... | Status: supported/needs evidence`.
-5. `Why this structure:` with `2-4` short bullets.
-
-For Chinese author notes, provide polished English first, then brief Chinese
-notes explaining major structural choices.
+- `nature-writing` owns **initial submission** materials prepared before peer review.
+- `nature-response` owns revision cover letters, rebuttals, point-by-point responses, marked manuscripts, appeals, and other post-decision correspondence.
+- Route graphical abstracts and TOC graphics to `nature-figure`; route simulated pre-submission peer review to `nature-reviewer`.
