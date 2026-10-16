@@ -40,3 +40,8 @@ scripts, documentation fixes, and translations.
 Include: the exact command line, the module, `run_info.txt`, the error output,
 and (if possible) the smallest synthetic dataset reproducing the issue.
 Attaching the `--demo` command that fails is the fastest path to a fix.
+
+Other questions: open a [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues),
+or email **shuke4358@gmail.com** for private matters.
+其他问题：开 [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues)，
+私密事宜可邮件联系 **shuke4358@gmail.com**。

@@ -137,6 +137,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - **模块 10 · 变异检测与注释（v3.0）**：BWA 比对 → GATK/bcftools 变异检测 → 硬过滤 → SnpEff 功能注释
   （外部工具模板式调用，自动探测与安装指引）
 - **模块 11 · 泛基因组（v3.0）**：minigraph/cactus/PGGB 图构建模板 → minimap2+SYRI 结构变异 →
+  **HitSV read-based 路线**（短读/长读/混合 SV 检测+基因分型，GPL-3.0 运行安装）→
   PAV 核心/可变/私有分类与性状关联 → **Pan-GWAS**（复用 GWAS 引擎）
 - **模块 12 · QTL 映射（v3.0）**：eQTL/mQTL/pQTL——自研 cis/trans 引擎（向量化 + 保守 BH）、
   经典 cis-距离图、Manhattan、每特征最佳命中表
@@ -444,6 +445,10 @@ python tests/test_utils.py     # Python 主题/出图/数据IO 冒烟测试
 配套数据：仓库内置**官方注释快照** `assets/annotations/`（MSU↔RAP-DB ID 映射 34,133 对、
 PlantTFDB 水稻 TF 列表 1,862 个 / 56 家族、53 个 TF 家族 GSEA 基因集），开箱即用；
 更新用 `python scripts/utils/fetch_rice_annotations.py --force`。
+
+## 📬 联系方式
+
+**有问题或建议？** 优先在 [GitHub Issues](https://github.com/shuke-bio/Rice-skills/issues) 反馈——公开可检索，你的提问也能惠及其他使用者；私密事宜可邮件联系 **shuke4358@gmail.com**。
 
 ## 📚 文档
 

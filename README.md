@@ -261,6 +261,10 @@ python tests/test_utils.py     # Python utility layer
 MIT — see [LICENSE](LICENSE). Third-party components keep their own licenses;
 see [`third_party/NOTICE.md`](third_party/NOTICE.md) and per-library files.
 
+## 📬 Contact
+
+**Questions or issues?** Open a [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues) first — public and searchable, so the answer helps other users too. For private matters, email **shuke4358@gmail.com**.
+
 ## 📚 Documentation
 
 Per-module guides and lab protocols live in [`docs/`](docs/) (Chinese):
