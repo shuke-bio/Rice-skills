@@ -252,7 +252,7 @@ agent 按 §5 路由表加载对应技能执行。
 | 模块 | 目录 | 核心脚本 | 说明 |
 |---|---|---|---|
 | **10 · 变异检测与注释** | `scripts/variants/` | 01_bwa_align.sh → 02_gatk_call.sh → 03_vcf_filter.sh → 04_snpeff_annotate.sh | FASTQ→BAM→VCF（GATK/bcftools）→硬过滤→SnpEff 注释；重工具模板式调用（用户自装，脚本自动探测+安装指引） |
-| **11 · 泛基因组** | `scripts/pangenome/` | 01_pangenome_graph.sh（minigraph/cactus/PGGB）· 02_sv_detect.sh（minimap2+SYRI）· 03_pav_analysis.R · 04_pan_gwas.R | 图构建→SV→PAV（核心/可变/私有 + 性状关联 + Manhattan）→Pan-GWAS（复用 GWAS 引擎） |
+| **11 · 泛基因组** | `scripts/pangenome/` | 01_pangenome_graph.sh（minigraph/cactus/PGGB）· 02_sv_detect.sh（minimap2+SYRI；**read-based 路线 HitSV：短读/长读/混合 SV 检测+基因分型，GPL-3.0 运行安装**）· 03_pav_analysis.R · 04_pan_gwas.R | 图构建→SV→PAV（核心/可变/私有 + 性状关联 + Manhattan）→Pan-GWAS（复用 GWAS 引擎）；方法笔记 `docs/references/hitsv_sv_calling.md` |
 | **12 · QTL 映射（eQTL/mQTL/pQTL）** | `scripts/qtl/` | 01_qtl_mapping.R · 02_colocalization.R · 03_coloc_bayesian.R · 04_qtl_region_snps.py · 05_bsa_scan.py | 自研 cis/trans 引擎（向量化 OLS + 保守 BH）、cis-距离图、Manhattan、每特征最佳命中；共定位筛查/PP4；**BSA 全基因组扫描（ΔSNP-index + G′）→ 区间 SNP 提取 + 基因区域注释（区间 VCF + 三表 Excel）** |
 | **13 · Meta-GWAS** | `scripts/gwas/06_meta_gwas.R` | 多研究逆方差合并 + Cochran Q/I² + 随机效应 + 森林图；配 `docs/rice_databases.md` 水稻数据库导航 |
 | **14 · 蛋白质组** | `scripts/proteomics/` | 01_preprocess.py · 02_diff_protein.R（limma/Welch）· 03_plot_proteome.R | 过滤（≥70%）/归一化/批次/填充→差异蛋白→火山+热图 |

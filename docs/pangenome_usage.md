@@ -8,13 +8,15 @@
 
 ```
 多份组装 FASTA ──01_pangenome_graph.sh──▶ 图形泛基因组（GFA/VCF）
-组装 FASTA ──02_sv_detect.sh──▶ 每样本 SV 表（SYRI）──▶ SV/PAV 矩阵
+组装 FASTA ──02_sv_detect.sh（assembly）──▶ 每样本 SV 表（SYRI）──▶ SV/PAV 矩阵
+重测序 BAM ──02_sv_detect.sh --mode read-based──▶ SV callset（HitSV，含 GT）──▶ SV/PAV 矩阵
 PAV 矩阵 ──03_pav_analysis.R──▶ 核心/可变/私有分类 + 结构 PCA + 性状关联
 PAV/SV 矩阵 ──04_pan_gwas.R──▶ Pan-GWAS（Manhattan + QQ）
 ```
 
 **适用场景**：多份高质量组装（≥10，推荐染色体级别）的泛基因组分析；材料少于 10 份或只有
-重测序数据时，建议先做模块 7 的 SNP-GWAS，或只做 02+03 的 SV/PAV 检测。
+重测序数据时，建议先做模块 7 的 SNP-GWAS，或只做 02+03 的 SV/PAV 检测（缺组装的材料走
+02 的 read-based 路线，见 2.2）。
 
 **运行环境**：图构建与 SV 检测需 **Linux 服务器**（内存/磁盘消耗大）；03/04 为纯 R，本地可跑。
 
@@ -26,6 +28,7 @@ PAV/SV 矩阵 ──04_pan_gwas.R──▶ Pan-GWAS（Manhattan + QQ）
 | 图构建（全） | minigraph-cactus | `conda install -c bioconda cactus` 或官方 Docker/Singularity |
 | 图构建（无参考） | PGGB | `conda install -c bioconda pggb` |
 | SV 检测 | minimap2 + SYRI + samtools | `conda install -c bioconda minimap2 syri samtools` |
+| SV 检测（read-based） | HitSV + samtools | HitSV 为 **GPL-3.0**，预编译静态二进制运行安装：<https://github.com/hitbc/HitSV/releases>（本包不打捆） |
 | PAV 分析（第三方） | APAV | 官方仓库运行时获取：`git clone https://github.com/SJTU-CGM/APAV`（本包不打捆） |
 | PAV/Pan-GWAS（本包自研） | 无额外依赖 | `03_pav_analysis.R` / `04_pan_gwas.R` 开箱即用 |
 
@@ -64,6 +67,37 @@ bash scripts/pangenome/02_sv_detect.sh --ref IRGSP-1.0.fa \
 - 输出每样本 SV 表（`*.sv.syri.out`：INS/DEL/INV/TRA/CPG/CPL 等类型 + 坐标 + 大小）与汇总；
 - `--preset asm10` 适合种内组装（约 1–5% 分歧）；精细抛光组装可用 asm5；
 - **替代路线**：若已用 minigraph-cactus 建图，直接使用其 VCF 中的 SV 基因型，跳过本步骤。
+
+**read-based 路线（缺组装、只有重测序 reads 的材料）**——HitSV 提供短读长 / 长读长 /
+混合三种模式，输出**含基因型（0/1、1/1）的 VCF**，转 0/1 矩阵后即可进入 03/04：
+
+```bash
+# 纯短读长（Illumina / BGI-T7）
+bash scripts/pangenome/02_sv_detect.sh --mode read-based --seq srs \
+    --ref IRGSP-1.0.fa --bam sample.sorted.bam --sample sampleA
+
+# 纯长读长（PacBio HiFi；ONT 数据用 --platform ONT_Q20）
+bash scripts/pangenome/02_sv_detect.sh --mode read-based --seq lrs \
+    --ref IRGSP-1.0.fa --bam sample.hifi.bam --platform HIFI \
+    --aln-preset asm10 --sample sampleA
+
+# 混合（低深度三代 + 高通量二代）
+bash scripts/pangenome/02_sv_detect.sh --mode read-based --seq hybrid \
+    --ref IRGSP-1.0.fa --lrs-bam lowcov.ont.bam --srs-bam sample.srs.bam \
+    --sample sampleA
+
+# 合成数据端到端自检（无需任何输入数据）
+bash scripts/pangenome/02_sv_detect.sh --demo
+```
+
+- 输出 `<sample>.hitsv.vcf` + `<sample>.sv_summary.tsv` + `run_info.txt`；
+  GT 矩阵导出：`bcftools query -f '[%GT\t]\n' <vcf>` 后转 0/1；
+- `--aln-preset asm10` 为水稻种内默认；与参考分歧大可试 asm20；
+- **许可提示**：HitSV 为 GPL-3.0——本包不打包其源码，用户从 GitHub Releases 装预编译
+  二进制（安装不构成再分发）；若改装其源码并再分发，需同样以 GPL-3.0 开源；
+- 方法细节、路线决策（何时短读/长读/混合/组装）见 `docs/references/hitsv_sv_calling.md`
+  （方法笔记，依据 Li G et al., *Nat Biotechnol* 2026, doi:10.1038/s41587-026-03332-9）；
+- 批量多样本：对每样本循环调用（单样本化设计，便于并行投递集群队列）。
 
 ### 2.3 PAV 分析（`scripts/pangenome/03_pav_analysis.R`）
 

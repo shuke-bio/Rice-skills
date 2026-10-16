@@ -5,6 +5,27 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **Read-based SV detection route (module 11 · pangenome)** —
+  `scripts/pangenome/02_sv_detect.sh --mode read-based` wraps **HitSV**
+  (Li G et al., *Nat Biotechnol* 2026, doi:10.1038/s41587-026-03332-9): pure
+  short-read (`--seq srs`), pure long-read (`--seq lrs`, `--platform
+  HIFI|ONT_Q20|ERR_PRONE|ASM`) and hybrid (`--seq hybrid`) calling + genotyping,
+  outputs a genotyped VCF that feeds `03_pav_analysis.R` / `04_pan_gwas.R`.
+  Ships a `--demo` synthetic end-to-end self-test (300 kb reference, simulated
+  ~10× 10 kb HiFi-like reads carrying a known 500 bp DEL + 1 kb INS,
+  DEL-overlap verification). **HitSV is GPL-3.0 and deliberately NOT bundled** —
+  the script prints runtime-install instructions (GitHub Releases static
+  binary) and records the provenance in `run_info.txt`, keeping the MIT
+  licensing model of this repo intact.
+- `docs/references/hitsv_sv_calling.md` — distilled method note (own wording,
+  no paper text/figures copied): SV-detection route decision guide
+  (assembly / graph / SRS / LRS / hybrid / ultra-low-depth), HitSV method
+  essentials (repeat- & signature-density-aware breakpoint recognition,
+  haplotype-resolved local assembly), rice-relevant preset guidance
+  (`-P asm10` intraspecies default), integration paths, reporting checklist,
+  and references (paper, tool repo, CC BY 4.0 preprint, call-result repos).
+
 ### Changed
 - **`third_party/nature-skills/` upgraded to the author's latest release** — 22 skills
   (was 9), now under Apache-2.0 (repo-level LICENSE, upstream
