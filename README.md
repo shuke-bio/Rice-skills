@@ -73,7 +73,9 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - XP-EHH selection scans
 
 **Pangenome & QTL**
-- SV / PAV detection and Pan-GWAS
+- SV / PAV detection and Pan-GWAS — three routes: assembly (minimap2 + SYRI),
+  graph (minigraph-cactus VCF genotyping) and read-based (HitSV short-read /
+  long-read / hybrid calling with genotyping)
 - eQTL / mQTL / pQTL mapping and GWAS×QTL colocalization
 - Genome-wide BSA / QTL-seq scan (ΔSNP-index + G′, simulation-based confidence)
 - QTL/BSA interval SNP extraction with gene-region annotation (promoter/UTR/exon/intron) — region VCF + 3-sheet Excel
