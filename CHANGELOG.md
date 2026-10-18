@@ -25,6 +25,21 @@ Versioning follows [Semantic Versioning](https://semver.org/).
   haplotype-resolved local assembly), rice-relevant preset guidance
   (`-P asm10` intraspecies default), integration paths, reporting checklist,
   and references (paper, tool repo, CC BY 4.0 preprint, call-result repos).
+- **GAPIT multi-model support (module 7 · GWAS)** — `scripts/gwas/03_association.R`
+  gains `--model` (engine `gapit` only): GLM / MLM / CMLM / SUPER / MLMM /
+  FarmCPU / Blink, case-insensitive with canonical normalization; default MLM
+  keeps existing behavior; the chosen model is recorded in the engine label,
+  `qc_summary.txt` and `run_info.txt`. Additions are distilled method notes only
+  — **no GAPIT source bundled** (GPL-2.0+ verified via DESCRIPTION 2026-10;
+  runtime install `remotes::install_github("jiabowang/GAPIT")`, instructions
+  printed by the script).
+- `docs/references/gapit_gwas_formats.md` — distilled method note (own wording,
+  no third-party tutorial text or source copied): GAPIT input formats
+  (Y/GD/GM/K/CV; Numeric vs HapMap vs PLINK vs VCF), VCF→HapMap preprocessing
+  (vcftools + TASSEL route), the seven-model decision table (GLM/MLM/CMLM/
+  SUPER/MLMM/FarmCPU/Blink with complexity and use-case guidance), output-file
+  interpretation, and citation list (GAPIT v1–v4, FarmCPU, BLINK, SUPER, P3D,
+  cBLUP/sBLUP papers).
 
 ### Changed
 - **`third_party/nature-skills/` upgraded to the author's latest release** — 22 skills

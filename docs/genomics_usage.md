@@ -58,7 +58,7 @@ Rscript scripts/gwas/05_plot_gwas.R \
 |---|---|---|---|
 | `simple` | 逐 SNP OLS（GLM 族）+ PCA 协变量 | 无（内置） | 探索性分析、小数据、快速验证 |
 | `rmvp` | GLM/MLM/FarmCPU | `install.packages("rMVP")`（Apache-2.0） | **发表级主推**（内存高效、多模型） |
-| `gapit` | MLM/BLINK/FarmCPU | GitHub 安装 GAPIT | 社区经典路线 |
+| `gapit` | GLM/MLM/CMLM/SUPER/MLMM/FarmCPU/Blink（`--model` 选择，默认 MLM） | GitHub 安装 GAPIT（GPL-2.0+，运行时安装不打包） | 社区经典路线 |
 
 显著性阈值：默认 Bonferroni 0.05/n；`--p-threshold` 可覆盖。
 

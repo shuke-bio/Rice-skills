@@ -8,7 +8,8 @@
 #              anywhere with no extra packages (exploratory baseline);
 #     rmvp   : rMVP (Memory-efficient, Visualization-enhanced, Parallel-
 #              accelerated; Apache-2.0) with GLM / MLM / FarmCPU models;
-#     gapit  : GAPIT (MLM / FarmCPU / BLINK).
+#     gapit  : GAPIT (GLM / MLM / CMLM / SUPER / MLMM / FarmCPU / Blink;
+#              GPL-2.0+, installed at runtime).
 #   In auto mode the best installed engine is chosen (rmvp > gapit > simple).
 #
 # Usage:
@@ -17,6 +18,7 @@
 #       --snp-info demo_data/genomics/snp_info.csv \
 #       --phenotype demo_data/genomics/phenotype.csv \
 #       --trait salt_tolerance_index --outdir results/gwas/03_association
+#       # --engine gapit --model FarmCPU   # GAPIT model choice (gapit engine only)
 #
 # Inputs:
 #   --genotype   SNP x sample dosage matrix CSV (0/1/2, missing = empty)
@@ -33,6 +35,9 @@
 #     and is a legitimate "GLM" baseline; for publication-grade mixed models
 #     install rMVP (install.packages("rMVP")) or GAPIT.
 #   - Significance threshold defaults to Bonferroni 0.05 / n_SNPs.
+#   - --model selects the GAPIT model (GLM / MLM / CMLM / SUPER / MLMM /
+#     FarmCPU / Blink); default MLM. Ignored by the simple / rmvp engines with
+#     a message. Model choice guidance: docs/references/gapit_gwas_formats.md.
 ###############################################################################
 
 args <- commandArgs(trailingOnly = FALSE)
@@ -69,6 +74,14 @@ npc <- suppressWarnings(as.integer(opt(opts, "npc", "5")))
 maf_cut <- suppressWarnings(as.numeric(opt(opts, "maf", "0.05")))
 missing_cut <- suppressWarnings(as.numeric(opt(opts, "missing", "0.1")))
 p_threshold <- opt(opts, "p-threshold", NULL)
+gapit_models <- c("GLM", "MLM", "CMLM", "SUPER", "MLMM", "FarmCPU", "Blink")
+model_raw <- opt(opts, "model", "MLM")
+m <- which(tolower(gapit_models) == tolower(model_raw))
+if (length(m) == 0) {
+  stop("--model must be one of ", paste(gapit_models, collapse = " / "),
+       " (case-insensitive); got '", model_raw, "'.", call. = FALSE)
+}
+model <- gapit_models[m]
 
 if (is.null(genotype_path) || is.null(snp_info_path) || is.null(phenotype_path) || is.null(trait)) {
   stop("Required: --genotype, --snp-info, --phenotype, --trait.\n",
@@ -165,8 +178,8 @@ run_rmvp <- function() {
 
 run_gapit <- function() {
   need_pkgs("GAPIT")
-  message("Engine: GAPIT (MLM). GAPIT writes files into the working directory; ",
-          "temporary switch to outdir.")
+  message("Engine: GAPIT (model = ", model, "). GAPIT writes files into the ",
+          "working directory; temporary switch to outdir.")
   g <- impute_mean(fl$geno)
   GD <- data.frame(taxa = rownames(g), g, check.names = FALSE)
   GM <- data.frame(SNP = fl$snp_info$snp_id, Chromosome = fl$snp_info$chr,
@@ -176,10 +189,10 @@ run_gapit <- function() {
   on.exit(setwd(old), add = TRUE)
   setwd(outdir)
   gapit_res <- GAPIT::GAPIT(Y = Y, GD = GD, GM = GM, PCA.total = npc,
-                            model = "MLM", file.output = FALSE)
+                            model = model, file.output = FALSE)
   res <- as.data.frame(gapit_res$GWAS)
   data.frame(snp_id = res$SNP, beta = if ("effect" %in% names(res)) res$effect else NA_real_,
-             se = NA_real_, p = res$P.value, engine = "GAPIT-MLM",
+             se = NA_real_, p = res$P.value, engine = paste0("GAPIT-", model),
              stringsAsFactors = FALSE)
 }
 
@@ -188,6 +201,10 @@ if (engine == "auto") {
   chosen <- if (requireNamespace("rMVP", quietly = TRUE)) "rmvp"
             else if (requireNamespace("GAPIT", quietly = TRUE)) "gapit"
             else "simple"
+}
+if (chosen != "gapit" && !is.null(opts$model)) {
+  message("Note: --model only applies to the GAPIT engine; ignoring it for '",
+          chosen, "'.")
 }
 assoc <- switch(chosen,
                 simple = run_simple(),
@@ -218,6 +235,7 @@ writeLines(c(
   sprintf("samples: %d", nrow(fl$geno)),
   sprintf("snps tested: %d (after MAF %g / missing %g filter)", nrow(assoc), maf_cut, missing_cut),
   sprintf("engine: %s", chosen),
+  sprintf("model: %s", if (chosen == "gapit") model else "(engine default)"),
   sprintf("covariates: %d PCs", if (is.null(covariates)) 0L else ncol(covariates)),
   sprintf("significance threshold: %.3g", p_threshold),
   sprintf("significant SNPs: %d", nrow(sig)),
@@ -231,6 +249,7 @@ write_run_info_r(
   outdir, "03_association.R",
   params = list(genotype = genotype_path, snp_info = snp_info_path,
                 phenotype = phenotype_path, trait = trait, engine = chosen,
+                model = if (chosen == "gapit") model else NA_character_,
                 npc = npc, maf = maf_cut, missing = missing_cut,
                 p_threshold = p_threshold, seed = RICE_SEED),
   packages = c("ggplot2", "rMVP", "GAPIT")

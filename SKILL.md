@@ -219,7 +219,7 @@ agent 按 §5 路由表加载对应技能执行。
 |---|---|---|---|---|
 | 01 | `01_plink_qc.sh` | VCF→PLINK 转换 + MAF/缺失率/HWE 质控 + LD 剪枝 + 剂量导出（模板，需 PLINK） | PLINK | PLINK fileset、`.prune.in`、`.raw` |
 | 02 | `02_plink_to_matrix.R` | PLINK `.raw/.map` → 标准剂量矩阵 | R | `genotype.csv`、`snp_info.csv` |
-| 03 | `03_association.R` | GWAS 关联（三引擎：simple 内置 OLS-GLM / rMVP FarmCPU·MLM / GAPIT），PCA 协变量 | 可选 rMVP(推荐)/GAPIT | 全量结果表、显著 SNP 表、PCA 得分 |
+| 03 | `03_association.R` | GWAS 关联（三引擎：simple 内置 OLS-GLM / rMVP FarmCPU·MLM / GAPIT 七模型 `--model`），PCA 协变量 | 可选 rMVP(推荐)/GAPIT | 全量结果表、显著 SNP 表、PCA 得分 |
 | 04 | `04_candidate_loci.R` | 显著 SNP→位点聚类→候选区间→与 GFF3 注释求交 | R | `gwas_loci.csv`、`candidate_genes.csv` |
 | 05 | `05_plot_gwas.R` | 出版级 Manhattan / QQ / 组合总览图 | ggplot2+patchwork | 三类图 × 3 格式 |
 

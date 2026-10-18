@@ -28,7 +28,7 @@
 | 工具 | 用途 | 仓库 | 许可 | 与本包关系 |
 |---|---|---|---|---|
 | **rMVP** ★341 | 高性能 GWAS（C 内核，百万级标记） | `xiaolei-lab/rMVP` | **Apache-2.0** ✅ | 本包 `gwas/` 文档中为可选引擎之一 |
-| **GAPIT** ★244 | 经典 GWAS R 包（GLM/MLM/FarmCPU/Blink） | `jiabowang/GAPIT` | 未声明（R 包，查 DESCRIPTION） | 本包 `gwas/03_association.R` 可调用 |
+| **GAPIT** ★244 | 经典 GWAS R 包（GLM/MLM/CMLM/SUPER/MLMM/FarmCPU/Blink + GS） | `jiabowang/GAPIT` | **GPL-2.0+**（DESCRIPTION 核验，2026-10） | 本包 `gwas/03_association.R --engine gapit --model` 可调用；MIT 主体不打包，运行时安装 |
 | TASSEL | 关联+连锁分析（Java GUI） | `tassel` | 按项目网页说明 | 备选 |
 | **RiceG2G** | GWAS/QTL 位点**因果基因优先级**（多证据打分） | `xhhuanglab/RiceG2G` | 未声明 | 互补：接在本包 GWAS/共定位下游做候选排序 |
 | **RicePilaf** | Post-GWAS/QTL 仪表板（泛基因组/共表达/调控/表观/富集整合） | `bioinfodlsu/rice-pilaf` | **MIT** ✅ | 互补：功能解读层；论文 GigaScience 2024 |
