@@ -5,6 +5,8 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.0] — 2026-10-19
+
 ### Added
 - **Publication color-palette component (colors)** — vendored
   `third_party/colors/` from **lcpmgh/colors** (v4.0, commit `36b2cc6`,

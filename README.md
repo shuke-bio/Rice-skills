@@ -14,7 +14,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.0.zip)
+![Version](https://img.shields.io/badge/version-3.3.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-79-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -153,8 +154,9 @@ conda env create -f environment.yml && conda activate rice-skills   # optional, 
 ```
 
 **C. Point your agent at it** — paste the repo link into Claude / Codex / any
-agentic CLI and say *"install the rice skills from this repo"*; or download the
-ZIP from Releases and unzip into your agent's skills directory.
+agentic CLI and say *"install the rice skills from this repo"*; or hit the
+**download ZIP** badge at the top for the current source snapshot and unzip it
+into your agent's skills directory.
 
 Then run the pipeline exactly like any local tool — see [Quick start](#-quick-start--just-talk-to-your-ai).
 

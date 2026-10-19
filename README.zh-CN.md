@@ -18,7 +18,8 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-3.2.0-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.0.zip)
+![Version](https://img.shields.io/badge/version-3.3.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-79-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -279,8 +280,8 @@ conda env create -f environment.yml && conda activate rice-skills   # 可选：�
 ```
 
 **方式 C：直接把仓库链接发给 AI 代理**——把本仓库链接粘贴给 Claude / Codex /
-任意代理 CLI，说"从这个仓库安装水稻技能"；或从 Releases 下载 ZIP 解压到代理的
-skills 目录。
+任意代理 CLI，说"从这个仓库安装水稻技能"；或点页面顶部的 **download ZIP** 徽章
+下载最新发布版（v3.3.0），解压到代理的 skills 目录。
 
 ## 🚀 快速开始
 
@@ -367,11 +368,11 @@ GWAS / 泛基因组 / CRISPR / 多组学联合分析…）会自动路由。
 ### 方式 A：GitHub 分发
 
 ```bash
-# 本仓库已完成 git init 与全部提交（45 commits，历史已清理不含个人文件），直接关联远程：
+# 本仓库已完成 git init 与全部提交（历史已清理不含个人文件），直接关联远程：
 cd /path/to/Rice-skills
 git remote add origin https://github.com/<you>/Rice-skills.git
 git branch -M main && git push -u origin main
-git tag v3.2.0 && git push origin v3.2.0   # 打 tag 后在 Releases 发布 ZIP
+git tag v3.3.0 && git push origin v3.3.0   # 打 tag 后在 Releases 发布 ZIP
 ```
 
 > 如需重写历史（例如清理个人信息），用 `git filter-repo --path <文件> --invert-paths`；
@@ -382,16 +383,16 @@ git tag v3.2.0 && git push origin v3.2.0   # 打 tag 后在 Releases 发布 ZIP
 ```bash
 # 在仓库根目录的上一级执行（保证 ZIP 内顶层为 Rice-skills/）
 # 排除项：.git 版本库、.workbuddy 工作日志、results 运行输出、__pycache__、注释缓存
-cd .. && zip -r Rice-skills-v3.2.0.zip Rice-skills \
+cd .. && zip -r Rice-skills-v3.3.0.zip Rice-skills \
   -x "*/.git/*" "*/.workbuddy/*" "*/results/*" "*/__pycache__/*" "*/data/*" "*/.git-rewrite/*"
 # 打包前自查：解压后确认无 .workbuddy/、results/、__pycache__/ 目录
 # 或用 git 精确打包（最保险，与 git archive HEAD 内容一致）：
-#   git archive --format=zip -o ../Rice-skills-v3.2.0.zip HEAD
+#   git archive --format=zip -o ../Rice-skills-v3.3.0.zip HEAD
 
 # 上传（curl 示例）
 curl -X POST https://api.openai.com/v1/skills \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -F "file=@Rice-skills-v3.2.0.zip" \
+  -F "file=@Rice-skills-v3.3.0.zip" \
   -F "name=Rice-skills"
 ```
 
