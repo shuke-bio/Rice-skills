@@ -118,7 +118,7 @@ python scripts/proteomics/04_uniprot_mapping.py --tsv-file uniprot_up000059680.t
 
 - 解析规则：Gene Names 同时含 MSU（`LOC_Os04g55560`）与 RAP-DB（`Os04g0649100`）两种
   风格时 **MSU 优先**；版本号自动剥离；输出含 `id_style` 列与 `unmatched.csv` 诊断
-- 首次下载后自动缓存（`data/annotations/`），之后离线可用；`--demo` 合成数据自检
+- 首次下载后自动缓存（`data/annotations/`），之后离线可用；`--demo` 示例数据自检
 
 ### 差异蛋白结构域富集 `05_interpro_domains.py`
 

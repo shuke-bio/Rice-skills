@@ -112,7 +112,7 @@ python scripts/qtl/05_bsa_scan.py \
 - 统计：每 SNP `SNP-index = ALT/(REF+ALT)`；窗内均值差 ΔSNP-index 与 G′；显著性用
   正态模拟（`sd = sqrt(0.25*(1/n_high + 1/n_low))`）取 99% 分位作阈值
 - 输出：`bsa_windows.csv`（每窗）、`bsa_peaks.csv`（候选区间）、`bsa_scan.png/pdf`（全基因组双轨图）
-- `--demo` 自检：合成 3 染色体植入 Chr2 QTL → 精确回收、无 QTL 染色体零假阳性
+- `--demo` 自检：构建 3 条染色体并植入 Chr2 QTL → 精确回收、无 QTL 染色体零假阳性
 - 与 QTLseqr 的关系：本脚本为轻量自研筛查；发表级分析可与 QTLseqr（R 包）互相印证，
   见 `docs/tools_navigation.md`
 
@@ -129,7 +129,7 @@ python scripts/qtl/04_qtl_region_snps.py \
 - 功能：区间 VCF（双亲选择）→ 每 SNP 的 GT/深度/AD/突变频率/ΔAF/差异判定/携带归属 →
   GFF 五级注释（启动子/5'UTR/外显子/内含子/3'UTR/基因间区）→ 区间 VCF + **三表 Excel**
   （全部位点 / 仅差异位点 / 区间基因列表）
-- 输出 Excel 需 `openpyxl`（缺失时自动降级三份 CSV）；`--demo` 内置合成 VCF+GFF 自检
+- 输出 Excel 需 `openpyxl`（缺失时自动降级三份 CSV）；`--demo` 内置示例 VCF+GFF 自检
 
 **3) 贝叶斯共定位 `03_coloc_bayesian.R`**（02 筛查的定量升级）
 

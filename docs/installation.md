@@ -42,7 +42,7 @@ bash tests/test_pipeline.sh
 bash tests/test_pipeline.sh --python /path/to/python --rscript /path/to/Rscript
 ```
 
-该脚本会检查：仓库结构、Python 语法、R 语法（20 个文件）、R/Python 工具层冒烟测试、以及合成数据端到端跑通。全部 PASS = 环境就绪。
+该脚本会检查：仓库结构、Python 语法、R 语法（20 个文件）、R/Python 工具层冒烟测试、以及示例数据端到端跑通。全部 PASS = 环境就绪。
 
 ## 3. 手工安装（不想用 conda）
 

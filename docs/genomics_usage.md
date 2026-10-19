@@ -27,7 +27,7 @@ Rscript scripts/gwas/02_plink_to_matrix.R \
 未装 PLINK 时脚本会给出安装指引（conda 或官方二进制）；路线 A 不需要任何二进制。
 
 **快速体验**：`python scripts/utils/make_demo_genomics.py --outdir demo_data/genomics`
-生成 300 样本 × 3000 SNP 的合成数据（含亚群结构、LD 块、4 个因果位点与注释）。
+生成 300 样本 × 3000 SNP 的示例数据（含亚群结构、LD 块、4 个因果位点与注释）。
 
 ## 1. 模块 7 · GWAS 全链
 

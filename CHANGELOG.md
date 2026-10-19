@@ -6,6 +6,42 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- **Publication color-palette component (colors)** — vendored
+  `third_party/colors/` from **lcpmgh/colors** (v4.0, commit `36b2cc6`,
+  MIT, Copyright (c) 2025 Liang Chen; LICENSE原文已核验): Shiny 配色推荐器
+  + 229 套论文插图配色（`@palettes.csv`：知乎顶刊精选 177 + ggsci/grDevices/
+  RColorBrewer 52，2–51 色/套）。上游 `articles/`（知乎抓取的第三方文章）
+  与 `oldversion/` **明确剔除**（MIT 不覆盖），详见 `third_party/colors/NOTICE.md`。
+- **Scientific continuous-colormap component (colormaps)** — vendored
+  `third_party/colormaps/@colormaps.csv` (**133 张科学连续色图 hex 数据**):
+  CMasher 53 张（BSD-3-Clause, © 2019-2021 Ellert van der Velden,
+  `1313e/CMasher`, 默认分支 `master`）+ colorcet 80 张（CC BY 4.0,
+  © Peter Kovesi, `holoviz/colorcet`）。两上游均活跃
+  （末次提交 2026-10-09 / 2026-10-12），LICENSE 原文已核验。字段
+  `c_sour/c_name/c_type/n_stops/colors`（`;` 分隔 hex），类型分布
+  sequential 78 / diverging 31 / cyclic 19 / rainbow 5；附快速选型表与
+  R/Python 取用代码（`third_party/colormaps/README.md`）。**剔除决策**
+  （2026-10-18 收录准则：末次提交 ≤ 约 1 年）：crameri / cmocean / scico /
+  viridis 长期停更（2023–2024）**不入包**，仅在
+  `third_party/colormaps/NOTICE.md` 的「调研后未收录的上游」表留档并附
+  运行时安装命令。
+- **Discrete palette data components (ltc + ggpubfigs)** — vendored
+  `third_party/ltc/@palettes.csv`（**32 套**自然风调色板，MIT,
+  `loukesio/ltc-color-palettes`, © 2021 ltc authors，末次提交 2026-08-30）与
+  `third_party/ggpubfigs/@palettes.csv`（**15 套**色盲友好出版配色，MIT,
+  `JLSteenwyk/ggpubfigs`, © 2020 Jacob L. Steenwyk，末次提交 2026-05-12）。
+  二者均由上游源码（R 列表）转录为 hex 数据，LICENSE 原文已核验，
+  各附 LICENSE + NOTICE + README。
+- `docs/references/plot_color_palettes.md` — 蒸馏方法笔记（自有语言）：配色三类型
+  （离散/连续/发散）、NPG/Lancet/NEJM/JAMA/JCO/AAAS 期刊 palette hex 直取、
+  六条选色原则（≤8 组、避红绿相邻、灰度可辨、全文一致等）、ggplot2
+  `scale_color_manual()` 取用代码、本地 Shiny 运行与安装命令；
+  **§8 连续色图五类型方法论**（sequential/diverging/cyclic/rainbow/special
+  判定：cyclic=首尾色距 < 0.05、diverging=U/∩型亮度剖面，其余为 sequential；
+  上游官方分类交叉校验）+ colormaps 组件选型与 R/Python 取用代码。
+- SKILL.md §4/§5.1、docs/tools_navigation.md §0/§6/§7 挂载 colors 配色速查入口；
+  `third_party/NOTICE.md` 总索引、README 双语同步四个配色组件
+  （colors / colormaps / ltc / ggpubfigs）规模与收录准则。
 - **Read-based SV detection route (module 11 · pangenome)** —
   `scripts/pangenome/02_sv_detect.sh --mode read-based` wraps **HitSV**
   (Li G et al., *Nat Biotechnol* 2026, doi:10.1038/s41587-026-03332-9): pure
@@ -42,6 +78,24 @@ Versioning follows [Semantic Versioning](https://semver.org/).
   cBLUP/sBLUP papers).
 
 ### Changed
+- **Literature source coverage documented** — both READMEs and SKILL.md §5.3 now state
+  exactly which databases the literature-search chain covers: T1 APIs PubMed
+  (E-utilities/MeSH), CrossRef, arXiv; T2 Semantic Scholar / bioRxiv / medRxiv /
+  OpenAlex; last-resort Google Scholar / Web of Science / Scopus / CNKI (institutional
+  access or manual, flagged as unstable). Full-text download stays on lawful channels
+  only (publisher APIs / OA·PMC·Unpaywall / CNKI sessions; no Sci-Hub-style routes).
+- **Colormap stop-count claims corrected** — `@colormaps.csv` stop counts are transcribed
+  verbatim from upstream `_hex.txt` files (116 maps at 256 stops, cmasher cyclic/diverging
+  at 510–511, cmasher `neutral` at 2560); README/NOTICE/method-note wording updated to
+  match (no resampling). A known upstream hex typo in `colors/@palettes.csv`
+  (`#T3ABCF`, palette id 123) is now documented in `third_party/colors/NOTICE.md`
+  instead of being silently kept.
+- **Public-facing wording sweep** — bundled demo data is now called
+  "示例数据 / 演示数据" everywhere in README (both languages), SKILL.md,
+  CITATION.cff, CONTRIBUTING.md and docs/ (was "合成数据" / "synthetic data").
+  The demo data itself is unchanged (still program-generated placeholders,
+  seed=42, never for biological conclusions); only the shop-window wording
+  changed so first-time visitors do not read the package as fake-data-only.
 - **`third_party/nature-skills/` upgraded to the author's latest release** — 22 skills
   (was 9), now under Apache-2.0 (repo-level LICENSE, upstream
   [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) commit

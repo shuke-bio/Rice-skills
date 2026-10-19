@@ -86,7 +86,7 @@ bash scripts/pangenome/02_sv_detect.sh --mode read-based --seq hybrid \
     --ref IRGSP-1.0.fa --lrs-bam lowcov.ont.bam --srs-bam sample.srs.bam \
     --sample sampleA
 
-# 合成数据端到端自检（无需任何输入数据）
+# 示例数据端到端自检（无需任何输入数据）
 bash scripts/pangenome/02_sv_detect.sh --demo
 ```
 

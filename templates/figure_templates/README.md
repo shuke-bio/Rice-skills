@@ -63,7 +63,7 @@ save_nature_figure(p, "results/transcriptome/07_figures/fig_volcano",
 ```bash
 # 方式 1（推荐）：把模板复制到主题旁边使用
 cp templates/figure_templates/matplotlib_templates.py scripts/utils/
-cd scripts/utils && python matplotlib_templates.py   # 自带合成数据演示
+cd scripts/utils && python matplotlib_templates.py   # 自带示例数据演示
 
 # 方式 2：在仓库根目录直接运行（自动把 scripts/utils 加入 sys.path）
 python templates/figure_templates/matplotlib_templates.py
@@ -80,7 +80,7 @@ fig, ax = template_volcano(de_df)          # 返回 (fig, ax)
 save_nature_figure(fig, "results/fig_volcano", width_mm=89, height_mm=80)
 ```
 
-`python matplotlib_templates.py` 会以 numpy 合成数据（seed=42）演示全部
+`python matplotlib_templates.py` 会以 numpy 现场生成的示例数据（seed=42）演示全部
 模板并输出到**系统临时目录**（不污染仓库），可直接运行验证环境。
 
 ## 输入数据列名约定

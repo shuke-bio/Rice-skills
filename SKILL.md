@@ -107,7 +107,7 @@ trigger:
 ## 1. 适用边界
 
 本 Skill 是**面向全体水稻组学研究者的通用工具链**：数据格式通用、参数可配置，不绑定任何实验室、
-平台或测序公司；仓库内示例数据均为合成数据（性状名为演示占位，可直接替换为你自己的数据）。
+平台或测序公司；仓库内示例数据均为程序生成的演示数据（性状名为占位符，可直接替换为你自己的数据）。
 
 | 维度 | 支持 | 不支持 |
 |---|---|---|
@@ -168,7 +168,7 @@ metabolites.csv ──► [模块2 代谢组] 预处理 ─► OPLS-DA/VIP ─�
 
 三模块可独立运行，也可由 `run_pipeline.sh` 一条命令串行执行。
 
-**v3.0 全组学扩展**（各模块独立运行，均带合成数据 demo 与独立文档）：
+**v3.0 全组学扩展**（各模块独立运行，均带示例数据 demo 与独立文档）：
 
 ```
 FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释 ─┬─► [7 GWAS] ─► [13 Meta-GWAS]
@@ -261,7 +261,7 @@ agent 按 §5 路由表加载对应技能执行。
 | **17 · 单细胞** | `scripts/single_cell/` | 01_scanpy_pipeline.py | Scanpy 全流程模板（QC→聚类→marker→打分→PAGA）；RSTA/RICE scGPT 集成指引 |
 | **18 · 空间组学** | `scripts/spatial/` | 01_spatial_pipeline.py | Stereo-seq/Visium→表达域→Moran's I SVG→邻域富集；RSTA 时空图谱对接 |
 
-> v3.0 各模块均配**合成数据生成器**（`scripts/utils/make_demo_*.py`）与独立文档
+> v3.0 各模块均配**示例数据生成器**（`scripts/utils/make_demo_*.py`）与独立文档
 > （`docs/variants_usage.md`、`pangenome_usage.md`、`qtl_usage.md`、`proteomics_usage.md`、
 > `epigenomics_usage.md`、`phenomics_usage.md`、`single_cell_usage.md`、`spatial_usage.md`、
 > `rice_databases.md`、`tf_promoter_usage.md`），可独立验证各模块。
@@ -344,6 +344,19 @@ agent 按 §5 路由表加载对应技能执行。
   `scripts/utils/plot_theme.R` / `plot_theme.py` 主题，**视觉完全一致**。
 - **配色**：低饱和、色盲友好（NMI pastel 风格）；语义色固定：上调红 `#CE6A6B`、
   下调蓝 `#5B84AE`、不显著灰 `#C9C4BE`、高亮琥珀 `#E8A33D`；各面板配色统一。
+- **配色速查（离散分组）**：需投稿级分组色时查 `third_party/colors/@palettes.csv`
+  （229 套顶刊风格，MIT 组件，溯源见 `third_party/colors/NOTICE.md`）、
+  `third_party/ltc/@palettes.csv`（32 套自然风，MIT）、
+  `third_party/ggpubfigs/@palettes.csv`（15 套色盲友好，MIT）与方法笔记
+  `docs/references/plot_color_palettes.md`（NPG/Lancet/NEJM/JAMA/JCO/AAAS 等
+  hex 直取 + 选色六原则 + ggplot2 取用代码）；交互挑选本地运行
+  `shiny::runApp("third_party/colors")`。
+- **配色速查（连续色图）**：热图 / 火山图 / 密度图 / 轨迹图等连续标量配色查
+  `third_party/colormaps/@colormaps.csv`（133 张：CMasher 53 张 BSD-3-Clause +
+  colorcet 80 张 CC BY 4.0，数据类型 sequential / diverging / cyclic / rainbow），
+  选型表与 R/Python 取用代码见 `third_party/colormaps/README.md`；
+  五类型方法论（含 U 型/∩型亮度剖面判发散色图）见
+  `docs/references/plot_color_palettes.md` §8。
 - **字体**：Arial（或度量兼容的 Helvetica）；正文 8 pt、标题 9 pt 加粗、刻度/图例 7 pt；
   线宽 0.5 pt；PDF 文本可编辑可嵌入。
 - **输出**：每张图同时输出 **PDF + SVG + TIFF（300 dpi）**；单栏 89 mm、1.5 栏 120 mm、
@@ -364,7 +377,7 @@ agent 按 §5 路由表加载对应技能执行。
 
 | 图表需求 | 默认加载路径（third_party/ 下） |
 |---|---|
-| 配色 / 字体 / 导出策略 | `bioskills/data-visualization/color-palettes` · `matplotlib-fundamentals` · `ggplot2-fundamentals` |
+| 配色 / 字体 / 导出策略 | `bioskills/data-visualization/color-palettes` · `matplotlib-fundamentals` · `ggplot2-fundamentals` · `third_party/colors`（229 套顶刊离散配色速查 + Shiny app，MIT） · `third_party/ltc`（32 套自然风离散配色，MIT） · `third_party/ggpubfigs`（15 套色盲友好离散配色，MIT） · `third_party/colormaps`（133 张连续色图 hex，BSD-3 / CC BY 4.0） |
 | Manhattan / QQ / LocusZoom | `bioskills/data-visualization/manhattan-qq-locuszoom` |
 | 火山图 / MA 图 | `bioskills/data-visualization/volcano-and-ma-plots` |
 | 热图 / 聚类 | `bioskills/data-visualization/heatmaps-clustering` |
@@ -412,6 +425,12 @@ agent 按 §5 路由表加载对应技能执行。
 | 文献监测管线（每日/每周跟踪一个方向） | `nature-skills/skills/nature-literature-pipeline` |
 | 编程检索（PubMed/OpenAlex/bioRxiv API） | `sciagent-skills/skills/scientific-writing/` 下 `pubmed-database` · `openalex-database` · `biorxiv-database` |
 | 检索策略 / 系统综述 | `sciagent-skills/skills/scientific-writing/scientific-literature-search` · `literature-review` |
+
+> **检索源分层**（`nature-academic-search` 的 source-tiers）：T1 官方 API = PubMed（E-utilities，
+> MeSH）/ CrossRef（DOI、引文核验）/ arXiv；T2 = Semantic Scholar / bioRxiv / medRxiv / OpenAlex；
+> T3 兜底 = Google Scholar / Web of Science / Scopus / CNKI·万方（无稳定 API，需机构权限或手动，
+> 使用时必须向用户明示"结果可能不全或过期"）。全文下载只走合法渠道（出版商 API / OA·PMC·Unpaywall /
+> CNKI 机构会话），不提供 Sci-Hub 类灰色路径。
 
 ### 5.4 论文写作、润色与投稿（按需加载，不强制路由）
 
@@ -576,7 +595,7 @@ Rscript scripts/transcriptomics/02_deseq2.R \
 bash tests/test_pipeline.sh
 ```
 
-基因组学模块快速体验（零外部依赖，合成数据全流程）：
+基因组学模块快速体验（零外部依赖，示例数据全流程）：
 
 ```bash
 python scripts/utils/make_demo_genomics.py --outdir demo_data/genomics
@@ -641,6 +660,6 @@ v3.0 模块输出：
 5. **网络依赖**：clusterProfiler/KEGGREST 的富集分析需要联网访问 KEGG/GO 数据库；
    离线环境请预先下载基因集 GMT 并在 `04_gsea.R` 中本地运行。
 6. **水稻无 MSigDB**：GSEA 请使用自定义 GMT（脚本内附从 KEGG osa 构建 GMT 的说明）。
-7. **示例数据**：本仓库默认不附示例数据；可用
-   `python scripts/utils/make_demo_data.py --outdir demo_data` 生成小型合成数据自检流程
-   （合成数据仅供测试，勿用于生物学结论）。
+7. **示例数据**：本仓库默认不附带示例数据；可用
+   `python scripts/utils/make_demo_data.py --outdir demo_data` 一键生成（seed=42，可复现），
+   仅供测试流程，勿用于生物学结论。

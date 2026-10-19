@@ -14,7 +14,7 @@ scripts, documentation fixes, and translations.
 ## Ground rules
 
 1. **Reproducibility first.** Every analysis script must ship with a
-   `--demo` (or equivalent) self-test on synthetic data, and must not require
+   `--demo` (or equivalent) self-test on bundled demo data, and must not require
    network access to pass it.
 2. **License hygiene.** Do not copy code, data, or assets from repositories
    without a clear open-source license (MIT / BSD / Apache-2.0 / CC BY 4.0 are
@@ -38,7 +38,7 @@ scripts, documentation fixes, and translations.
 ## Reporting bugs
 
 Include: the exact command line, the module, `run_info.txt`, the error output,
-and (if possible) the smallest synthetic dataset reproducing the issue.
+and (if possible) the smallest demo dataset reproducing the issue.
 Attaching the `--demo` command that fails is the fastest path to a fix.
 
 Other questions: open a [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues),

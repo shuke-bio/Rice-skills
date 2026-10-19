@@ -34,11 +34,11 @@
 > **引物与 CRISPR 靶点设计**，输出 CNS 级出版图表。
 >
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
-> 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**合成数据**（性状名为演示占位，可任意替换）。
+> 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**程序生成的演示数据**（性状名为占位符，可任意替换为你自己的数据）。
 >
 > 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**79 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
-> R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配合成数据生成器与独立文档。
+> R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配示例数据生成器与独立文档。
 
 **English**: Rice-skills is a ready-to-publish, all-omics analysis skill for rice (Oryza sativa) —
 transcriptomics, metabolomics and their integration, plus genomics (variants/GWAS/popgen/pangenome/eQTL),
@@ -79,7 +79,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - XP-EHH 选择扫描
 
 **泛基因组与 QTL**
-- SV / PAV 检测与 Pan-GWAS
+- SV / PAV 检测与 Pan-GWAS —— 三种途径：组装（minimap2 + SYRI）、图（minigraph-cactus VCF 基因分型）与基于读取的（HitSV 短读 / 长读 / 混合调用及基因分型）
 - eQTL / mQTL / pQTL 映射与 GWAS×QTL 共定位
 - BSA / QTL-seq 全基因组扫描（ΔSNP-index + G′，模拟法置信线）
 - QTL/BSA 区间 SNP 提取与基因区域注释（启动子/UTR/外显子/内含子，含 ΔAF 与差异判定）——区间 VCF + 三表 Excel
@@ -115,6 +115,9 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 
 **按需加载（你明确要求才触发，不强制路由）**
 - 文献多源检索、全文合法下载、结构化精读
+  - **检索覆盖库**：PubMed（E-utilities + MeSH 策略）· CrossRef（DOI / 引文核验）· OpenAlex · arXiv · Semantic Scholar · bioRxiv / medRxiv
+  - 兜底路径：Google Scholar · Web of Science · Scopus · CNKI / 万方（后两类需机构权限或手动下载，抓取类源不稳定时会明确提示）
+  - 全文下载走合法渠道：出版商 API（Elsevier / Springer Nature / IEEE，用你自己的 key）· 开放获取（PMC / Unpaywall）· CNKI 机构会话；不提供 Sci-Hub 等灰色渠道
 - 论文各章节写作、Nature 风格英文润色、引用规范与参考文献多源核验
 - 统计报告审查、投稿前预审稿模拟、审稿意见逐条回复
 - 论文转 PPT、论文翻译、开题报告、专利交底、实验日志
@@ -163,7 +166,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
   `04_uniprot_mapping.py`（**UniProt UP000059680 蛋白→基因映射自动化**）·
   `05_interpro_domains.py`（**InterProScan 解析 + 差异蛋白结构域富集**）·
   `02_mirna_targets.py`（**miRNA 靶基因预测** psRNATarget 式本地实现）·
-  `02_motif_tf_match.py`（**motif→TF 匹配**，PlantPAN/Cis-BP PWM 库）；每项均有合成数据 demo 自检
+  `02_motif_tf_match.py`（**motif→TF 匹配**，PlantPAN/Cis-BP PWM 库）；每项均有示例数据 demo 自检
 - **实验协议配套（v2.1.1）**：`docs/protocols_molecular.md`（引物评估 9 原则、同源重组、RNAi、
   蛋白纯化与 SDS-PAGE、亚细胞定位、LUC 互补、mhiTAIL-PCR、GUS 染色、BioEdit）+ 
   `docs/research_workflow_tf.md`（转录因子研究全流程路线图）——与设计模块直接衔接
@@ -203,7 +206,7 @@ Rice-skills/
 │   ├── tf/                         # 启动子 k-mer 富集（v3.1）· motif→TF 匹配（v3.2）
 │   ├── single_cell/                # Scanpy 全流程模板（v3.0）
 │   ├── spatial/                    # Stereo-seq/Visium 空间流程（v3.0）
-│   └── utils/                      # 绘图主题/数据IO/合成数据生成器（15 个工具）
+│   └── utils/                      # 绘图主题/数据IO/示例数据生成器（15 个工具）
 ├── templates/
 │   ├── figure_templates/           # ggplot2 与 matplotlib 出版图模板
 │   └── report_template.Rmd         # 全流程分析报告模板
@@ -214,7 +217,11 @@ Rice-skills/
 │   ├── kdense-scientific-skills/   # K-Dense 精选 28 项：单细胞/GRN/质谱/表观/进化/CRISPR/功效分析（MIT）
 │   ├── omicverse-skills/           # OmicVerse 官方 61 项：单细胞基础模型/轨迹/代谢组多因子/微生物组（MIT 文档；主包 GPL-3.0 运行时安装）
 │   ├── cell-skills/                # Cell 科研工作流 12 项：选题/写作/审稿/绘图/PPT 矢量（MIT）
-│   └── sciagent-skills/            # SciAgent 精选 64 项：多组学/统计/RNA-seq/期刊图规范（CC BY 4.0）
+│   ├── sciagent-skills/            # SciAgent 精选 64 项：多组学/统计/RNA-seq/期刊图规范（CC BY 4.0）
+│   ├── colors/                     # 绘图组件：229 套顶刊配色 + Shiny 推荐器（MIT）
+│   ├── colormaps/                  # 数据组件：133 张科学连续色图 hex（CMasher BSD-3 + colorcet CC BY 4.0）
+│   ├── ltc/                        # 数据组件：32 套自然风离散配色 hex（MIT）
+│   └── ggpubfigs/                  # 数据组件：15 套色盲友好出版配色 hex（MIT）
 ├── docs/
 │   ├── installation.md             # 安装指南
 │   ├── usage.md                    # 使用手册（分模块命令 + 参数表）
@@ -288,7 +295,7 @@ conda activate rice-skills
 # 3. 自检（不依赖业务数据）
 bash tests/test_pipeline.sh
 
-# 4. 用合成数据快速体验完整流程
+# 4. 用示例数据快速体验完整流程
 python scripts/utils/make_demo_data.py --outdir demo_data
 bash run_pipeline.sh \
     --counts demo_data/counts.csv \
@@ -331,7 +338,7 @@ python scripts/design/02_primer_design.py --mode qpcr \
 
 | 想做什么 | 直接这样说 |
 |---|---|
-| 跑完整转录组+代谢组流程 | 用合成数据跑一遍 run_pipeline.sh 全流程，看每个模块的输出结构。 |
+| 跑完整转录组+代谢组流程 | 用仓库自带示例数据跑一遍 run_pipeline.sh 全流程，看每个模块的输出结构。 |
 | 跑自己的 GWAS | 我有基因型CSV、SNP信息和表型CSV，按 docs/genomics_usage.md 帮我跑完整GWAS流程。 |
 | 给目的基因设计 sgRNA 和引物 | 给 demo_gene.fa 设计 CRISPR sgRNA 和 qPCR 引物，输出到 results/design/。 |
 | 试试贝叶斯共定位 | 运行 scripts/qtl/03_coloc_bayesian.R --demo 给我看 PP4 输出格式。 |
@@ -400,7 +407,7 @@ curl -X POST https://api.openai.com/v1/skills \
 ## 🧪 测试
 
 ```bash
-bash tests/test_pipeline.sh    # 环境检查 + Python 编译 + R 语法解析 + 合成数据冒烟测试
+bash tests/test_pipeline.sh    # 环境检查 + Python 编译 + R 语法解析 + 示例数据冒烟测试
 Rscript tests/test_utils.R     # R 主题/出图/溯源冒烟测试
 python tests/test_utils.py     # Python 主题/出图/数据IO 冒烟测试
 ```
@@ -411,7 +418,7 @@ python tests/test_utils.py     # Python 主题/出图/数据IO 冒烟测试
 |---|---|
 | 下载报 `self-signed certificate` / TLS 错误 | 网络拦截了 TLS：加 `--insecure`（注释获取、UniProt 映射支持），或用浏览器下载文件后通过 `--tsv-file` / `--local` 传入 |
 | 缺某个 Bioconductor R 包 | 按需安装：`BiocManager::install("DESeq2")`——脚本会明确报出缺哪个包；内置注释快照（`assets/annotations/`）保证核心流程离线可用 |
-| 不确定某脚本在本机能否跑 | 先跑自检：多数脚本支持 `--demo`（如 `python scripts/integration/07_grn_boost.py --demo`），合成数据零输入验证 |
+| 不确定某脚本在本机能否跑 | 先跑自检：多数脚本支持 `--demo`（如 `python scripts/integration/07_grn_boost.py --demo`），示例数据零输入验证 |
 | 图与出版风格不一致 | 确认 `config/nature_palette.json` 在位，且从仓库根目录运行脚本（主题路径相对仓库） |
 | 首次运行很慢 | 首次运行需要加载/编译重型依赖（tidyverse、Bioconductor），之后会快很多；固定 `--seed` 可复现结果 |
 
@@ -441,6 +448,15 @@ python tests/test_utils.py     # Python 主题/出图/数据IO 冒烟测试
 | `third_party/kdense-scientific-skills/` | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills)（MIT） | 28 个技能：转录组上游与差异表达（bulk-rnaseq、pydeseq2）、通路富集、可视化与统计规范；单细胞/空间（anndata、scanpy、scvi-tools、scvelo）、GRN 推断（arboreto、networkx）、数据库 API（bioservices、gget）、质谱（matchms、pyopenms）、表观组（deeptools）、序列与进化（biopython、etetoolkit、phylogenetics）、变异处理（pysam）、统计与 ML（statistical-power、statsmodels、scikit-learn、umap-learn）、实验支撑（mageck、primer-design、experimental-design、cellprofiler）。GPL 库（bioservices/etetoolkit 等）仅收 MIT 文档，库本体运行时安装 |
 | `third_party/cell-skills/` | [yrui-cmd/Cell](https://github.com/yrui-cmd/Cell) + [Cell_CNS_Figure](https://github.com/yrui-cmd/Cell_CNS_Figure)（MIT） | 12 个技能：科研选题/计划/综述、英文润色、审稿回复、投稿整理、可视化代码、数据图、CNS 风格绘图、PPT 矢量转换 |
 | `third_party/sciagent-skills/` | [jaechang-hits/SciAgent-Skills](https://github.com/jaechang-hits/SciAgent-Skills)（CC BY 4.0） | 64 个技能：多组学整合（MOFA+/通路/PPI）、数据可视化、生物统计、RNA-seq 全链、变异检测、分子生物学（sgRNA 设计指南/质粒注释/RNA 结构）、QC、科研写作与七刊图规范 |
+
+除技能库外，仓库还收录 4 个**绘图工具/数据组件**（同样含 LICENSE 原文与 NOTICE 溯源）：
+
+| 目录 | 来源 | 内容 |
+|---|---|---|
+| `third_party/colors/` | [lcpmgh/colors](https://github.com/lcpmgh/colors)（MIT） | 229 套科研绘图配色（知乎顶刊精选 177 套 + ggsci/grDevices/RColorBrewer 52 套，每套 2–51 色）+ Shiny 推荐器；配套方法笔记 `docs/references/plot_color_palettes.md`（配色三类型、7 套期刊 palette hex 表、查表/Shiny/R 包三条使用路径、选色原则）。上游 LICENSE 已保留（commit `36b2cc6`）；上游 `articles/` 为知乎文章抓取内容，属第三方版权、MIT 不覆盖，**不随本包复制**，排除范围详见 `third_party/colors/NOTICE.md` |
+| `third_party/colormaps/` | [1313e/CMasher](https://github.com/1313e/CMasher)（BSD-3-Clause）+ [holoviz/colorcet](https://github.com/holoviz/colorcet)（CC BY 4.0） | 133 张科学连续色图 hex 数据（字段 `c_sour/c_name/c_type/n_stops/colors`，类型 sequential 78 / diverging 31 / cyclic 19 / rainbow 5），附快速选型表与 R/Python 取用代码（`third_party/colormaps/README.md`）。长期停更的 crameri/cmocean/scico/viridis（末次提交 2023–2024）按收录准则**不入包**，仅留档运行时安装命令。上游均活跃（2026-10），LICENSE 原文已核验 |
+| `third_party/ltc/` | [loukesio/ltc-color-palettes](https://github.com/loukesio/ltc-color-palettes)（MIT） | 32 套自然风离散调色板 hex 数据（上游 R 列表转录）；上游活跃（末次提交 2026-08-30），LICENSE 原文已核验 |
+| `third_party/ggpubfigs/` | [JLSteenwyk/ggpubfigs](https://github.com/JLSteenwyk/ggpubfigs)（MIT） | 15 套色盲友好出版配色 hex 数据（NPG/Lancet/NEJM/JAMA/JCO/AAAS/Tol/Viridis 等 friendly_pals）；上游活跃（末次提交 2026-05-12），LICENSE 原文已核验 |
 
 配套数据：仓库内置**官方注释快照** `assets/annotations/`（MSU↔RAP-DB ID 映射 34,133 对、
 PlantTFDB 水稻 TF 列表 1,862 个 / 56 家族、53 个 TF 家族 GSEA 基因集），开箱即用；

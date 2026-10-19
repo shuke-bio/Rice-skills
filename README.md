@@ -33,7 +33,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - [Install](#-install)
 - [Quick start — just talk to your AI](#-quick-start--just-talk-to-your-ai)
 - [What's inside](#-whats-inside)
-- [Curated third-party skills (541)](#-curated-third-party-skills-541)
+- [Curated third-party skills (541)](#-curated-third-party-skills-541-skillmd--4-tooldata-components)
 - [Testing](#-testing)
 - [Troubleshooting](#-troubleshooting)
 - [License](#-license)
@@ -113,6 +113,9 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 
 **On demand (only when you ask — never force-routed)**
 - Literature search (multi-source), lawful full-text download, structured paper reading
+  - **Sources covered**: PubMed (E-utilities + MeSH), CrossRef (DOI / citation checks), OpenAlex, arXiv, Semantic Scholar, bioRxiv / medRxiv
+  - Last-resort routes: Google Scholar · Web of Science · Scopus · CNKI (institutional access or manual; scraped sources are flagged as unstable when used)
+  - Full text only via lawful channels: publisher APIs (Elsevier / Springer Nature / IEEE, your own key), open access (PMC / Unpaywall), CNKI institutional sessions — no Sci-Hub-style grey routes
 - Manuscript drafting & polishing (Nature-style), citation formatting & reference verification
 - Statistical-reporting review, pre-submission reviewer simulation, point-by-point response letters
 - Paper-to-PPT, paper translation, proposals, patent drafts, experiment logs
@@ -161,7 +164,7 @@ Once installed, these prompts work out of the box:
 
 | What you want | Say this to your agent |
 |---|---|
-| Run a full transcriptome + metabolome pipeline | `用合成数据跑一遍 run_pipeline.sh 全流程，看每个模块的输出结构。` |
+| Run a full transcriptome + metabolome pipeline | `用仓库自带示例数据跑一遍 run_pipeline.sh 全流程，看每个模块的输出结构。` |
 | Do a GWAS on my own data | `我有基因型CSV、SNP信息和表型CSV，按 docs/genomics_usage.md 帮我跑完整GWAS流程。` |
 | Design sgRNA + primers for my gene | `给 demo_gene.fa 设计 CRISPR sgRNA 和 qPCR 引物，输出到 results/design/。` |
 | Test Bayesian colocalization | `运行 scripts/qtl/03_coloc_bayesian.R --demo 给我看 PP4 输出格式。` |
@@ -218,14 +221,14 @@ Rice-skills/
 ├── scripts/                        # 79 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
-├── third_party/                    # 541 curated skills, 6 upstream libraries (NOTICE.md)
+├── third_party/                    # 541 curated skills + palettes, 6 skill libraries + 4 tool/data components (NOTICE.md)
 ├── docs/                           # Per-module usage guides & lab protocols (Chinese)
 └── tests/                          # Pipeline self-check + utility smoke tests
 ```
 
 </details>
 
-## 🧠 Curated third-party skills (541 SKILL.md)
+## 🧠 Curated third-party skills (541 SKILL.md + 4 tool/data components)
 
 | Directory | Upstream | License | Size |
 |---|---|---|---|
@@ -235,10 +238,20 @@ Rice-skills/
 | `kdense-scientific-skills/` | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | MIT | 28 skills |
 | `cell-skills/` | [yrui-cmd/Cell](https://github.com/yrui-cmd/Cell) + CNS_Figure | MIT | 12 skills |
 | `nature-skills/` | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | Apache-2.0 | 22 skills |
+| `colors/` | [lcpmgh/colors](https://github.com/lcpmgh/colors) | MIT | 229 palettes + Shiny app |
+| `colormaps/` | [1313e/CMasher](https://github.com/1313e/CMasher) + [holoviz/colorcet](https://github.com/holoviz/colorcet) | BSD-3-Clause / CC BY 4.0 | 133 scientific colormaps (hex data) |
+| `ltc/` | [loukesio/ltc-color-palettes](https://github.com/loukesio/ltc-color-palettes) | MIT | 32 palettes (hex data) |
+| `ggpubfigs/` | [JLSteenwyk/ggpubfigs](https://github.com/JLSteenwyk/ggpubfigs) | MIT | 15 colorblind-friendly palettes (hex data) |
 
 Skills are **methodology references only** — the pipeline never depends on them.
 Load the relevant `SKILL.md` for expert guidance via the routing table in
 [`docs/skill_routing.md`](docs/skill_routing.md).
+The four color components are plotting aids, not skills: `colors/` holds 229
+publication-grade discrete palettes plus a Shiny picker; `ltc/` (32) and
+`ggpubfigs/` (15) add discrete palettes; `colormaps/` holds 133 scientific
+continuous colormaps. Selection guides and R/Python usage are in
+`third_party/colormaps/README.md` and the distilled method note
+[`docs/references/plot_color_palettes.md`](docs/references/plot_color_palettes.md).
 
 ## 🧪 Testing
 
@@ -254,7 +267,7 @@ python tests/test_utils.py     # Python utility layer
 |---|---|
 | Download fails with `self-signed certificate` / TLS errors | Your network intercepts TLS. Use the `--insecure` flag (annotation fetch, UniProt mapping), or download the file in a browser and pass it via `--tsv-file` / `--local`. |
 | A Bioconductor R package is missing | Install on demand: `BiocManager::install("DESeq2")` — scripts report exactly which package they need. The bundled annotation snapshot (`assets/annotations/`) keeps core pipelines working offline. |
-| Not sure whether a script works on your machine | Run its self-test first: most scripts accept `--demo` (e.g. `python scripts/integration/07_grn_boost.py --demo`) — a synthetic run with no inputs needed. |
+| Not sure whether a script works on your machine | Run its self-test first: most scripts accept `--demo` (e.g. `python scripts/integration/07_grn_boost.py --demo`) — a demo run on built-in example data, zero input needed. |
 | Figures look different from the paper style | Ensure `config/nature_palette.json` is present and scripts are run from the repository root (the theme path is repo-relative). |
 | Everything is slow on first run | First runs compile/load heavy stacks (tidyverse, Bioconductor); subsequent runs are much faster. Pin `--seed` for identical results. |
 

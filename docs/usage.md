@@ -16,7 +16,7 @@
 3. count 为整数，代谢物丰度为数值；
 4. `group` 列中对照组排第一（DESeq2 默认以首个水平为参照，也可用 `--contrast` 显式指定）。
 
-没有数据？先生成合成数据试跑：
+没有数据？先生成示例数据试跑：
 
 ```bash
 python scripts/utils/make_demo_data.py --outdir demo_data

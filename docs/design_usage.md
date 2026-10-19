@@ -141,4 +141,4 @@ RefGene,Control,1,22.00   # 内参基因以普通 gene 行出现（--ref-gene �
 - `--rna-format counts` 时自动 log2(x+1) 变换后再相关
 - 组间显著性检验建议在 2^-ΔΔCt 值上用 Welch t 或 Mann-Whitney
   （样本量估计见 `phenomics/05_power_analysis.R`）
-- `--demo` 用合成 Ct（已知 4×/2×/0.5× 效应）自检，数值精确回收
+- `--demo` 用内置示例 Ct 值（已知 4×/2×/0.5× 效应）自检，数值精确回收

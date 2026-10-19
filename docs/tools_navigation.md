@@ -1,7 +1,7 @@
 # 水稻生信工具导航（GitHub 开源生态盘点）
 
-> **更新**：2026-10-15。本文件是**导航与许可评估**，不是代码收录——表中工具均通过
-> 官方仓库获取，本包**不复制**其中任何源代码。收录/引用任何工具前请按项目红线
+> **更新**：2026-10-18。本文件是**导航与许可评估**，不是代码收录——表中工具均通过
+> 官方仓库获取，本包**不复制**其中任何源代码（已收录的 MIT / BSD-3 / CC BY 组件除外，见 §7）。收录/引用任何工具前请按项目红线
 > **打开其 LICENSE 原文核验**（GitHub 标签不可全信）。
 > 与 `rice_databases.md`（数据库导航）互补：本文件面向**分析工具与流程**。
 
@@ -10,8 +10,13 @@
 - **TBtools 不能收**：仅"非商用免费"、无开源许可证文件——学术上可自行下载使用，
   但**不得打包进任何仓库分发**（商业使用还需作者授权）。
 - 许可干净的（MIT/Apache）如 rMVP、RicePilaf、Et-GWAS、hifiasm 可用于参考与集成。
+- **colors**（lcpmgh/colors，MIT 已核验）：科研绘图配色推荐器，已按 `third_party/NOTICE.md`
+  流程收录为 `third_party/colors/`（见 §7）。
+- **colormaps / ltc / ggpubfigs**（2026-10-18 新增，均 MIT/BSD-3/CC BY 原文已核验）：
+  连续色图数据（CMasher + colorcet 共 133 张）与两套离散配色数据（ltc 32 套、ggpubfigs 15 套），
+  已按同一流程收录为 `third_party/colormaps/`、`third_party/ltc/`、`third_party/ggpubfigs/`（见 §7）。
 - 大多数专业工具（QTLseqr、GAPIT、easyQTLseq、deepBSA 等）**未声明许可证**——
-  使用没问题，但"收录"前必须联系作者或打开 LICENSE 核验。
+  使用没问题，但“收录”前必须联系作者或打开 LICENSE 核验。
 - 本包已内置等效功能清单见第 6 节——**先查已内置再找外部工具**。
 
 ## 1. BSA / QTL-seq（混池测序定位）
@@ -66,9 +71,28 @@
 | 共定位（筛查 + Bayesian PP4） | `scripts/qtl/02_colocalization.R` + `03_coloc_bayesian.R` |
 | 变异检测链（BWA→GATK→过滤→SnpEff） | `scripts/variants/01-04` |
 | 功能富集（GO/KEGG/GSEA） | `scripts/transcriptomics/03-04` |
-| 出版图（Manhattan/QQ/热图/Circos 等） | 全模块统一 Nature 调色板（`config/nature_palette.json`） |
+| 出版图（Manhattan/QQ/热图/Circos 等） | 全模块统一 Nature 调色板（`config/nature_palette.json`）；离散分组配色速查 `third_party/colors`（229 套，MIT）、`third_party/ltc`（32 套自然风，MIT）、`third_party/ggpubfigs`（15 套色盲友好，MIT）；连续色图速查 `third_party/colormaps`（133 张，BSD-3 / CC BY 4.0）——均见 §7 |
 
-## 7. 获取方式约定
+## 7. 出版图配色组件（colors / colormaps / ltc / ggpubfigs，均已收录）
+
+| 工具 | 用途 | 仓库 | 许可 | 与本包关系 |
+|---|---|---|---|---|
+| **colors** ★818 | 科研绘图配色推荐器（R/Shiny 双栏对比，229 套配色：顶刊风格 177 + ggsci/grDevices/RColorBrewer 52，每套 2–51 色） | `lcpmgh/colors` | **MIT**（LICENSE 原文已核验，Copyright (c) 2025 Liang Chen） | **已收录** `third_party/colors/`（v4.0, commit `36b2cc6`；剔除知乎抓取文章 `articles/` 与旧版本 `oldversion/`）；方法笔记 `docs/references/plot_color_palettes.md`（选色原则 + ggplot2 取用代码） |
+| **CMasher** ★400 | 科学连续色图（23 基础 + 30 混合，科研配色重头） | `1313e/CMasher` | **BSD-3-Clause**（LICENSE 原文已核验，© 2019-2021 Ellert van der Velden） | **已收录** `third_party/colormaps/@colormaps.csv`（含 colorcet 共 133 张；末次提交 2026-10-09，活跃） |
+| **colorcet** ★210 | 感知均匀连续色图（widely used by HoloViews/PyViz） | `holoviz/colorcet` | **CC BY 4.0**（LICENSE 原文已核验，© Peter Kovesi；再分发须署名） | **已收录** `third_party/colormaps/@colormaps.csv`（80 张；末次提交 2026-10-12，活跃） |
+| **ltc** ★303 | 自然风调色板（基于 Books/Chart 等视觉来源，每套含 rgb hex） | `loukesio/ltc-color-palettes` | **MIT**（LICENSE 原文已核验，© 2021 ltc authors） | **已收录** `third_party/ltc/@palettes.csv`（32 套；末次提交 2026-08-30，活跃） |
+| **ggpubfigs** ★132 | 色盲友好出版配色（NPG/Lancet/NEJM/JAMA/JCO/AAAS/Tol/Viridis 等 15 套） | `JLSteenwyk/ggpubfigs` | **MIT**（LICENSE 原文已核验，Copyright (c) 2020 Jacob L. Steenwyk） | **已收录** `third_party/ggpubfigs/@palettes.csv`（15 套；末次提交 2026-05-12，活跃） |
+
+用法：离散配色查询式直接读各组件 `@palettes.csv` 配 `scale_color_manual()`；连续色图查询式读
+`third_party/colormaps/@colormaps.csv`（字段 `c_sour/c_name/c_type/n_stops/colors`，
+选型表与 R/Python 取用代码见 `third_party/colormaps/README.md`）；交互挑选本地
+`shiny::runApp("third_party/colors")`（依赖 shiny/ggplot2/DT/colourpicker 等 8 个 CRAN 包）。
+
+> 长期停更的上游（crameri / cmocean / scico / viridis，末次提交 2023–2024）按 2026-10-18
+> 收录准则**不入包**，仅在 `third_party/colormaps/NOTICE.md` 的「调研后未收录的上游」表留档，
+> 附运行时安装命令。
+
+## 8. 获取方式约定
 
 ```bash
 # 推荐的运行时获取（不进仓库）：

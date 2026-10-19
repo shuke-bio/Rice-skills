@@ -73,7 +73,7 @@ read-based 从 reads 信号找缺失/插入，不需组装。两者互补，理�
 ## 5. 落地选择
 
 - **HitSV（主推 read-based 路线）**：GitHub Releases 提供预编译静态二进制（免编译），
-  或源码 `make`。用法封装在 `02_sv_detect.sh --mode read-based`（含 `--demo` 合成数据
+  或源码 `make`。用法封装在 `02_sv_detect.sh --mode read-based`（含 `--demo` 示例数据
   自检）。**许可提示：GPL-3.0**——本包 MIT 主体不打包其源码；用户自行安装二进制不构成
   再分发，若改装其源码并再分发需同样以 GPL-3.0 开源。
 - **备选工具**（短读长 Manta / Delly；长读长 Sniffles2 / pbsv / cuteSV）：短读大队列、
