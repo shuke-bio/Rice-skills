@@ -18,8 +18,8 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.1.zip)
-![Version](https://img.shields.io/badge/version-3.3.1-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.2.zip)
+![Version](https://img.shields.io/badge/version-3.3.2-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-86-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -289,7 +289,7 @@ conda env create -f environment.yml && conda activate rice-skills   # 可选：�
 
 **方式 C：直接把仓库链接发给 AI 代理**——把本仓库链接粘贴给 Claude / Codex /
 任意代理 CLI，说"从这个仓库安装水稻技能"；或点页面顶部的 **download ZIP** 徽章
-下载最新发布版（v3.3.1），解压到代理的 skills 目录。
+下载最新发布版（v3.3.2），解压到代理的 skills 目录。
 
 ## 🚀 快速开始
 

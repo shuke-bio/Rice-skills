@@ -8,7 +8,7 @@ abstract: >-
   evolution, and CRISPR/primer design. 18 analysis modules, 86 R/Python scripts
   with built-in demo self-tests, publication-grade figures, and 541 curated
   third-party agent skills.
-version: 3.3.1
+version: 3.3.2
 date-released: "2026-10-19"
 type: software
 license: MIT

@@ -5,6 +5,8 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.2] — 2026-10-19
+
 ### Added
 - **Literature-driven method landings (S/A1/A2/A3/B grading)** — five new wrappers plus a
   full distilled index covering 70 screened papers (2022–2026):

@@ -14,8 +14,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.1.zip)
-![Version](https://img.shields.io/badge/version-3.3.1-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.2.zip)
+![Version](https://img.shields.io/badge/version-3.3.2-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-86-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
