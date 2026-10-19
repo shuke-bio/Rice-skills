@@ -5,6 +5,25 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- **Literature-driven method landings (S/A1/A2/A3/B grading)** — five new wrappers plus a
+  full distilled index covering 70 screened papers (2022–2026):
+  - `scripts/pangenome/05_oryza_pangenome_pipeline.sh` — genus-scale Oryza pan-genome
+    Snakemake stage runner (MIT upstream, not vendored)
+  - `scripts/pangenome/06_annosine.sh` — SINE annotation (AnnoSINE, MIT; needs blastn/TRF/node)
+  - `scripts/phenomics/06_menet_gs.py` — multi-environment genomic prediction (MeNet;
+    academic-use licence, runtime only)
+  - `scripts/phenomics/07_elmerf_salt.py` — rice seedling salt-stress RGB phenotyping
+    (ELMERF, Apache-2.0)
+  - `scripts/phenomics/08_chlorocount.py` — chloroplast/bundle-sheath quantification
+    (Chloro-Count, BSD-3-Clause)
+  - All five expose `--demo`: synthetic fixture + dependency report; heavy upstream
+    dependencies (torch/mmseg/blastn/TRF/snakemake/weights) yield an explicit SKIP with
+    install commands instead of a silent failure.
+- `docs/references/literature_methods_2022_2026.md` — distilled index of 70 screened
+  papers graded S (6) / A1 (4) / A2 (39) / A3 (5) / B (16), with inputs/outputs, licence
+  status and landing route for each.
+
 ## [3.3.1] — 2026-10-19
 
 ### Added

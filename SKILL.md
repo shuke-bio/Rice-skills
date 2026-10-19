@@ -255,12 +255,12 @@ agent 按 §5 路由表加载对应技能执行。
 | 模块 | 目录 | 核心脚本 | 说明 |
 |---|---|---|---|
 | **10 · 变异检测与注释** | `scripts/variants/` | 01_bwa_align.sh → 02_gatk_call.sh → 03_vcf_filter.sh → 04_snpeff_annotate.sh | FASTQ→BAM→VCF（GATK/bcftools）→硬过滤→SnpEff 注释；重工具模板式调用（用户自装，脚本自动探测+安装指引） |
-| **11 · 泛基因组** | `scripts/pangenome/` | 01_pangenome_graph.sh（minigraph/cactus/PGGB）· 02_sv_detect.sh（minimap2+SYRI；**read-based 路线 HitSV：短读/长读/混合 SV 检测+基因分型，GPL-3.0 运行安装**）· 03_pav_analysis.R · 04_pan_gwas.R | 图构建→SV→PAV（核心/可变/私有 + 性状关联 + Manhattan）→Pan-GWAS（复用 GWAS 引擎）；方法笔记 `docs/references/hitsv_sv_calling.md` |
+| **11 · 泛基因组** | `scripts/pangenome/` | 01_pangenome_graph.sh（minigraph/cactus/PGGB）· 02_sv_detect.sh（minimap2+SYRI；**read-based 路线 HitSV：短读/长读/混合 SV 检测+基因分型，GPL-3.0 运行安装**）· 03_pav_analysis.R · 04_pan_gwas.R · **05_oryza_pangenome_pipeline.sh**（Oryza 属泛基因组 Snakemake 阶段运行器，MIT）· **06_annosine.sh**（SINE 注释，MIT） | 图构建→SV→PAV（核心/可变/私有 + 性状关联 + Manhattan）→Pan-GWAS（复用 GWAS 引擎）；方法笔记 `docs/references/hitsv_sv_calling.md` |
 | **12 · QTL 映射（eQTL/mQTL/pQTL）** | `scripts/qtl/` | 01_qtl_mapping.R · 02_colocalization.R · 03_coloc_bayesian.R · 04_qtl_region_snps.py · 05_bsa_scan.py | 自研 cis/trans 引擎（向量化 OLS + 保守 BH）、cis-距离图、Manhattan、每特征最佳命中；共定位筛查/PP4；**BSA 全基因组扫描（ΔSNP-index + G′）→ 区间 SNP 提取 + 基因区域注释（区间 VCF + 三表 Excel）** |
 | **13 · Meta-GWAS** | `scripts/gwas/06_meta_gwas.R` | 多研究逆方差合并 + Cochran Q/I² + 随机效应 + 森林图；配 `docs/rice_databases.md` 水稻数据库导航 |
 | **14 · 蛋白质组** | `scripts/proteomics/` | 01_preprocess.py · 02_diff_protein.R（limma/Welch）· 03_plot_proteome.R | 过滤（≥70%）/归一化/批次/填充→差异蛋白→火山+热图 |
 | **15 · 表观基因组** | `scripts/epigenomics/` | 01_methylation_analysis.R（DMR）· 02_atac_chip_analysis.R（DAR/DHR） | 区域甲基化/peak 计数→差异检验→火山+热图；上游 Bismark/MACS2 模板见文档 |
-| **16 · 表型组** | `scripts/phenomics/` | 01_phenotype_blup.R · 02_spectral_indices.R | MAD 异常标记 + 环境调整 BLUP + 遗传力；7 种植被指数；PlantCV/GS 指引 |
+| **16 · 表型组** | `scripts/phenomics/` | 01_phenotype_blup.R · 02_spectral_indices.R · **06_menet_gs.py**（多环境 GS，MeNet，学术许可）· **07_elmerf_salt.py**（耐盐 RGB 表型，ELMERF，Apache-2.0）· **08_chlorocount.py**（叶绿体计数，BSD-3） | MAD 异常标记 + 环境调整 BLUP + 遗传力；7 种植被指数；PlantCV/GS 指引 |
 | **17 · 单细胞** | `scripts/single_cell/` | 01_scanpy_pipeline.py | Scanpy 全流程模板（QC→聚类→marker→打分→PAGA）；RSTA/RICE scGPT 集成指引 |
 | **18 · 空间组学** | `scripts/spatial/` | 01_spatial_pipeline.py | Stereo-seq/Visium→表达域→Moran's I SVG→邻域富集；RSTA 时空图谱对接 |
 
