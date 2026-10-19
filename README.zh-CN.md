@@ -21,7 +21,7 @@
 [![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.1.zip)
 ![Version](https://img.shields.io/badge/version-3.3.1-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-83-teal)
+![Scripts](https://img.shields.io/badge/scripts-86-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -37,7 +37,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**程序生成的演示数据**（性状名为占位符，可任意替换为你自己的数据）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**83 个 R/Python 脚本**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**86 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配示例数据生成器与独立文档。
 
@@ -87,6 +87,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - eQTL / mQTL / pQTL 映射与 GWAS×QTL 共定位
 - BSA / QTL-seq 全基因组扫描（ΔSNP-index + G′，模拟法置信线）
 - QTL/BSA 区间 SNP 提取与基因区域注释（启动子/UTR/外显子/内含子，含 ΔAF 与差异判定）——区间 VCF + 三表 Excel
+- **SINE 注释**（AnnoSINE）· **Oryza 属泛基因组流程**（Snakemake 阶段运行器）
 
 **蛋白质组**
 - 预处理与差异丰度分析；UniProt 蛋白→基因映射自动化
@@ -98,6 +99,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 **表型组与育种**
 - BLUP / 遗传力；光谱指数（NDVI 等）
 - GBLUP 基因组选择（含交叉验证）；AMMI / GGE biplot
+- **多环境基因组预测**（MeNet）· **耐盐 RGB 表型**（ELMERF）· **叶绿体计数**（Chloro-Count）
 
 **单细胞与空间组学**
 - Scanpy 全流程（聚类 / marker 基因 / PAGA）
@@ -139,6 +141,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
   Manhattan/QQ 出版图 → 显著位点聚类 → 候选基因（与 GFF3 注释求交）；
   **v3.3.1 新增**：多位点 QTN / QTN×环境（QEI）/ 上位性（3VmrMLM、Fast3VmrMLM）、
   二分类 case-control（FastBiCmrMLM，Linux/WSL）、多亲本 MAGIC/NAM/ROAM QTL（mppQTL）
+- **v3.3.2 新增（文献方法落地）**：MeNet 多环境基因组预测 · ELMERF 耐盐 RGB 表型 · Chloro-Count 叶绿体计数 · AnnoSINE SINE 注释 · Oryza 属泛基因组阶段运行器；70 条文献的 S/A1/A2/A3/B 分级索引见 `docs/references/literature_methods_2022_2026.md`
 - **模块 8 · 群体遗传（v2.0）**：PCA 群体结构与 VanRaden 亲缘矩阵 → LD 衰减（半衰减距离）→
   Hudson Fst + 核苷酸多样性 π → ADMIXTURE 祖源与 CV 选 K → IBS 系统发育树（NJ/UPGMA）
 - **模块 9 · 设计与验证（v2.1）**：sgRNA 靶点设计（七大选择原则代码化）→ 双靶点自动配对 →

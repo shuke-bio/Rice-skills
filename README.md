@@ -17,7 +17,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 [![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.1.zip)
 ![Version](https://img.shields.io/badge/version-3.3.1-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-83-teal)
+![Scripts](https://img.shields.io/badge/scripts-86-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -191,7 +191,7 @@ automatically.
 ## 🧭 What's inside
 
 <details open>
-<summary><b>Module map (18 modules, 83 scripts)</b></summary>
+<summary><b>Module map (18 modules, 86 scripts)</b></summary>
 
 - **Module 1 · Transcriptome**: QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA →
   WGCNA → TF (PlantTFDB) → PPI
@@ -201,6 +201,10 @@ automatically.
 - **Module 7 · GWAS**: PLINK QC → rMVP/GAPIT/GLM → Manhattan/QQ → loci annotation ·
   multi-locus QTN / QEI / epistasis (3VmrMLM, Fast3VmrMLM) · binary case-control
   (FastBiCmrMLM, Linux/WSL) · multi-parent MAGIC/NAM/ROAM QTL (mppQTL)
+- **Module 11 · Pangenome**: graph/SV/PAV/Pan-GWAS · Oryza genus pangenome workflow
+  (Snakemake stage runner) · SINE annotation (AnnoSINE)
+- **Module 16 · Phenomics**: BLUP/GBLUP/AMMI · multi-environment genomic prediction
+  (MeNet) · salt-stress RGB phenotyping (ELMERF) · chloroplast counting (Chloro-Count)
 - **Module 8 · Population genetics**: PCA + VanRaden kinship → LD decay →
   Fst/π → ADMIXTURE → phylogeny → XP-EHH
 - **Modules 9–18**: CRISPR/primer design · variant calling (BWA→GATK→SnpEff) ·
@@ -214,6 +218,10 @@ automatically.
   epistasis (3VmrMLM family) · binary case-control GWAS (FastBiCmrMLM) ·
   multi-parent population QTL (mppQTL) — all runtime-installed, method notes in
   `docs/references/`
+- **v3.3.2 additions**: literature-driven wrappers — MeNet (multi-environment GS) ·
+  ELMERF (salt-stress RGB phenotyping) · Chloro-Count · AnnoSINE · Oryza genus
+  pangenome stage runner — plus a 70-method distilled index graded S/A1/A2/A3/B
+  (`docs/references/literature_methods_2022_2026.md`)
 - **Molecular lab companion**: rice CRISPR knockout reference + molecular protocols
 
 </details>
@@ -229,7 +237,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Synthetic demo data for every module
-├── scripts/                        # 83 R/Python analysis scripts (18 modules)
+├── scripts/                        # 86 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 541 curated skills + palettes, 6 skill libraries + 4 tool/data components (NOTICE.md)
