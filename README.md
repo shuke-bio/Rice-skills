@@ -14,8 +14,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.0.zip)
-![Version](https://img.shields.io/badge/version-3.3.0-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.1.zip)
+![Version](https://img.shields.io/badge/version-3.3.1-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-79-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -68,6 +68,9 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - Publication-grade Manhattan / QQ plots and significant-locus annotation
 - Meta-GWAS · haplotype (EM) analysis · 2D pairwise-trait GWAS
 - Bayesian colocalization (PP4) · power and sample-size analysis
+- **Multi-locus QTNs / QTN×environment (QEI) / epistasis (QTN×QTN)** — 3VmrMLM / Fast3VmrMLM
+- **Binary (case-control) multi-locus GWAS** — FastBiCmrMLM (Linux / WSL)
+- **Multi-parent population QTL** — MAGIC / NAM / ROAM (mppQTL)
 
 **Population genetics**
 - PCA structure + kinship · LD decay · Fst / π · ADMIXTURE · phylogeny

@@ -5,6 +5,39 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.1] — 2026-10-19
+
+### Added
+- **3VmrMLM-family GWAS scripts (three new wrappers)** — closing the multi-locus /
+  interaction / binary-trait / multi-parent gaps left by the single-locus engines
+  in `03_association.R`:
+  - `scripts/gwas/09_multilocus_qtn.R` — multi-locus QTN / QTN×environment (QEI) /
+    marker-pair epistasis (QQI) via IIIVmrMLM (CRAN) or Fast3VmrMLM (big-data);
+    accepts PLINK prefixes or dosage CSV; `--demo` self-test in all three modes
+    (measured 15 s / 22 s / ~6 min on 200 x 400 synthetic data).
+  - `scripts/gwas/10_case_control_qtn.R` — binary / case-control traits via
+    FastBiCmrMLM mixed logistic model (algorithm auto-selected by sample size;
+    Linux/WSL only — non-Linux hosts get an explicit SKIP with the alternative path).
+  - `scripts/gwas/11_multiparent_qtl.R` — MAGIC / NAM / ROAM multi-parent QTL via
+    mppQTL (two-stage multi-locus model); `--demo` synthetic 4-way MAGIC self-test
+    (150 lines x 240 markers, ~32 s).
+  - `scripts/utils/vmrml_utils.R` — shared helpers: PLINK binary writer (verified
+    round-trip + independent decoder), synthetic data generators, engine result
+    normalisation, runtime-install guidance.
+- **Four distilled method notes** (`docs/references/`): `3vmrmlm_multilocus_qtn.md`
+  (model, engines, Hap/NCII/mQTL modules, mppQTL section, install guide, citations),
+  `fastbicmrmlm_case_control.md`, `qei_environment_interaction.md`,
+  `epistasis_qqi.md`. Papers cited by DOI; no text copied.
+- `docs/genomics_usage.md` v3.3 section with runnable examples; `tools_navigation.md`
+  §2 now lists IIIVmrMLM / Fast3VmrMLM / FastBiCmrMLM / mppQTL with verified
+  license status (GPL-3 / no LICENSE file — runtime install only, never vendored);
+  SKILL.md module table, description and trigger words updated.
+
+### Notes
+- Measured on R 4.6.0 / Windows (2026-10-19): IIIVmrMLM and mppQTL load and run;
+  Fast3VmrMLM's R 4.3-built DLL fails to load on R 4.6 (auto-fallback to
+  IIIVmrMLM); FastBiCmrMLM has no Windows build (Linux/WSL only).
+
 ## [3.3.0] — 2026-10-19
 
 ### Added

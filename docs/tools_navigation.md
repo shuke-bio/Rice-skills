@@ -34,6 +34,10 @@
 |---|---|---|---|---|
 | **rMVP** ★341 | 高性能 GWAS（C 内核，百万级标记） | `xiaolei-lab/rMVP` | **Apache-2.0** ✅ | 本包 `gwas/` 文档中为可选引擎之一 |
 | **GAPIT** ★244 | 经典 GWAS R 包（GLM/MLM/CMLM/SUPER/MLMM/FarmCPU/Blink + GS） | `jiabowang/GAPIT` | **GPL-2.0+**（DESCRIPTION 核验，2026-10） | 本包 `gwas/03_association.R --engine gapit --model` 可调用；MIT 主体不打包，运行时安装 |
+| **IIIVmrMLM** | 3VmrMLM 多位点 QTN / QEI / 上位性（R+C++） | `YuanmingZhang65/IIIVmrMLM`（CRAN） | **GPL-3**（DESCRIPTION 核验，2026-10） | 本包 `gwas/09_multilocus_qtn.R` 默认引擎；运行时安装，不打包 |
+| **Fast3VmrMLM** | 大数据 3VmrMLM（百万级标记；Hap/NCII/mQTL/MEJA/QQI 模块） | `YuanmingZhang65/Fast3VmrMLM` | **GPL-3**（DESCRIPTION 声明；仓库 LICENSE 文件写 BSD-3，**两者不一致，按 GPL 保守处理**） | `gwas/09_multilocus_qtn.R --engine Fast3VmrMLM`；预编译二进制按 R 4.3，R≥4.4 可能 DLL 加载失败 |
+| **FastBiCmrMLM** | 二分类/case-control 性状多位点 GWAS（混合逻辑回归） | `YuanmingZhang65/FastBiCmrMLM` | **无 LICENSE 文件**（仓库无许可声明，使用需自行评估） | `gwas/10_case_control_qtn.R`；**仅 Linux**，运行时安装 |
+| **mppQTL** | 多亲本群体（MAGIC/NAM/ROAM）多位点 QTL | `YuanmingZhang65/mppQTL`（随 IIIVmrMLM 仓库分发） | **GPL-3**（DESCRIPTION 核验，2026-10） | `gwas/11_multiparent_qtl.R`；依赖 qtl2，运行时安装 |
 | TASSEL | 关联+连锁分析（Java GUI） | `tassel` | 按项目网页说明 | 备选 |
 | **RiceG2G** | GWAS/QTL 位点**因果基因优先级**（多证据打分） | `xhhuanglab/RiceG2G` | 未声明 | 互补：接在本包 GWAS/共定位下游做候选排序 |
 | **RicePilaf** | Post-GWAS/QTL 仪表板（泛基因组/共表达/调控/表观/富集整合） | `bioinfodlsu/rice-pilaf` | **MIT** ✅ | 互补：功能解读层；论文 GigaScience 2024 |
