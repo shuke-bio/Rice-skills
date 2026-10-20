@@ -1,0 +1,43 @@
+{
+  "id": "limma_voom",
+  "name": "limma-voom",
+  "category": "transcriptomics",
+  "applies_to": {
+    "assay": [
+      "bulk_rna"
+    ],
+    "goal": [
+      "differential_expression"
+    ],
+    "design": [
+      "treatment_control"
+    ]
+  },
+  "assumptions": [
+    "count 或已标准化表达",
+    "样本量较大时更稳"
+  ],
+  "inputs": [
+    "表达矩阵",
+    "样本表"
+  ],
+  "outputs": [
+    "差异表"
+  ],
+  "alternatives": [
+    "deseq2",
+    "edger"
+  ],
+  "fail_modes": [
+    "权重估计不当会低估方差"
+  ],
+  "scripts": [
+    "scripts/transcriptomics/02_deseq2.R"
+  ],
+  "source": {
+    "journal": "Genome Biology",
+    "year": 2014,
+    "doi": "10.1186/gb-2014-15-2-r29"
+  },
+  "tier": "A"
+}

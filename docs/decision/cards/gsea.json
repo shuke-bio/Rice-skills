@@ -1,0 +1,44 @@
+{
+  "id": "gsea",
+  "name": "GSEA 基因集富集",
+  "category": "transcriptomics",
+  "applies_to": {
+    "assay": [
+      "bulk_rna"
+    ],
+    "goal": [
+      "differential_expression",
+      "marker_discovery"
+    ],
+    "design": [
+      "treatment_control"
+    ]
+  },
+  "assumptions": [
+    "有排序统计量",
+    "基因集与注释匹配"
+  ],
+  "inputs": [
+    "排序基因表",
+    "基因集"
+  ],
+  "outputs": [
+    "富集表",
+    "富集图"
+  ],
+  "alternatives": [
+    "ORA 富集"
+  ],
+  "fail_modes": [
+    "背景基因集不一致导致结果不可比"
+  ],
+  "scripts": [
+    "scripts/transcriptomics/04_gsea.R"
+  ],
+  "source": {
+    "journal": "PNAS",
+    "year": 2005,
+    "doi": "10.1073/pnas.0506580102"
+  },
+  "tier": "A"
+}

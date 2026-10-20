@@ -1,0 +1,47 @@
+{
+  "id": "menet",
+  "name": "MeNet 多环境基因组预测",
+  "category": "phenomics",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "prediction"
+    ],
+    "design": [
+      "multi_environment",
+      "natural_population"
+    ]
+  },
+  "assumptions": [
+    "多环境表型",
+    "基因型矩阵",
+    "PyTorch 环境"
+  ],
+  "inputs": [
+    "基因型",
+    "表型"
+  ],
+  "outputs": [
+    "预测值",
+    "模块贡献"
+  ],
+  "alternatives": [
+    "gblup",
+    "bayes"
+  ],
+  "fail_modes": [
+    "小样本过拟合",
+    "未与 GBLUP 基线比较不可接受"
+  ],
+  "scripts": [
+    "scripts/phenomics/06_menet_gs.py"
+  ],
+  "source": {
+    "journal": "Plant Communications",
+    "year": 2025,
+    "doi": "10.1016/j.xplc.2025.101620"
+  },
+  "tier": "S"
+}

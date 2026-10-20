@@ -1,0 +1,45 @@
+{
+  "id": "annosine",
+  "name": "AnnoSINE SINE 注释",
+  "category": "pangenome",
+  "applies_to": {
+    "assay": [
+      "pangenome"
+    ],
+    "goal": [
+      "gwas",
+      "qtl"
+    ],
+    "design": [
+      "natural_population",
+      "ril_magic_nam"
+    ]
+  },
+  "assumptions": [
+    "植物基因组 FASTA",
+    "可运行 blastn/TRF/node"
+  ],
+  "inputs": [
+    "基因组 FASTA"
+  ],
+  "outputs": [
+    "非冗余 SINE 库",
+    "全基因组注释"
+  ],
+  "alternatives": [
+    "其他 TE 注释流程"
+  ],
+  "fail_modes": [
+    "近缘物种 SINE 库不匹配",
+    "重复区导致假阳性"
+  ],
+  "scripts": [
+    "scripts/pangenome/06_annosine.sh"
+  ],
+  "source": {
+    "journal": "Plant Physiology",
+    "year": 2022,
+    "note": "水稻 SINE 库为基准"
+  },
+  "tier": "A"
+}

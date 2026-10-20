@@ -1,0 +1,47 @@
+{
+  "id": "gblup",
+  "name": "GBLUP 基因组预测",
+  "category": "phenomics",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "prediction"
+    ],
+    "design": [
+      "natural_population",
+      "ril_magic_nam",
+      "multi_environment"
+    ]
+  },
+  "assumptions": [
+    "表型与基因型样本对齐",
+    "标记覆盖全基因组",
+    "交叉验证可分组"
+  ],
+  "inputs": [
+    "基因型",
+    "表型"
+  ],
+  "outputs": [
+    "预测准确率",
+    "育种值排序"
+  ],
+  "alternatives": [
+    "bayes",
+    "menet"
+  ],
+  "fail_modes": [
+    "随机 CV 会高估准确率",
+    "样本错配导致全盘错误"
+  ],
+  "scripts": [
+    "scripts/phenomics/03_gs_gblup.R"
+  ],
+  "source": {
+    "tool_only": true,
+    "note": "标准 GS 基线；实现见脚本"
+  },
+  "tier": "S"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "wgcna",
+  "name": "WGCNA 共表达网络",
+  "category": "transcriptomics",
+  "applies_to": {
+    "assay": [
+      "bulk_rna"
+    ],
+    "goal": [
+      "differential_expression",
+      "integration"
+    ],
+    "design": [
+      "treatment_control",
+      "multi_environment"
+    ]
+  },
+  "assumptions": [
+    "样本数 >=15",
+    "表达矩阵质量合格"
+  ],
+  "inputs": [
+    "表达矩阵",
+    "性状表"
+  ],
+  "outputs": [
+    "模块",
+    "模块-性状关联"
+  ],
+  "alternatives": [
+    "共表达相关网络"
+  ],
+  "fail_modes": [
+    "样本少时模块不稳定",
+    "软阈值选择不当"
+  ],
+  "scripts": [
+    "scripts/transcriptomics/05_wgcna.R"
+  ],
+  "source": {
+    "tool_only": true,
+    "note": "标准工具；不在白名单期刊的方法学原文不作为设计依据"
+  },
+  "tier": "A"
+}

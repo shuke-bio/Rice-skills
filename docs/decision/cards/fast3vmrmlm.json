@@ -1,0 +1,42 @@
+{
+  "id": "fast3vmrmlm",
+  "name": "Fast3VmrMLM 快速多位点",
+  "category": "gwas",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "gwas"
+    ],
+    "design": [
+      "natural_population"
+    ]
+  },
+  "assumptions": [
+    "全基因组标记",
+    "可接受较长运行时间"
+  ],
+  "inputs": [
+    "基因型",
+    "表型"
+  ],
+  "outputs": [
+    "QTN 表"
+  ],
+  "alternatives": [
+    "vmrmlm"
+  ],
+  "fail_modes": [
+    "Windows 下 DLL 兼容性问题需回退"
+  ],
+  "scripts": [
+    "scripts/gwas/09_multilocus_qtn.R"
+  ],
+  "source": {
+    "journal": "Plant Communications",
+    "year": 2025,
+    "doi": "10.1016/j.xplc.2025.101385"
+  },
+  "tier": "A"
+}

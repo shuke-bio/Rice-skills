@@ -1,0 +1,19 @@
+{
+  "assay": "bulk_rna",
+  "goal": "differential_expression",
+  "design": "treatment_control",
+  "n_per_group": 3,
+  "replicates": true,
+  "factors": ["treatment"],
+  "batch": false,
+  "reference": "IRGSP-1.0",
+  "phenotype": "none",
+  "environments": 1,
+  "quantification": "untargeted",
+  "paths": {
+    "matrix": "data/counts.csv",
+    "metadata": "data/meta.csv",
+    "genotype": "",
+    "second_matrix": ""
+  }
+}

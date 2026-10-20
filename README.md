@@ -14,10 +14,10 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.2.zip)
-![Version](https://img.shields.io/badge/version-3.3.2-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.3.zip)
+![Version](https://img.shields.io/badge/version-3.3.3-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-86-teal)
+![Scripts](https://img.shields.io/badge/scripts-89-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -191,7 +191,7 @@ automatically.
 ## 🧭 What's inside
 
 <details open>
-<summary><b>Module map (18 modules, 86 scripts)</b></summary>
+<summary><b>Module map (18 modules, 89 scripts)</b></summary>
 
 - **Module 1 · Transcriptome**: QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA →
   WGCNA → TF (PlantTFDB) → PPI
@@ -222,6 +222,10 @@ automatically.
   ELMERF (salt-stress RGB phenotyping) · Chloro-Count · AnnoSINE · Oryza genus
   pangenome stage runner — plus a 70-method distilled index graded S/A1/A2/A3/B
   (`docs/references/literature_methods_2022_2026.md`)
+- **v3.3.3 additions**: decision layer — data contract, 10 scenario cards, three-tier
+  plan generator with blockers (`scripts/plan/01_make_plan.py`), data QC
+  (`02_check_data.py`), 22 validated method cards and 10 English scenario cards;
+  citations restricted to the A1–A3 journal whitelist (`docs/decision/`)
 - **Molecular lab companion**: rice CRISPR knockout reference + molecular protocols
 
 </details>
@@ -237,7 +241,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Example demo data for every module
-├── scripts/                        # 86 R/Python analysis scripts (18 modules)
+├── scripts/                        # 89 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 541 curated skills + palettes, 6 skill libraries + 4 tool/data components (NOTICE.md)

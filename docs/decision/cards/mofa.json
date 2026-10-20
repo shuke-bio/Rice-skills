@@ -1,0 +1,43 @@
+{
+  "id": "mofa",
+  "name": "MOFA 多组学因子",
+  "category": "integration",
+  "applies_to": {
+    "assay": [
+      "rna_metabolome"
+    ],
+    "goal": [
+      "integration"
+    ],
+    "design": [
+      "treatment_control"
+    ]
+  },
+  "assumptions": [
+    "样本匹配",
+    "n>=20",
+    "可处理缺失层"
+  ],
+  "inputs": [
+    "多层矩阵"
+  ],
+  "outputs": [
+    "因子",
+    "权重"
+  ],
+  "alternatives": [
+    "diablo"
+  ],
+  "fail_modes": [
+    "层间不相关时因子无解释力",
+    "批次主导"
+  ],
+  "scripts": [
+    "scripts/integration/01_mofa.R"
+  ],
+  "source": {
+    "tool_only": true,
+    "note": "标准多组学因子工具；按准入规则仅保留工具名"
+  },
+  "tier": "A"
+}

@@ -18,10 +18,10 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.2.zip)
-![Version](https://img.shields.io/badge/version-3.3.2-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.3.zip)
+![Version](https://img.shields.io/badge/version-3.3.3-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-86-teal)
+![Scripts](https://img.shields.io/badge/scripts-89-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -37,7 +37,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**程序生成的演示数据**（性状名为占位符，可任意替换为你自己的数据）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**86 个 R/Python 脚本**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**89 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配示例数据生成器与独立文档。
 
@@ -142,6 +142,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
   **v3.3.1 新增**：多位点 QTN / QTN×环境（QEI）/ 上位性（3VmrMLM、Fast3VmrMLM）、
   二分类 case-control（FastBiCmrMLM，Linux/WSL）、多亲本 MAGIC/NAM/ROAM QTL（mppQTL）
 - **v3.3.2 新增（文献方法落地）**：MeNet 多环境基因组预测 · ELMERF 耐盐 RGB 表型 · Chloro-Count 叶绿体计数 · AnnoSINE SINE 注释 · Oryza 属泛基因组阶段运行器；70 条文献的 S/A1/A2/A3/B 分级索引见 `docs/references/literature_methods_2022_2026.md`
+- **v3.3.3 新增（决策层）**：数据契约 + 10 张场景卡 + 三档方案生成器（含阻断项）+ 数据体检 + 22 张方法卡 + 10 张英文场景卡，文献仅取 A1–A3 白名单；见 `docs/decision/`
 - **模块 8 · 群体遗传（v2.0）**：PCA 群体结构与 VanRaden 亲缘矩阵 → LD 衰减（半衰减距离）→
   Hudson Fst + 核苷酸多样性 π → ADMIXTURE 祖源与 CV 选 K → IBS 系统发育树（NJ/UPGMA）
 - **模块 9 · 设计与验证（v2.1）**：sgRNA 靶点设计（七大选择原则代码化）→ 双靶点自动配对 →
@@ -289,7 +290,7 @@ conda env create -f environment.yml && conda activate rice-skills   # 可选：�
 
 **方式 C：直接把仓库链接发给 AI 代理**——把本仓库链接粘贴给 Claude / Codex /
 任意代理 CLI，说"从这个仓库安装水稻技能"；或点页面顶部的 **download ZIP** 徽章
-下载最新发布版（v3.3.2），解压到代理的 skills 目录。
+下载最新发布版（v3.3.3），解压到代理的 skills 目录。
 
 ## 🚀 快速开始
 
@@ -380,7 +381,7 @@ GWAS / 泛基因组 / CRISPR / 多组学联合分析…）会自动路由。
 cd /path/to/Rice-skills
 git remote add origin https://github.com/<you>/Rice-skills.git
 git branch -M main && git push -u origin main
-git tag v3.3.2 && git push origin v3.3.2   # 打 tag 后在 Releases 发布 ZIP
+git tag v3.3.3 && git push origin v3.3.3   # 打 tag 后在 Releases 发布 ZIP
 ```
 
 > 如需重写历史（例如清理个人信息），用 `git filter-repo --path <文件> --invert-paths`；
@@ -391,16 +392,16 @@ git tag v3.3.2 && git push origin v3.3.2   # 打 tag 后在 Releases 发布 ZIP
 ```bash
 # 在仓库根目录的上一级执行（保证 ZIP 内顶层为 Rice-skills/）
 # 排除项：.git 版本库、.workbuddy 工作日志、results 运行输出、__pycache__、注释缓存
-cd .. && zip -r Rice-skills-v3.3.2.zip Rice-skills \
+cd .. && zip -r Rice-skills-v3.3.3.zip Rice-skills \
   -x "*/.git/*" "*/.workbuddy/*" "*/results/*" "*/__pycache__/*" "*/data/*" "*/.git-rewrite/*"
 # 打包前自查：解压后确认无 .workbuddy/、results/、__pycache__/ 目录
 # 或用 git 精确打包（最保险，与 git archive HEAD 内容一致）：
-#   git archive --format=zip -o ../Rice-skills-v3.3.2.zip HEAD
+#   git archive --format=zip -o ../Rice-skills-v3.3.3.zip HEAD
 
 # 上传（curl 示例）
 curl -X POST https://api.openai.com/v1/skills \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -F "file=@Rice-skills-v3.3.2.zip" \
+  -F "file=@Rice-skills-v3.3.3.zip" \
   -F "name=Rice-skills"
 ```
 

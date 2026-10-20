@@ -1,0 +1,43 @@
+{
+  "id": "edger",
+  "name": "edgeR 差异表达",
+  "category": "transcriptomics",
+  "applies_to": {
+    "assay": [
+      "bulk_rna"
+    ],
+    "goal": [
+      "differential_expression"
+    ],
+    "design": [
+      "treatment_control",
+      "timecourse"
+    ]
+  },
+  "assumptions": [
+    "整数 counts",
+    "有重复"
+  ],
+  "inputs": [
+    "count 矩阵",
+    "样本表"
+  ],
+  "outputs": [
+    "差异表"
+  ],
+  "alternatives": [
+    "deseq2"
+  ],
+  "fail_modes": [
+    "小样本下方差估计不稳"
+  ],
+  "scripts": [
+    "scripts/transcriptomics/02_deseq2.R"
+  ],
+  "source": {
+    "journal": "Bioinformatics",
+    "year": 2010,
+    "doi": "10.1093/bioinformatics/btp616"
+  },
+  "tier": "S"
+}

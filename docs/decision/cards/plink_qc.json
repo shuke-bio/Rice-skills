@@ -1,0 +1,45 @@
+{
+  "id": "plink_qc",
+  "name": "PLINK 基因型质控",
+  "category": "gwas",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "gwas",
+      "qtl",
+      "prediction"
+    ],
+    "design": [
+      "natural_population",
+      "ril_magic_nam",
+      "case_control"
+    ]
+  },
+  "assumptions": [
+    "有 PLINK 格式基因型"
+  ],
+  "inputs": [
+    "bed/bim/fam"
+  ],
+  "outputs": [
+    "质控后基因型",
+    "质控报告"
+  ],
+  "alternatives": [
+    "vcftools 过滤"
+  ],
+  "fail_modes": [
+    "MAF/缺失阈值过严会丢失真实位点"
+  ],
+  "scripts": [
+    "scripts/gwas/01_plink_qc.sh"
+  ],
+  "source": {
+    "journal": "GigaScience",
+    "year": 2015,
+    "doi": "10.1186/s13742-015-0047-8"
+  },
+  "tier": "S"
+}

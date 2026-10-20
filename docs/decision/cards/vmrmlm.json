@@ -1,0 +1,46 @@
+{
+  "id": "vmrmlm",
+  "name": "3VmrMLM 多位点 QTN",
+  "category": "gwas",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "gwas"
+    ],
+    "design": [
+      "natural_population",
+      "multi_environment"
+    ]
+  },
+  "assumptions": [
+    "基因型/表型完整",
+    "环境数>=1"
+  ],
+  "inputs": [
+    "基因型",
+    "表型(可多环境)"
+  ],
+  "outputs": [
+    "QTN 表",
+    "QEI/上位性结果"
+  ],
+  "alternatives": [
+    "fast3vmrmlm",
+    "mlm_gwas"
+  ],
+  "fail_modes": [
+    "LD 强时 QTN 选择不稳定",
+    "环境数少时 QEI 不可靠"
+  ],
+  "scripts": [
+    "scripts/gwas/09_multilocus_qtn.R"
+  ],
+  "source": {
+    "journal": "Molecular Plant",
+    "year": 2022,
+    "doi": "10.1016/j.molp.2022.02.012"
+  },
+  "tier": "S"
+}

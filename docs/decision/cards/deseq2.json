@@ -1,0 +1,48 @@
+{
+  "id": "deseq2",
+  "name": "DESeq2 差异表达",
+  "category": "transcriptomics",
+  "applies_to": {
+    "assay": [
+      "bulk_rna"
+    ],
+    "goal": [
+      "differential_expression"
+    ],
+    "design": [
+      "treatment_control",
+      "timecourse",
+      "multi_environment"
+    ]
+  },
+  "assumptions": [
+    "整数 counts",
+    "有生物学重复",
+    "批次可建模"
+  ],
+  "inputs": [
+    "count 矩阵",
+    "样本表(分组/批次)"
+  ],
+  "outputs": [
+    "差异表",
+    "标准化 counts"
+  ],
+  "alternatives": [
+    "edger",
+    "limma_voom"
+  ],
+  "fail_modes": [
+    "n=1 时 P 值不可解释",
+    "批次与分组混杂时效应不可分离"
+  ],
+  "scripts": [
+    "scripts/transcriptomics/02_deseq2.R"
+  ],
+  "source": {
+    "journal": "Genome Biology",
+    "year": 2014,
+    "doi": "10.1186/s13059-014-0550-8"
+  },
+  "tier": "S"
+}

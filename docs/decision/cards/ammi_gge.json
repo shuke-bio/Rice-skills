@@ -1,0 +1,43 @@
+{
+  "id": "ammi_gge",
+  "name": "AMMI/GGE 稳定性分析",
+  "category": "phenomics",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "prediction",
+      "marker_discovery"
+    ],
+    "design": [
+      "multi_environment"
+    ]
+  },
+  "assumptions": [
+    "多环境表型",
+    "环境数 ≥3 更稳"
+  ],
+  "inputs": [
+    "基因型×环境表型矩阵"
+  ],
+  "outputs": [
+    "AMMI 双标图",
+    "稳定性参数"
+  ],
+  "alternatives": [
+    "混合模型稳定性"
+  ],
+  "fail_modes": [
+    "环境数少时 IPCA 不稳定",
+    "缺失格子影响分解"
+  ],
+  "scripts": [
+    "scripts/phenomics/04_ammi_gge.R"
+  ],
+  "source": {
+    "tool_only": true,
+    "note": "标准稳定性方法；实现见脚本"
+  },
+  "tier": "A"
+}

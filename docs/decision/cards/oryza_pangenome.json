@@ -1,0 +1,47 @@
+{
+  "id": "oryza_pangenome",
+  "name": "Oryza 属泛基因组流程",
+  "category": "pangenome",
+  "applies_to": {
+    "assay": [
+      "pangenome"
+    ],
+    "goal": [
+      "gwas",
+      "qtl"
+    ],
+    "design": [
+      "natural_population"
+    ]
+  },
+  "assumptions": [
+    "多个染色体级组装",
+    "可建 conda 环境",
+    "按阶段运行"
+  ],
+  "inputs": [
+    "组装 FASTA",
+    "配置 YAML"
+  ],
+  "outputs": [
+    "图泛基因组",
+    "SV/PAV",
+    "泛基因集"
+  ],
+  "alternatives": [
+    "自建流程"
+  ],
+  "fail_modes": [
+    "上游为研究流程集合，非一键工具",
+    "阶段工具缺失会中断"
+  ],
+  "scripts": [
+    "scripts/pangenome/05_oryza_pangenome_pipeline.sh"
+  ],
+  "source": {
+    "journal": "Genome Biology",
+    "year": 2023,
+    "note": "MIT upstream, not vendored"
+  },
+  "tier": "A"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "mlm_gwas",
+  "name": "MLM 混合线性模型关联",
+  "category": "gwas",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "gwas"
+    ],
+    "design": [
+      "natural_population"
+    ]
+  },
+  "assumptions": [
+    "群体结构可估计",
+    "亲缘矩阵可计算"
+  ],
+  "inputs": [
+    "基因型",
+    "表型",
+    "PCA/亲缘"
+  ],
+  "outputs": [
+    "关联结果"
+  ],
+  "alternatives": [
+    "farmcpu",
+    "glm"
+  ],
+  "fail_modes": [
+    "未校正结构导致 QQ 膨胀",
+    "稀有变异功效低"
+  ],
+  "scripts": [
+    "scripts/gwas/03_association.R"
+  ],
+  "source": {
+    "tool_only": true,
+    "note": "常用模型；实现见脚本"
+  },
+  "tier": "S"
+}

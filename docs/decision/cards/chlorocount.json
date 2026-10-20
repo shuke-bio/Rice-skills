@@ -1,0 +1,45 @@
+{
+  "id": "chlorocount",
+  "name": "Chloro-Count 叶绿体定量",
+  "category": "phenomics",
+  "applies_to": {
+    "assay": [
+      "bulk_rna"
+    ],
+    "goal": [
+      "marker_discovery"
+    ],
+    "design": [
+      "treatment_control"
+    ]
+  },
+  "assumptions": [
+    "共聚焦图像栈",
+    "作者预训练模型",
+    "通道设置匹配"
+  ],
+  "inputs": [
+    "图像栈/图像",
+    "两个模型权重"
+  ],
+  "outputs": [
+    "分割图",
+    "计数与测量表"
+  ],
+  "alternatives": [
+    "手工计数"
+  ],
+  "fail_modes": [
+    "通道/分辨率不匹配导致分割失败",
+    "无模型权重无法运行"
+  ],
+  "scripts": [
+    "scripts/phenomics/08_chlorocount.py"
+  ],
+  "source": {
+    "journal": "New Phytologist",
+    "year": 2025,
+    "note": "PMID 39668515"
+  },
+  "tier": "A"
+}

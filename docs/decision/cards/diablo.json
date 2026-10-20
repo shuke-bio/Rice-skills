@@ -1,0 +1,45 @@
+{
+  "id": "diablo",
+  "name": "DIABLO 有监督多组学",
+  "category": "integration",
+  "applies_to": {
+    "assay": [
+      "rna_metabolome"
+    ],
+    "goal": [
+      "integration",
+      "marker_discovery"
+    ],
+    "design": [
+      "treatment_control"
+    ]
+  },
+  "assumptions": [
+    "有分组标签",
+    "样本量足够做 CV"
+  ],
+  "inputs": [
+    "多层矩阵",
+    "标签"
+  ],
+  "outputs": [
+    "判别模型",
+    "变量选择"
+  ],
+  "alternatives": [
+    "mofa"
+  ],
+  "fail_modes": [
+    "小样本过拟合",
+    "标签不平衡"
+  ],
+  "scripts": [
+    "scripts/integration/02_diablo.R"
+  ],
+  "source": {
+    "journal": "Bioinformatics",
+    "year": 2019,
+    "doi": "10.1093/bioinformatics/btz158"
+  },
+  "tier": "A"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "coloc",
+  "name": "共定位（coloc/贝叶斯）",
+  "category": "integration",
+  "applies_to": {
+    "assay": [
+      "rna_metabolome",
+      "resequencing"
+    ],
+    "goal": [
+      "integration",
+      "gwas",
+      "qtl"
+    ],
+    "design": [
+      "natural_population"
+    ]
+  },
+  "assumptions": [
+    "两个性状有独立 GWAS/QTL 汇总统计",
+    "LD 信息可得"
+  ],
+  "inputs": [
+    "两套关联结果"
+  ],
+  "outputs": [
+    "PP4"
+  ],
+  "alternatives": [
+    "共定位近似（LD 匹配）"
+  ],
+  "fail_modes": [
+    "PP4 高不等于因果",
+    "样本重叠会高估"
+  ],
+  "scripts": [
+    "scripts/qtl/02_colocalization.R",
+    "scripts/qtl/03_coloc_bayesian.R"
+  ],
+  "source": {
+    "journal": "Genome Biology",
+    "year": 2025,
+    "doi": "10.1186/s13059-025-03513-w"
+  },
+  "tier": "A"
+}

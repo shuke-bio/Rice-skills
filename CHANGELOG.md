@@ -5,6 +5,33 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.3] — 2026-10-21
+
+### Added
+- **Scenario cards for the remaining high-frequency designs**: single-cell & spatial,
+  metabolome, QTL/BSA, phenomics/GS, pangenome, epigenome and proteome; each card lists
+  prerequisites, three tiers, failure modes and whitelist-only sources.
+- `scripts/plan/02_check_data.py`: pre-analysis health check (missingness, library size,
+  constant features, PCA outliers, batch×group confounding, multi-omics overlap);
+  `--demo` plants four defect classes and asserts they are detected.
+- `docs/decision/router.md` + `template.json`: intent-to-question routing and a ready
+  data contract.
+- `docs/decision/cards/`: 22 machine-readable method cards, validated by
+  `scripts/plan/03_validate_cards.py` (required fields, script existence, journal whitelist,
+  DOI format); includes ELMERF, AnnoSINE, Chloro-Count, GBLUP, AMMI/GGE,
+  FastBiCmrMLM and the Oryza pangenome workflow.
+- `docs/decision/en/`: English versions of all 10 scenario cards, same structure and
+  whitelist-only citation policy.
+
+### Added
+- **Decision layer for analysis planning** — `scripts/plan/01_make_plan.py` turns a
+  10-field data contract (JSON) into blockers + three tiers (minimal / standard /
+  advanced), each mapped to real scripts with method citations; `--demo` covers four
+  scenarios (RNA-seq n=3, RNA-seq n=1 guardrail, GWAS 300 accessions, multi-omics n=60).
+- `docs/decision/`: data contract, scenario cards for bulk RNA-seq, GWAS and
+  transcriptome×metabolome integration; citation policy restricted to the A1–A3
+  journal whitelist (non-whitelisted method papers are named as tools only).
+
 ## [3.3.2] — 2026-10-19
 
 ### Added

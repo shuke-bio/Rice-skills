@@ -1,0 +1,51 @@
+{
+  "id": "elmerf",
+  "name": "ELMERF 耐盐 RGB 表型",
+  "category": "phenomics",
+  "applies_to": {
+    "assay": [
+      "bulk_rna",
+      "resequencing"
+    ],
+    "goal": [
+      "marker_discovery",
+      "prediction"
+    ],
+    "design": [
+      "treatment_control",
+      "natural_population"
+    ]
+  },
+  "assumptions": [
+    "水培苗期 RGB 图像",
+    "器官可分（绿苗/黄苗/根）",
+    "有训练权重或可训练数据"
+  ],
+  "inputs": [
+    "RGB 图像",
+    "分割配置",
+    "模型权重"
+  ],
+  "outputs": [
+    "分割掩膜",
+    "绿/黄/根面积分数",
+    "表型表"
+  ],
+  "alternatives": [
+    "人工打分",
+    "其他分割模型"
+  ],
+  "fail_modes": [
+    "光照/背景变化导致分割漂移",
+    "无权重时无法直接推理"
+  ],
+  "scripts": [
+    "scripts/phenomics/07_elmerf_salt.py"
+  ],
+  "source": {
+    "journal": "Plant Phenomics",
+    "year": 2026,
+    "note": "PMID 42576976"
+  },
+  "tier": "A"
+}

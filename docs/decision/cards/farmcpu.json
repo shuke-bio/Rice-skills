@@ -1,0 +1,40 @@
+{
+  "id": "farmcpu",
+  "name": "FarmCPU 关联模型",
+  "category": "gwas",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "gwas"
+    ],
+    "design": [
+      "natural_population"
+    ]
+  },
+  "assumptions": [
+    "有足够标记密度"
+  ],
+  "inputs": [
+    "基因型",
+    "表型"
+  ],
+  "outputs": [
+    "关联结果"
+  ],
+  "alternatives": [
+    "mlm_gwas"
+  ],
+  "fail_modes": [
+    "假阳性控制依赖协变量选择"
+  ],
+  "scripts": [
+    "scripts/gwas/03_association.R"
+  ],
+  "source": {
+    "tool_only": true,
+    "note": "常用模型；实现见脚本"
+  },
+  "tier": "A"
+}

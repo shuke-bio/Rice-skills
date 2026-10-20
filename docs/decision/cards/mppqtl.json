@@ -1,0 +1,41 @@
+{
+  "id": "mppqtl",
+  "name": "多亲本 QTL（MAGIC/NAM/ROAM）",
+  "category": "qtl",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "qtl"
+    ],
+    "design": [
+      "ril_magic_nam"
+    ]
+  },
+  "assumptions": [
+    "有多亲本家系结构",
+    "标记覆盖全基因组"
+  ],
+  "inputs": [
+    "家系基因型",
+    "表型"
+  ],
+  "outputs": [
+    "QTL 区间"
+  ],
+  "alternatives": [
+    "连锁分析"
+  ],
+  "fail_modes": [
+    "家系结构错误导致连锁相错误"
+  ],
+  "scripts": [
+    "scripts/gwas/11_multiparent_qtl.R"
+  ],
+  "source": {
+    "tool_only": true,
+    "note": "多亲本方法；实现见脚本"
+  },
+  "tier": "A"
+}

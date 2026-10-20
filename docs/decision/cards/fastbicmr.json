@@ -1,0 +1,45 @@
+{
+  "id": "fastbicmr",
+  "name": "FastBiCmrMLM 二分类 QTN",
+  "category": "gwas",
+  "applies_to": {
+    "assay": [
+      "resequencing"
+    ],
+    "goal": [
+      "gwas"
+    ],
+    "design": [
+      "case_control"
+    ]
+  },
+  "assumptions": [
+    "0/1 表型",
+    "Linux/WSL 环境",
+    "基因型完整"
+  ],
+  "inputs": [
+    "基因型",
+    "二分类表型"
+  ],
+  "outputs": [
+    "QTN 表",
+    "效应估计"
+  ],
+  "alternatives": [
+    "逻辑回归 + 结构校正"
+  ],
+  "fail_modes": [
+    "病例对照失衡导致功效下降",
+    "Windows 原生不支持"
+  ],
+  "scripts": [
+    "scripts/gwas/10_case_control_qtn.R"
+  ],
+  "source": {
+    "journal": "Briefings in Bioinformatics",
+    "year": 2024,
+    "doi": "10.1093/bib/bbae290"
+  },
+  "tier": "A"
+}
