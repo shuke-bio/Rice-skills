@@ -80,7 +80,7 @@
         "MPLCONFIGDIR": "/tmp/mpl",
         "NUMBA_CACHE_DIR": "/tmp/numba"
       },
-      "command": "${PYTHON} /Users/fernandozeng/Desktop/analysis/omicverse-project/awesome-skill-generate/examples/omicverse-single-skills/omicverse-single-cell-rna-velocity/scripts/graphvelo_smoke.py",
+      "command": "${PYTHON} /Users/demo/Desktop/analysis/omicverse-project/awesome-skill-generate/examples/omicverse-single-skills/omicverse-single-cell-rna-velocity/scripts/graphvelo_smoke.py",
       "timeout_seconds": 240,
       "expect_stdout_contains": [
         "\"x_pca\": true",
@@ -101,7 +101,7 @@
       "name": "graphvelo-interface-smoke",
       "tier": "import",
       "conda_env": "omictest",
-      "command": "${PYTHON} /Users/fernandozeng/Desktop/analysis/omicverse-project/awesome-skill-generate/scripts/inspect_python_interface.py omicverse.single._velo:Velo.graphvelo --pretty",
+      "command": "${PYTHON} /Users/demo/Desktop/analysis/omicverse-project/awesome-skill-generate/scripts/inspect_python_interface.py omicverse.single._velo:Velo.graphvelo --pretty",
       "timeout_seconds": 90,
       "expect_stdout_contains": [
         "Refine velocity vectors with GraphVelo",
@@ -114,7 +114,7 @@
       "name": "cal-velocity-interface-smoke",
       "tier": "import",
       "conda_env": "omictest",
-      "command": "${PYTHON} /Users/fernandozeng/Desktop/analysis/omicverse-project/awesome-skill-generate/scripts/inspect_python_interface.py omicverse.single._velo:Velo.cal_velocity --pretty",
+      "command": "${PYTHON} /Users/demo/Desktop/analysis/omicverse-project/awesome-skill-generate/scripts/inspect_python_interface.py omicverse.single._velo:Velo.cal_velocity --pretty",
       "timeout_seconds": 90,
       "expect_stdout_contains": [
         "dynamo",
@@ -128,7 +128,7 @@
       "name": "umap-interface-smoke",
       "tier": "import",
       "conda_env": "omictest",
-      "command": "${PYTHON} /Users/fernandozeng/Desktop/analysis/omicverse-project/awesome-skill-generate/scripts/inspect_python_interface.py omicverse.pp._umap:umap --pretty",
+      "command": "${PYTHON} /Users/demo/Desktop/analysis/omicverse-project/awesome-skill-generate/scripts/inspect_python_interface.py omicverse.pp._umap:umap --pretty",
       "timeout_seconds": 90,
       "expect_stdout_contains": [
         "\"umap\"",

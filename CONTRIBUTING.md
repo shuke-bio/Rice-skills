@@ -42,6 +42,6 @@ and (if possible) the smallest demo dataset reproducing the issue.
 Attaching the `--demo` command that fails is the fastest path to a fix.
 
 Other questions: open a [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues),
-or email **shuke4358@gmail.com** for private matters.
+For anything that should not be public, open an issue without sensitive details and we will follow up.
 其他问题：开 [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues)，
-私密事宜可邮件联系 **shuke4358@gmail.com**。
+不便公开的内容，请开 Issue 并避免贴敏感信息，我们会另行跟进。

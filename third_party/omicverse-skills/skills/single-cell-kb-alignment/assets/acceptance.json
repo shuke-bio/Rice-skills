@@ -54,7 +54,7 @@
     {
       "name": "synthetic-kb-alignment",
       "tier": "full",
-      "python_path": "/Users/fernandozeng/miniforge3/envs/omictest/bin/python",
+      "python_path": "/Users/demo/miniforge3/envs/omictest/bin/python",
       "conda_env": "omictest",
       "env": {
         "PYTHONPATH": "../omicverse",

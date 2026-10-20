@@ -26,3 +26,9 @@ Rice-skills 自研部分（scripts/、docs/、config/、templates/、tests/、ex
 （如 crameri / cmocean / scico / viridis）不克隆入包，仅在 `colormaps/NOTICE.md` 的
 「调研后未收录的上游」表中留档并附运行时安装命令。
 二次分发时请保留本目录全部 `LICENSE*` 与各库 `NOTICE.md`。
+
+## 隐私脱敏说明
+
+为保护个人隐私，本目录上游文档中的个人邮箱与本地用户路径已做脱敏处理
+（邮箱替换为“已脱敏”，`/Users/<name>/` 替换为 `/Users/demo/`），不影响任何功能；
+原始信息请见各上游仓库。

@@ -62,7 +62,7 @@
       "tier": "full",
       "conda_env": "omictest",
       "env": {
-        "PYTHONPATH": "/Users/fernandozeng/Desktop/analysis/omicverse",
+        "PYTHONPATH": "/Users/demo/Desktop/analysis/omicverse",
         "MPLCONFIGDIR": "/tmp/mpl",
         "NUMBA_CACHE_DIR": "/tmp/numba"
       },
@@ -83,7 +83,7 @@
       "tier": "full",
       "conda_env": "omictest",
       "env": {
-        "PYTHONPATH": "/Users/fernandozeng/Desktop/analysis/omicverse",
+        "PYTHONPATH": "/Users/demo/Desktop/analysis/omicverse",
         "MPLCONFIGDIR": "/tmp/mpl",
         "NUMBA_CACHE_DIR": "/tmp/numba"
       },

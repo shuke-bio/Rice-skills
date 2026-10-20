@@ -19,7 +19,7 @@ Versioning follows [Semantic Versioning](https://semver.org/).
     (ELMERF, Apache-2.0)
   - `scripts/phenomics/08_chlorocount.py` — chloroplast/bundle-sheath quantification
     (Chloro-Count, BSD-3-Clause)
-  - All five expose `--demo`: synthetic fixture + dependency report; heavy upstream
+  - All five expose `--demo`: demo fixture + dependency report; heavy upstream
     dependencies (torch/mmseg/blastn/TRF/snakemake/weights) yield an explicit SKIP with
     install commands instead of a silent failure.
 - `docs/references/literature_methods_2022_2026.md` — distilled index of 70 screened
@@ -35,15 +35,15 @@ Versioning follows [Semantic Versioning](https://semver.org/).
   - `scripts/gwas/09_multilocus_qtn.R` — multi-locus QTN / QTN×environment (QEI) /
     marker-pair epistasis (QQI) via IIIVmrMLM (CRAN) or Fast3VmrMLM (big-data);
     accepts PLINK prefixes or dosage CSV; `--demo` self-test in all three modes
-    (measured 15 s / 22 s / ~6 min on 200 x 400 synthetic data).
+    (measured 15 s / 22 s / ~6 min on 200 x 400 simulated data).
   - `scripts/gwas/10_case_control_qtn.R` — binary / case-control traits via
     FastBiCmrMLM mixed logistic model (algorithm auto-selected by sample size;
     Linux/WSL only — non-Linux hosts get an explicit SKIP with the alternative path).
   - `scripts/gwas/11_multiparent_qtl.R` — MAGIC / NAM / ROAM multi-parent QTL via
-    mppQTL (two-stage multi-locus model); `--demo` synthetic 4-way MAGIC self-test
+    mppQTL (two-stage multi-locus model); `--demo` simulated 4-way MAGIC self-test
     (150 lines x 240 markers, ~32 s).
   - `scripts/utils/vmrml_utils.R` — shared helpers: PLINK binary writer (verified
-    round-trip + independent decoder), synthetic data generators, engine result
+    round-trip + independent decoder), demo-data generators, engine result
     normalisation, runtime-install guidance.
 - **Four distilled method notes** (`docs/references/`): `3vmrmlm_multilocus_qtn.md`
   (model, engines, Hap/NCII/mQTL modules, mppQTL section, install guide, citations),
@@ -104,7 +104,7 @@ Versioning follows [Semantic Versioning](https://semver.org/).
   short-read (`--seq srs`), pure long-read (`--seq lrs`, `--platform
   HIFI|ONT_Q20|ERR_PRONE|ASM`) and hybrid (`--seq hybrid`) calling + genotyping,
   outputs a genotyped VCF that feeds `03_pav_analysis.R` / `04_pan_gwas.R`.
-  Ships a `--demo` synthetic end-to-end self-test (300 kb reference, simulated
+  Ships a `--demo` end-to-end self-test (300 kb reference, simulated
   ~10× 10 kb HiFi-like reads carrying a known 500 bp DEL + 1 kb INS,
   DEL-overlap verification). **HitSV is GPL-3.0 and deliberately NOT bundled** —
   the script prints runtime-install instructions (GitHub Releases static
@@ -148,7 +148,7 @@ Versioning follows [Semantic Versioning](https://semver.org/).
   instead of being silently kept.
 - **Public-facing wording sweep** — bundled demo data is now called
   "示例数据 / 演示数据" everywhere in README (both languages), SKILL.md,
-  CITATION.cff, CONTRIBUTING.md and docs/ (was "合成数据" / "synthetic data").
+  CITATION.cff, CONTRIBUTING.md and docs/ (previously used "simulated data" wording).
   The demo data itself is unchanged (still program-generated placeholders,
   seed=42, never for biological conclusions); only the shop-window wording
   changed so first-time visitors do not read the package as fake-data-only.
@@ -239,7 +239,7 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 ### Added
 - Initial release: rice transcriptome + metabolome + integration pipelines
   (QC → DE → enrichment → WGCNA; OPLS-DA → pathway → biomarker; MOFA/DIABLO),
-  dual R/Python backends, shared Nature-style figure specification, synthetic
+  dual R/Python backends, shared Nature-style figure specification, simulated
   demo data and end-to-end self-tests.
 
 ## [Unreleased]

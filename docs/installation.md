@@ -2,7 +2,35 @@
 
 本文说明如何搭建 Rice-skills 的运行环境：conda 一键安装（推荐）、手工安装、以及常见故障排查。
 
+## 0. 三条安装路线（先选一条）
+
+| 路线 | 适用 | 命令 / 操作 |
+|---|---|---|
+| A. skills CLI | Codex / Claude Code / OpenClaw 等支持 skills 的 agent | `npx skills add shuke-bio/Rice-skills --skill rice-skills --yes --copy` |
+| B. Git 克隆 | 需要本地脚本库、要改代码 | `git clone https://github.com/shuke-bio/Rice-skills.git` |
+| C. 代理指向 / ZIP | WorkBuddy、DeepSeek Harness 等 | 把仓库链接发给 agent，说“从这个仓库安装水稻技能”；或下载 ZIP 解压到技能目录 |
+
+### 0.1 WorkBuddy（Windows）
+
+1. 从 workbuddy.cn 下载 Windows 版并安装、登录；
+2. 把克隆/解压后的 `Rice-skills` 文件夹放入 WorkBuddy 的技能目录，或在对话中
+   直接说“从 github.com/shuke-bio/Rice-skills 安装 rice 技能”；
+3. 安装 R 4.4+ 与 Python 3.11+（安装时勾选加入 PATH），再按第 2 节创建 conda 环境；
+4. 验证：`Rscript scripts/gwas/09_multilocus_qtn.R --demo`。
+
+### 0.2 DeepSeek Harness（dsh）
+
+1. 安装 Node.js 22.19+（或 24 LTS），在终端运行 `npx @deepseek-ai/dsh web`，
+   浏览器打开 `http://127.0.0.1:3080`；
+2. 在 platform.deepseek.com 创建 API Key，进入 设置 → Models 粘贴并选择模型；
+3. 选择工作区（如 `D:\work\rice`），在对话中让它把本仓库安装为技能；
+4. 验证：请它运行 `Rscript scripts/phenomics/06_menet_gs.py --demo`（缺依赖会给出安装提示）。
+
+> 说明：dsh 仍为开发者预览版，命令与模型名以官方文档为准；API Key 保存在
+> `~/.dsh/.credentials.yaml`，不要提交到仓库。
+
 ## 1. 前置要求
+
 
 | 组件 | 版本 | 说明 |
 |---|---|---|

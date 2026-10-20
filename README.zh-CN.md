@@ -380,7 +380,7 @@ GWAS / 泛基因组 / CRISPR / 多组学联合分析…）会自动路由。
 cd /path/to/Rice-skills
 git remote add origin https://github.com/<you>/Rice-skills.git
 git branch -M main && git push -u origin main
-git tag v3.3.1 && git push origin v3.3.1   # 打 tag 后在 Releases 发布 ZIP
+git tag v3.3.2 && git push origin v3.3.2   # 打 tag 后在 Releases 发布 ZIP
 ```
 
 > 如需重写历史（例如清理个人信息），用 `git filter-repo --path <文件> --invert-paths`；
@@ -391,16 +391,16 @@ git tag v3.3.1 && git push origin v3.3.1   # 打 tag 后在 Releases 发布 ZIP
 ```bash
 # 在仓库根目录的上一级执行（保证 ZIP 内顶层为 Rice-skills/）
 # 排除项：.git 版本库、.workbuddy 工作日志、results 运行输出、__pycache__、注释缓存
-cd .. && zip -r Rice-skills-v3.3.1.zip Rice-skills \
+cd .. && zip -r Rice-skills-v3.3.2.zip Rice-skills \
   -x "*/.git/*" "*/.workbuddy/*" "*/results/*" "*/__pycache__/*" "*/data/*" "*/.git-rewrite/*"
 # 打包前自查：解压后确认无 .workbuddy/、results/、__pycache__/ 目录
 # 或用 git 精确打包（最保险，与 git archive HEAD 内容一致）：
-#   git archive --format=zip -o ../Rice-skills-v3.3.1.zip HEAD
+#   git archive --format=zip -o ../Rice-skills-v3.3.2.zip HEAD
 
 # 上传（curl 示例）
 curl -X POST https://api.openai.com/v1/skills \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -F "file=@Rice-skills-v3.3.1.zip" \
+  -F "file=@Rice-skills-v3.3.2.zip" \
   -F "name=Rice-skills"
 ```
 
@@ -473,7 +473,7 @@ PlantTFDB 水稻 TF 列表 1,862 个 / 56 家族、53 个 TF 家族 GSEA 基因�
 
 ## 📬 联系方式
 
-**有问题或建议？** 优先在 [GitHub Issues](https://github.com/shuke-bio/Rice-skills/issues) 反馈——公开可检索，你的提问也能惠及其他使用者；私密事宜可邮件联系 **shuke4358@gmail.com**。
+**有问题或建议？** 优先在 [GitHub Issues](https://github.com/shuke-bio/Rice-skills/issues) 反馈——公开可检索，你的提问也能惠及其他使用者；不便公开的内容请开 Issue 并避免贴敏感信息。
 
 ## 📚 文档
 

@@ -236,7 +236,7 @@ Rice-skills/
 ├── run_pipeline.sh                 # One-command transcriptome+metabolome run
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
-├── demo_data/                      # Synthetic demo data for every module
+├── demo_data/                      # Example demo data for every module
 ├── scripts/                        # 86 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
@@ -297,7 +297,7 @@ see [`third_party/NOTICE.md`](third_party/NOTICE.md) and per-library files.
 
 ## 📬 Contact
 
-**Questions or issues?** Open a [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues) first — public and searchable, so the answer helps other users too. For private matters, email **shuke4358@gmail.com**.
+**Questions or issues?** Open a [GitHub issue](https://github.com/shuke-bio/Rice-skills/issues) first — public and searchable, so the answer helps other users too. For anything that should not be public, open an issue without sensitive details and we will follow up.
 
 ## 📚 Documentation
 
