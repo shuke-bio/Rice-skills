@@ -5,6 +5,18 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.4] — 2026-10-23
+
+### Added
+- **Dependency preflight with consent gating** — `scripts/plan/04_check_deps.py` scans the
+  scripts referenced by a plan (or given directly), checks Python imports, R packages and
+  external tools, and reports what is missing with exact install commands.
+  Default is check-only; installation requires `--install --yes` (non-interactive refusal
+  exits with code 2), re-checks afterwards and logs to `results/deps/install.log`.
+  System tools (PLINK/BLAST/TRF/Snakemake/…) are never auto-installed.
+- `docs/decision/dependencies.md`: flow, safety boundaries, what is/isn't installed,
+  detection rules and FAQ.
+
 ## [3.3.3] — 2026-10-21
 
 ### Added

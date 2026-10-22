@@ -19,10 +19,12 @@
 | `scenario_proteome.md` | 蛋白组：缺失机制、差异蛋白、PTM |
 | `router.md` | 用户说法 → 该问什么 → 用哪张卡 |
 | `en/` | 10 张英文场景卡（与中文版一一对应） |
+| `dependencies.md` | 依赖体检与“同意后安装”流程（含安全边界） |
 | `template.json` | 数据契约模板（含路径字段） |
 | `../../scripts/plan/01_make_plan.py` | 读 JSON → 输出 `plan.md` / `plan.json` / `commands.sh` |
 | `../../scripts/plan/02_check_data.py` | 数据体检：缺失/文库/PCA/批次混杂/多组学重叠 |
 | `../../scripts/plan/03_validate_cards.py` | 校验方法卡字段、脚本存在性、期刊白名单 |
+| `../../scripts/plan/04_check_deps.py` | 依赖体检：R/Python 包与外部工具；同意后才安装 |
 
 ## 使用顺序
 
@@ -31,7 +33,9 @@
 3. 生成方案：`python scripts/plan/01_make_plan.py --input my_data.json --outdir results/plan`；
 4. 先看 **阻断项**——有阻断项就不要往下跑；
 5. 在"最小可行 / 标准 / 进阶"里选一档；
-6. 按 `commands.sh` 逐个 `--demo` 验证环境，再上真实数据。
+6. 依赖体检：`python scripts/plan/04_check_deps.py --plan results/plan/plan.json --tier minimal`；
+7. 把缺失清单交给用户确认，同意后加 `--install --yes` 安装并复检；
+8. 按 `commands.sh` 逐个 `--demo` 验证环境，再上真实数据。
 
 ## 文献准入标准
 

@@ -24,6 +24,9 @@
    `python scripts/plan/02_check_data.py --matrix ... --metadata ... --outdir results/qc`
 3. **生成方案**：
    `python scripts/plan/01_make_plan.py --input data.json --outdir results/plan`
+3.5 **依赖体检**（选档后）：
+   `python scripts/plan/04_check_deps.py --plan results/plan/plan.json --tier minimal`
+   把缺失清单给用户确认；同意后才加 `--install --yes`。
 4. **先看阻断项**：有 `blockers` 就停下，向用户说明原因并给替代方案；
 5. **让用户选档**：最小可行 / 标准 / 进阶；
 6. **执行**：先 `--demo` 验证环境，再传真实参数（见 `docs/*_usage.md`）。
