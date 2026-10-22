@@ -18,8 +18,8 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.6.zip)
-![Version](https://img.shields.io/badge/version-3.3.6-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.7.zip)
+![Version](https://img.shields.io/badge/version-3.3.7-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-91-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -70,7 +70,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - 完整链路：BWA 比对 → GATK 变异检测 → VCF 过滤 → SnpEff 注释
 
 **GWAS 与基因组学**
-- PLINK 质控 → rMVP / GAPIT / 内置 GLM 关联检验
+- PLINK 质控 → rMVP（GLM / MLM / FarmCPU，`--model`）或 GAPIT（七模型）/ 内置 OLS-GLM
 - 出版级曼哈顿 / QQ 图与显著性位点注释
 - Meta-GWAS · 单倍型（EM）分析 · 2D 成对性状 GWAS
 - 贝叶斯共定位（PP4）· 功效与样本量分析

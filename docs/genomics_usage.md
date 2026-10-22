@@ -221,3 +221,19 @@ Rscript scripts/gwas/11_multiparent_qtl.R --demo   # 150 系 × 240 标记合成
   1..n_founder 的**排列**（qtl2 校验）；等位字母只认 A/T/C/G
 - 输出 `qtl_results.csv`（显著 QTL）+ `gws_scan.csv`（全扫描）+ 每性状×环境 xlsx
 - demo 实测：32 s，植入 QTL 精确命中 D2M30
+
+## 关联引擎与模型选择（03_association.R）
+
+| 引擎 | 可选模型 | 默认 | 依赖 |
+|---|---|---|---|
+| `simple` | 内置逐 SNP OLS（GLM 家族，PCA 协变量） | — | 无（随包运行） |
+| `rmvp` | `GLM` / `MLM` / `FarmCPU` | `FarmCPU` | rMVP（推荐） |
+| `gapit` | `GLM` / `MLM` / `CMLM` / `SUPER` / `MLMM` / `FarmCPU` / `Blink` | `MLM` | GAPIT |
+
+```bash
+Rscript scripts/gwas/03_association.R ... --engine rmvp --model MLM   # 混合线性模型
+Rscript scripts/gwas/03_association.R ... --engine rmvp --model GLM   # 广义线性模型
+Rscript scripts/gwas/03_association.R ... --engine gapit --model CMLM # GAPIT 扩展模型
+```
+
+说明：`--engine auto` 按 rMVP → GAPIT → simple 选择；未安装 rMVP/GAPIT 时只能用 `simple`（OLS-GLM 基线）。

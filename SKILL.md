@@ -1,7 +1,7 @@
 ---
 name: rice-skills
-description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、多位点 QTN·QEI·上位性（3VmrMLM/Fast3VmrMLM）、case-control QTN（FastBiCmrMLM，Linux）、多亲本 QTL（mppQTL）、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；引物与 CRISPR 靶点设计；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/TIFF/PNG ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告等关键词时触发。
-version: 3.3.6
+description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、多位点 QTN·QEI·上位性（3VmrMLM/Fast3VmrMLM）、case-control QTN（FastBiCmrMLM，Linux）、多亲本 QTL（mppQTL）、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；qPCR 引物设计；CRISPR sgRNA 设计（含序列内脱靶统计；全基因组脱靶需外部工具）；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/TIFF/PNG ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告等关键词时触发。
+version: 3.3.7
 license: MIT
 species: Oryza sativa (水稻, Japonica)
 trigger:
@@ -219,7 +219,7 @@ agent 按 §5 路由表加载对应技能执行。
 |---|---|---|---|---|
 | 01 | `01_plink_qc.sh` | VCF→PLINK 转换 + MAF/缺失率/HWE 质控 + LD 剪枝 + 剂量导出（模板，需 PLINK） | PLINK | PLINK fileset、`.prune.in`、`.raw` |
 | 02 | `02_plink_to_matrix.R` | PLINK `.raw/.map` → 标准剂量矩阵 | R | `genotype.csv`、`snp_info.csv` |
-| 03 | `03_association.R` | GWAS 关联（三引擎：simple 内置 OLS-GLM / rMVP FarmCPU·MLM / GAPIT 七模型 `--model`），PCA 协变量 | 可选 rMVP(推荐)/GAPIT | 全量结果表、显著 SNP 表、PCA 得分 |
+| 03 | `03_association.R` | GWAS 关联（三引擎：simple 内置 OLS-GLM；rMVP `--model GLM·MLM·FarmCPU`；GAPIT 七模型），PCA 协变量 | 可选 rMVP(推荐)/GAPIT | 全量结果表、显著 SNP 表、PCA 得分 |
 | 04 | `04_candidate_loci.R` | 显著 SNP→位点聚类→候选区间→与 GFF3 注释求交 | R | `gwas_loci.csv`、`candidate_genes.csv` |
 | 05 | `05_plot_gwas.R` | 出版级 Manhattan / QQ / 组合总览图 | ggplot2+patchwork | 三类图 × 3 格式 |
 | 09 | `09_multilocus_qtn.R` | **多位点 QTN / QEI（QTN×环境）/ QQI（上位性）**（3VmrMLM 家族：IIIVmrMLM（CRAN，Win/Linux）/ Fast3VmrMLM（大数据）；含 Hap/NCII/mQTL 模块，`--method single_env\|multi_env\|epistasis`） | 可选 IIIVmrMLM / Fast3VmrMLM（GPL-3，运行时安装） | `qtn_results.csv`、`association_results.csv`、引擎原生结果 |

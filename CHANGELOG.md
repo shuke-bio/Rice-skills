@@ -5,6 +5,17 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.7] — 2026-10-23
+
+### Fixed
+- **GWAS rMVP engine now honours `--model`** (`GLM` / `MLM` / `FarmCPU`, default
+  `FarmCPU`); previously the model was hardcoded to FarmCPU, so GLM/MLM were
+  effectively unavailable unless GAPIT was installed. Invalid combinations now fail
+  with an explicit hint (CMLM/SUPER/MLMM/Blink require `--engine gapit`).
+- `docs/genomics_usage.md`: added an engine × model table and examples.
+- `SKILL.md` description: clarified that sgRNA off-target statistics are
+  in-sequence only, and that genome-wide off-target search requires external tools.
+
 ## [3.3.6] — 2026-10-23
 
 ### Changed

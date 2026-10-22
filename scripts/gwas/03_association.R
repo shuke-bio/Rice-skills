@@ -35,9 +35,10 @@
 #     and is a legitimate "GLM" baseline; for publication-grade mixed models
 #     install rMVP (install.packages("rMVP")) or GAPIT.
 #   - Significance threshold defaults to Bonferroni 0.05 / n_SNPs.
-#   - --model selects the GAPIT model (GLM / MLM / CMLM / SUPER / MLMM /
-#     FarmCPU / Blink); default MLM. Ignored by the simple / rmvp engines with
-#     a message. Model choice guidance: docs/references/gapit_gwas_formats.md.
+#   - --model selects the association model: rMVP supports GLM / MLM / FarmCPU
+#     (default FarmCPU); GAPIT additionally supports CMLM / SUPER / MLMM / Blink
+#     (default MLM). The simple engine is a per-SNP OLS-GLM baseline and ignores
+#     --model. Model choice guidance: docs/references/gapit_gwas_formats.md.
 ###############################################################################
 
 args <- commandArgs(trailingOnly = FALSE)
@@ -75,13 +76,18 @@ maf_cut <- suppressWarnings(as.numeric(opt(opts, "maf", "0.05")))
 missing_cut <- suppressWarnings(as.numeric(opt(opts, "missing", "0.1")))
 p_threshold <- opt(opts, "p-threshold", NULL)
 gapit_models <- c("GLM", "MLM", "CMLM", "SUPER", "MLMM", "FarmCPU", "Blink")
-model_raw <- opt(opts, "model", "MLM")
-m <- which(tolower(gapit_models) == tolower(model_raw))
+rmvp_models <- c("GLM", "MLM", "FarmCPU")
+model_raw <- opt(opts, "model", if (identical(engine, "rmvp")) "FarmCPU" else "MLM")
+allowed_models <- if (identical(engine, "rmvp")) rmvp_models else gapit_models
+m <- which(tolower(allowed_models) == tolower(model_raw))
 if (length(m) == 0) {
-  stop("--model must be one of ", paste(gapit_models, collapse = " / "),
-       " (case-insensitive); got '", model_raw, "'.", call. = FALSE)
+  stop("--model must be one of ", paste(allowed_models, collapse = " / "),
+       " for engine '", engine, "' (case-insensitive); got '", model_raw, "'.",
+       if (identical(engine, "rmvp"))
+         "\nHint: CMLM / SUPER / MLMM / Blink require --engine gapit." else "",
+       call. = FALSE)
 }
-model <- gapit_models[m]
+model <- allowed_models[m]
 
 if (is.null(genotype_path) || is.null(snp_info_path) || is.null(phenotype_path) || is.null(trait)) {
   stop("Required: --genotype, --snp-info, --phenotype, --trait.\n",
@@ -148,7 +154,7 @@ run_simple <- function() {
 
 run_rmvp <- function() {
   need_pkgs("rMVP")
-  message("Engine: rMVP.")
+  message("Engine: rMVP (model: ", model, ").")
   # rMVP expects samples x SNPs for the numeric input; write a temp file.
   tmp_geno <- file.path(outdir, "_rmvp_geno.txt")
   tmp_phe <- file.path(outdir, "_rmvp_phe.txt")
@@ -163,7 +169,7 @@ run_rmvp <- function() {
   rmvp_obj <- rMVP::MVP(rmvp_data$pheno, rmvp_data$geno, rmvp_data$map,
                         K = if (is.null(covariates)) NULL else NULL,
                         CV = covariates, nPC = 0L,
-                        method = "FarmCPU", file.output = FALSE)
+                        method = model, file.output = FALSE)
   res <- as.data.frame(rmvp_obj$map)
   names(res)[names(res) == "SNP"] <- "snp_id"
   if (!"p" %in% names(res)) {
@@ -172,7 +178,7 @@ run_rmvp <- function() {
   }
   res$beta <- if ("effect" %in% names(res)) res$effect else NA_real_
   res$se <- NA_real_
-  res$engine <- "rMVP-FarmCPU"
+  res$engine <- paste0("rMVP-", model)
   res[, c("snp_id", "beta", "se", "p", "engine")]
 }
 
