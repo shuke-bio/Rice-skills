@@ -25,8 +25,8 @@
 # Outputs (written to --outdir):
 #   go_<ONT>_<UP|DOWN>.csv          GO results per ontology and direction
 #   kegg_<UP|DOWN>.csv              KEGG results per direction
-#   go_<ONT>_<UP|DOWN>_dotplot.*    GO dot plots (PDF/SVG/TIFF)
-#   kegg_<UP|DOWN>_dotplot.*        KEGG dot plots (PDF/SVG/TIFF)
+#   go_<ONT>_<UP|DOWN>_dotplot.*    GO dot plots (PDF/TIFF/PNG)
+#   kegg_<UP|DOWN>_dotplot.*        KEGG dot plots (PDF/TIFF/PNG)
 #   enrichment_overview.csv         top 10 terms per category/direction
 #   run_info.txt                    provenance (parameters, versions, seed)
 #

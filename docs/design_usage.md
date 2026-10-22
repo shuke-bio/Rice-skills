@@ -42,7 +42,7 @@ python scripts/design/01_sgrna_design.py \
 | `sgrna_candidates.csv` | 全部候选：序列、链、坐标、GC、连续T、骨架配对、是否在 CDS、序列内脱靶数、评分、通过与否+原因 |
 | `sgrna_recommended_pairs.csv` | **推荐的 3 组双靶点**（默认间隔 ≥100 bp、两者均通过、GC 差 ≤15%） |
 | `construction_primers.csv` | 每组双靶点的 **gRT1+/U6aT1-/gRT2+/U6bT2-**（含"G 开头取 N19、否则 N20"规则）+ SP-L1/SP-R + 全套通用引物 |
-| `sgrna_map.{pdf,svg,tiff}` | 基因结构图 + 靶点位置箭头（正/负链分色）+ 推荐配对区域 |
+| `sgrna_map.{pdf,tiff,png}` | 基因结构图 + 靶点位置箭头（正/负链分色）+ 推荐配对区域 |
 
 **重要提醒**：
 - 全基因组脱靶评估（植物中通常非瓶颈，但建议做）请用 **CRISPR-P 2.0**（http://crispr.hzau.edu.cn/CRISPR2/）或
@@ -86,7 +86,7 @@ results/design/
 ├── 02_primers_val/        # 验证引物 + 覆盖图
 └── 02_primers_generic/    # 通用引物 + 覆盖图
 ```
-所有图 PDF+SVG+TIFF，所有目录含 `run_info.txt` 溯源。
+所有图 PDF+TIFF+PNG，所有目录含 `run_info.txt` 溯源。
 
 ## 4. 免责与引用
 

@@ -16,7 +16,7 @@
 #
 # Outputs:
 #   ld_decay.csv, run_info.txt
-#   ld_decay_curve.{pdf,svg,tiff}
+#   ld_decay_curve.{pdf,tiff,png}
 ###############################################################################
 
 args <- commandArgs(trailingOnly = FALSE)

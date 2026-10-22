@@ -148,14 +148,14 @@ build_network <- function(edges_df, met_ids) {
   list(graph = g, nodes = nodes)
 }
 
-#' Save a base-R igraph plot in PDF + SVG + TIFF (300 dpi).
+#' Save a base-R igraph plot in PDF + TIFF + PNG (300 dpi).
 save_base_network <- function(g, lay, nodes, outdir) {
   deg <- nodes$degree
   deg_range <- max(deg) - min(deg)
   v_size <- if (deg_range > 0) 2 + 8 * (deg - min(deg)) / deg_range else rep(4, length(deg))
   hub <- nodes$is_hub
   v_col <- rice_palette()$series12[1]
-  for (fmt in c("pdf", "svg", "tiff")) {
+  for (fmt in c("pdf", "tiff", "png")) {
     out <- file.path(outdir, paste0("network_plot.", fmt))
     if (fmt == "tiff") {
       grDevices::tiff(out, width = mm_to_inch(89), height = mm_to_inch(89),
@@ -163,7 +163,7 @@ save_base_network <- function(g, lay, nodes, outdir) {
     } else if (fmt == "pdf") {
       grDevices::pdf(out, width = mm_to_inch(89), height = mm_to_inch(89))
     } else {
-      grDevices::svg(out, width = mm_to_inch(89), height = mm_to_inch(89))
+      grDevices::png(out, width = mm_to_inch(89), height = mm_to_inch(89), units = "in", res = 300)
     }
     igraph::plot.igraph(g, layout = lay,
                  vertex.size = v_size, vertex.color = v_col, vertex.frame.color = NA,
@@ -176,7 +176,7 @@ save_base_network <- function(g, lay, nodes, outdir) {
     grDevices::dev.off()
   }
   message("ggraph is not installed: saved network_plot with the igraph base device ",
-          "(PDF/SVG/TIFF). Install ggraph for a publication-grade layout.")
+          "(PDF/TIFF/PNG). Install ggraph for a publication-grade layout.")
 }
 
 #' ggraph-based network plot (used when ggraph is installed).

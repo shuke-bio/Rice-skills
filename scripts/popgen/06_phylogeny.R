@@ -16,7 +16,7 @@
 #
 # Outputs:
 #   ibs_distance_matrix.csv / tree.nwk
-#   phylogeny.{pdf,svg,tiff}
+#   phylogeny.{pdf,tiff,png}
 #   run_info.txt
 #
 # Notes:

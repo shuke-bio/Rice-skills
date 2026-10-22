@@ -1,7 +1,7 @@
 # 输出结果说明（Output description）
 
 所有结果写入 `--outdir`（默认 `results/`），按「模块/步骤」分目录。
-**每张图同时输出 PDF + SVG + TIFF(300 dpi) 三种格式**，下文用 `*.{pdf,svg,tiff}` 表示。
+**每张图同时输出 PDF + TIFF + PNG(300 dpi) 三种格式**，下文用 `*.{pdf,tiff,png}` 表示。
 每个目录均含 `run_info.txt`：运行时间、全部参数、关键包版本、随机种子（默认 42）。
 
 ```

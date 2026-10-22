@@ -468,7 +468,7 @@ save_base_plot_genomics <- function(draw_fun, file_stem, width_mm = 120, height_
     } else if (fmt == "pdf") {
       grDevices::pdf(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm))
     } else {
-      grDevices::svg(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm))
+      grDevices::png(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm), units = "in", res = 300)
     }
     draw_fun()
     grDevices::dev.off()

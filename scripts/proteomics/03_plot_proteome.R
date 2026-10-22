@@ -4,8 +4,8 @@
 # Title:    Rice-skills proteomics figures
 # Description:
 #   Volcano plot and top-protein expression heatmap from the differential
-#   proteomics results, in the shared Nature figure specification (PDF/SVG/
-#   TIFF, unified palette, Arial/Helvetica).
+#   proteomics results, in the shared Nature figure specification (PDF/TIFF/
+#   PNG, unified palette, Arial/Helvetica).
 #
 # Usage:
 #   Rscript scripts/proteomics/03_plot_proteome.R \
@@ -24,7 +24,7 @@
 #   --label-n   number of proteins labelled on the volcano (default 10)
 #   --outdir    output directory (default results/proteomics/03_plots)
 # Outputs:
-#   volcano.*        volcano plot (PDF/SVG/TIFF)
+#   volcano.*        volcano plot (PDF/TIFF/PNG)
 #   top_heatmap.*    z-scored heatmap of the top differential proteins
 #   run_info.txt
 ###############################################################################

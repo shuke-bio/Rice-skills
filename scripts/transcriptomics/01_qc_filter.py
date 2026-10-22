@@ -332,7 +332,7 @@ def write_qc_report(
         "Outputs:",
         "  counts_filtered.csv, qc_metrics.csv",
         "  library_size.*, detected_genes.*, sample_pca.*, sample_correlation_heatmap.*",
-        "  (each figure saved as PDF + SVG + TIFF at 300 dpi)",
+        "  (each figure saved as PDF + TIFF + PNG at 300 dpi)",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -395,7 +395,7 @@ def main(argv: list[str] | None = None) -> int:
     plot_detected_genes(metrics, args.group_col, outdir)
     plot_sample_pca(scores, var_ratio, metrics, args.group_col, outdir)
     plot_correlation_heatmap(log_cpm, outdir)
-    logger.info("QC figures saved (PDF + SVG + TIFF)")
+    logger.info("QC figures saved (PDF + TIFF + PNG)")
 
     write_qc_report(
         outdir / "qc_report.txt", args, counts, counts_filtered, metrics, args.group_col

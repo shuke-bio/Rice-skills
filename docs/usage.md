@@ -244,7 +244,7 @@ Rscript scripts/integration/06_plot_integration.R \
 
 ## 5. 输出与图表
 
-- 每张图同时输出 **PDF（矢量可编辑）+ SVG + TIFF（300 dpi）**；单栏 89 mm、宽图 120/180 mm。
+- 每张图同时输出 **PDF（矢量可编辑）+ TIFF + PNG（300 dpi）**；单栏 89 mm、宽图 120/180 mm。
 - 每个结果目录都有 `run_info.txt`（运行时间、全部参数、关键包版本、随机种子）。
 - 完整输出清单见 [output_description.md](output_description.md)。
 

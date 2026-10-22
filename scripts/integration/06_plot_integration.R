@@ -48,7 +48,7 @@
 #       --metabolome-dir results/metabolome
 #
 # Outputs (written to --outdir):
-#   fig1..fig6 (PDF/SVG/TIFF), run_info.txt
+#   fig1..fig6 (PDF/TIFF/PNG), run_info.txt
 ###############################################################################
 
 args <- commandArgs(trailingOnly = FALSE)
@@ -498,12 +498,12 @@ if (!requireNamespace("circlize", quietly = TRUE)) {
           graphics::title("Gene-metabolite connections by KEGG pathway")
         }
       ok <- tryCatch({
-        for (f in c("pdf", "svg", "tiff")) {
+        for (f in c("pdf", "tiff", "png")) {
           out <- paste0(file.path(outdir, fig5), ".", if (f == "tiff") "tiff" else f)
           if (f == "pdf") {
             grDevices::pdf(out, width = mm_to_inch(120), height = mm_to_inch(120))
-          } else if (f == "svg") {
-            grDevices::svg(out, width = mm_to_inch(120), height = mm_to_inch(120))
+          } else if (f == "png") {
+            grDevices::png(out, width = mm_to_inch(120), height = mm_to_inch(120), units = "in", res = 300)
           } else {
             grDevices::tiff(out, width = mm_to_inch(120), height = mm_to_inch(120),
                             units = "in", res = 300, compression = "lzw")

@@ -367,7 +367,7 @@ main <- function() {
 
   # ---- Figure -------------------------------------------------------------------
   plot_pathway_bubble(res, padj_cut, outdir, org)
-  message("Saved figures (PDF/SVG/TIFF): pathway_bubble")
+  message("Saved figures (PDF/TIFF/PNG): pathway_bubble")
 
   # ---- Provenance -----------------------------------------------------------------
   write_run_info_r(

@@ -17,8 +17,8 @@
 #
 # Outputs:
 #   pca_scores.csv / pca_variance.csv / kinship_matrix.csv
-#   pca_scree.{pdf,svg,tiff} / pca_scatter.{pdf,svg,tiff}
-#   fig_structure_overview.{pdf,svg,tiff} (patchwork, when installed)
+#   pca_scree.{pdf,tiff,png} / pca_scatter.{pdf,tiff,png}
+#   fig_structure_overview.{pdf,tiff,png} (patchwork, when installed)
 #   run_info.txt
 ###############################################################################
 

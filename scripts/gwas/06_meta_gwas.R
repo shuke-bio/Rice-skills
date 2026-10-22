@@ -34,7 +34,7 @@
 # Outputs:
 #   meta_results.csv       beta, se, z, p, n_studies, Q, Q_p, I2 per SNP
 #   meta_significant.csv   SNPs passing the threshold
-#   manhattan_meta.* / qq_meta.*   figures (PDF/SVG/TIFF)
+#   manhattan_meta.* / qq_meta.*   figures (PDF/TIFF/PNG)
 #   forest_top.*           forest plot of top loci
 #   run_info.txt
 #

@@ -35,7 +35,7 @@ Notes:
 Outputs:
     primers.csv            ranked primer pairs with full quality metrics
     primer_report.txt      human-readable summary
-    primer_map.{pdf,svg,tiff}  positions of the designed pairs
+    primer_map.{pdf,tiff,png}  positions of the designed pairs
     run_info.txt
 """
 

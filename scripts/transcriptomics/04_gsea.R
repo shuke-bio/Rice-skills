@@ -124,14 +124,14 @@ if (!dir.exists(outdir)) dir.create(outdir, recursive = TRUE, showWarnings = FAL
 # Helpers
 # ---------------------------------------------------------------------------
 
-#' Save base-graphics / grid output in the three Nature formats (PDF/SVG/TIFF).
+#' Save base-graphics / grid output in the three Nature formats (PDF/TIFF/PNG).
 save_base_figure <- function(draw, file_stem, width_mm = 89, height_mm = 89) {
-  for (f in c("pdf", "svg", "tiff")) {
+  for (f in c("pdf", "tiff", "png")) {
     out <- paste0(file_stem, ".", f)
     if (f == "pdf") {
       grDevices::pdf(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm))
-    } else if (f == "svg") {
-      grDevices::svg(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm))
+    } else if (f == "png") {
+      grDevices::png(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm), units = "in", res = 300)
     } else {
       grDevices::tiff(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm),
                       units = "in", res = 300, compression = "lzw")

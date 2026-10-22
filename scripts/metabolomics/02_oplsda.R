@@ -537,7 +537,7 @@ main <- function() {
   plot_s_plot(res, vip_cut, outdir)
   plot_vip_barplot(res, vip_cut, outdir)
   plot_permutation(perm_ls, n_perm, outdir)
-  message("Saved figures (PDF/SVG/TIFF): pca_scores, oplsda_score_plot, s_plot, vip_barplot",
+  message("Saved figures (PDF/TIFF/PNG): pca_scores, oplsda_score_plot, s_plot, vip_barplot",
           if (!is.null(perm_ls$perm_r2y)) ", permutation_test" else "")
 
   # ---- Provenance ---------------------------------------------------------------

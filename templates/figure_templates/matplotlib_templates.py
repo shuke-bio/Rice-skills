@@ -5,7 +5,7 @@ Description:
     Copy-and-adapt starting points for every publication figure of the
     Rice-skills pipeline. Each template_*() function returns a
     ``(fig, ax)`` tuple; the caller saves it with ``save_nature_figure()``
-    from the shared theme (PDF + SVG + TIFF at 300 dpi). All colours come
+    from the shared theme (PDF + TIFF + PNG at 300 dpi). All colours come
     from ``config/nature_palette.json`` through the theme API
     (``setup_nature_style()``, ``nature_palette()``, ``semantic()``,
     ``diverging()``, ``sequential()``); no colour is hard-coded, so the

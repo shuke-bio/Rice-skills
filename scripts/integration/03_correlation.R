@@ -159,19 +159,19 @@ read_metabolome_matrix <- function(path, what) {
   as.matrix(df[, is_num, drop = FALSE])
 }
 
-#' Save a pheatmap object (class "pheatmap") in PDF + SVG + TIFF (300 dpi).
+#' Save a pheatmap object (class "pheatmap") in PDF + TIFF + PNG (300 dpi).
 save_pheatmap <- function(p, file_stem, width_mm, height_mm) {
   if (!requireNamespace("grid", quietly = TRUE)) {
     stop("The grid package is required to re-draw pheatmap objects.", call. = FALSE)
   }
   w_in <- mm_to_inch(width_mm)
   h_in <- mm_to_inch(height_mm)
-  for (f in c("pdf", "svg", "tiff")) {
+  for (f in c("pdf", "tiff", "png")) {
     out <- paste0(file_stem, ".", if (f == "tiff") "tiff" else f)
     if (f == "pdf") {
       grDevices::pdf(out, width = w_in, height = h_in)
-    } else if (f == "svg") {
-      grDevices::svg(out, width = w_in, height = h_in)
+    } else if (f == "png") {
+      grDevices::png(out, width = w_in, height = h_in, units = "in", res = 300)
     } else {
       grDevices::tiff(out, width = w_in, height = h_in, units = "in", res = 300,
                       compression = "lzw")

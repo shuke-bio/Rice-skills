@@ -26,7 +26,7 @@
 # Outputs:
 #   ammi_scores.csv     line/env scores on the retained PCs + means
 #   stability.csv       ASV, mean, CV per line
-#   ammi1_biplot.*      mean vs IPC1 (PDF/SVG/TIFF)
+#   ammi1_biplot.*      mean vs IPC1 (PDF/TIFF/PNG)
 #   gge_biplot.*        PC1 vs PC2 with which-won-where polygon + AEC
 #   ammi_summary.txt    variance explained, top stable/unstable lines
 #   run_info.txt

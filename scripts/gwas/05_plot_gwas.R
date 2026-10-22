@@ -15,9 +15,9 @@
 #       --snp-info demo_data/genomics/snp_info.csv \
 #       --outdir results/gwas/05_figures
 #
-# Outputs (each PDF + SVG + TIFF @300 dpi):
-#   manhattan.{pdf,svg,tiff} / qq.{pdf,svg,tiff}
-#   fig_gwas_overview.{pdf,svg,tiff}   (requires patchwork; else two files)
+# Outputs (each PDF + TIFF + PNG @300 dpi):
+#   manhattan.{pdf,tiff,png} / qq.{pdf,tiff,png}
+#   fig_gwas_overview.{pdf,tiff,png}   (requires patchwork; else two files)
 #   run_info.txt
 ###############################################################################
 

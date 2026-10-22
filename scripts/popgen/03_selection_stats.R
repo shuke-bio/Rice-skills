@@ -22,8 +22,8 @@
 #   - For >2 groups run the script once per pairwise comparison.
 # Outputs:
 #   fst_per_snp.csv / fst_windows.csv / pi_windows.csv
-#   fst_genome_scatter.{pdf,svg,tiff} / pi_plot.{pdf,svg,tiff}
-#   fig_selection_overview.{pdf,svg,tiff} (patchwork)
+#   fst_genome_scatter.{pdf,tiff,png} / pi_plot.{pdf,tiff,png}
+#   fig_selection_overview.{pdf,tiff,png} (patchwork)
 #   run_info.txt
 ###############################################################################
 

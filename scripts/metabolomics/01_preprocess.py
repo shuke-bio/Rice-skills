@@ -30,7 +30,7 @@ Outputs (written to --outdir):
     metabolome_preprocessed.csv  imputed + normalised matrix (annotations kept)
     missing_value_summary.csv    per-metabolite and per-sample missing statistics
     pca_scores.csv               PCA scores of the normalised data + outlier flag
-    missing_value_barplot.*      per-sample missing-value fraction (PDF/SVG/TIFF)
+    missing_value_barplot.*      per-sample missing-value fraction (PDF/TIFF/PNG)
     pca_before.* / pca_after.*   PCA before vs after normalisation (colour = group)
     boxplot_normalization.*     per-sample abundance distribution before vs after
     run_info.txt                 parameters, package versions and the seed
@@ -474,7 +474,7 @@ def main(argv: list[str] | None = None) -> int:
              "Sum + log2 + pareto; groups separate along PC1",
              outdir / "pca_after")
     plot_boxplot_comparison(imputed, normalized, group_of, outdir)
-    logger.info("Saved figures (PDF/SVG/TIFF): missing_value_barplot, pca_before, pca_after, boxplot_normalization")
+    logger.info("Saved figures (PDF/TIFF/PNG): missing_value_barplot, pca_before, pca_after, boxplot_normalization")
 
     # ---- Provenance ----------------------------------------------------------
     write_run_info(

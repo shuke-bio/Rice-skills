@@ -47,7 +47,7 @@
 #   hub_table.csv                     hub genes with module, kME and degree
 #   multiomics_network_edges.csv      network edges (from, to, types, r, padj)
 #   multiomics_network_nodes.csv      network nodes with degree
-#   network_plot.*                    three-layer network figure (PDF/SVG/TIFF)
+#   network_plot.*                    three-layer network figure (PDF/TIFF/PNG)
 #   run_info.txt
 #
 # Notes:
@@ -161,16 +161,16 @@ read_sample_metadata <- function(path, what) {
   df
 }
 
-#' Save a pheatmap object (class "pheatmap") in PDF + SVG + TIFF (300 dpi).
+#' Save a pheatmap object (class "pheatmap") in PDF + TIFF + PNG (300 dpi).
 save_pheatmap <- function(p, file_stem, width_mm, height_mm) {
   w_in <- mm_to_inch(width_mm)
   h_in <- mm_to_inch(height_mm)
-  for (f in c("pdf", "svg", "tiff")) {
+  for (f in c("pdf", "tiff", "png")) {
     out <- paste0(file_stem, ".", if (f == "tiff") "tiff" else f)
     if (f == "pdf") {
       grDevices::pdf(out, width = w_in, height = h_in)
-    } else if (f == "svg") {
-      grDevices::svg(out, width = w_in, height = h_in)
+    } else if (f == "png") {
+      grDevices::png(out, width = w_in, height = h_in, units = "in", res = 300)
     } else {
       grDevices::tiff(out, width = w_in, height = h_in, units = "in", res = 300,
                       compression = "lzw")
@@ -577,12 +577,12 @@ if (nrow(edges) == 0) {
                              grDevices::adjustcolor(nature_semantic("up"), alpha.f = 0.45)),
                      pt.cex = 1.2, cex = 0.65, bty = "n")
   }
-  for (f in c("pdf", "svg", "tiff")) {
+  for (f in c("pdf", "tiff", "png")) {
     out <- paste0(file.path(outdir, "network_plot"), ".", if (f == "tiff") "tiff" else f)
     if (f == "pdf") {
       grDevices::pdf(out, width = mm_to_inch(180), height = mm_to_inch(120))
-    } else if (f == "svg") {
-      grDevices::svg(out, width = mm_to_inch(180), height = mm_to_inch(120))
+    } else if (f == "png") {
+      grDevices::png(out, width = mm_to_inch(180), height = mm_to_inch(120), units = "in", res = 300)
     } else {
       grDevices::tiff(out, width = mm_to_inch(180), height = mm_to_inch(120),
                       units = "in", res = 300, compression = "lzw")

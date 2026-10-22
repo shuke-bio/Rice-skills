@@ -33,7 +33,7 @@ Outputs:
     sgrna_candidates.csv         all candidates with every metric + verdict
     sgrna_recommended_pairs.csv  recommended dual-target pairs
     construction_primers.csv     gRT#+/U6#T#- + SP-L1/SP-R + shared primers
-    sgrna_map.{pdf,svg,tiff}     gene model with target positions
+    sgrna_map.{pdf,tiff,png}     gene model with target positions
     run_info.txt
 """
 
@@ -359,7 +359,7 @@ def construction_primers(a: dict, b: dict) -> pd.DataFrame:
 
 def plot_map(seq_len: int, exons: list[tuple[int, int]], cand: pd.DataFrame,
              pairs: list[tuple[int, int]], out_stem: str) -> None:
-    """Gene model with target arrows (publication figure, PDF+SVG+TIFF)."""
+    """Gene model with target arrows (publication figure, PDF+TIFF+PNG)."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt

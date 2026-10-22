@@ -4,7 +4,7 @@ Title:    Rice-skills Nature-style matplotlib helpers
 Description:
     Provides a low-saturation, colorblind-friendly palette and matplotlib
     rcParams that follow Nature-series illustration conventions (Arial 8 pt
-    base, bold 9 pt titles, 0.5 pt lines, PDF/SVG/TIFF >=300 dpi output).
+    base, bold 9 pt titles, 0.5 pt lines, PDF/TIFF/PNG >=300 dpi output).
     The palette is loaded from config/nature_palette.json so that the Python
     (matplotlib) and R (ggplot2/ComplexHeatmap) backends stay visually
     identical. All code is implemented from scratch; no third-party theme
@@ -36,7 +36,7 @@ matplotlib.use("Agg")  # headless-safe default; scripts may override before impo
 import matplotlib.pyplot as plt  # noqa: E402
 
 PALETTE_FILENAME = "nature_palette.json"
-DEFAULT_FORMATS = ("pdf", "svg", "tiff")
+DEFAULT_FORMATS = ("pdf", "tiff", "png")
 _PALETTE_CACHE: dict | None = None
 
 

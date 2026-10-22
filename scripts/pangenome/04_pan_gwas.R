@@ -38,7 +38,7 @@
 #   pan_gwas_significant.csv  markers passing the threshold
 #   marker_qc.csv             per-marker presence freq / missingness / kept
 #   pca_scores.csv            PCA covariates used
-#   manhattan_pan.* / qq_pan.*   figures (PDF/SVG/TIFF)
+#   manhattan_pan.* / qq_pan.*   figures (PDF/TIFF/PNG)
 #   run_info.txt
 #
 # Notes:

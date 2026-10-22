@@ -32,7 +32,7 @@
 # Outputs (written to --outdir):
 #   mofa_model.hdf5                trained MOFA2 model (HDF5 format)
 #   variance_explained.csv         variance explained per factor per view
-#   variance_explained.*           plot_variance_explained figure (PDF/SVG/TIFF)
+#   variance_explained.*           plot_variance_explained figure (PDF/TIFF/PNG)
 #   factor_scores.csv              sample x factor scores with group annotation
 #   factor_scores_heatmap.*        plot_factors figure (factors 1-2, group-coloured)
 #   factor_loadings_rna.csv        top 25 weights per factor (RNA view)
@@ -217,12 +217,12 @@ save_plot_output <- function(x, file_stem, width_mm = 89, height_mm = 89) {
   }
   w_in <- mm_to_inch(width_mm)
   h_in <- mm_to_inch(height_mm)
-  for (f in c("pdf", "svg", "tiff")) {
+  for (f in c("pdf", "tiff", "png")) {
     out <- paste0(file_stem, ".", if (f == "tiff") "tiff" else f)
     if (f == "pdf") {
       grDevices::pdf(out, width = w_in, height = h_in)
-    } else if (f == "svg") {
-      grDevices::svg(out, width = w_in, height = h_in)
+    } else if (f == "png") {
+      grDevices::png(out, width = w_in, height = h_in, units = "in", res = 300)
     } else {
       grDevices::tiff(out, width = w_in, height = h_in, units = "in", res = 300,
                       compression = "lzw")

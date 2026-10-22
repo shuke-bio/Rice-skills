@@ -5,7 +5,7 @@
 # Description:
 #   Provides a low-saturation, colorblind-friendly palette and a ggplot2 theme
 #   that follow Nature-series illustration conventions (Arial 8 pt base,
-#   bold 9 pt titles, 0.5 pt lines, PDF/SVG/TIFF >=300 dpi vector output).
+#   bold 9 pt titles, 0.5 pt lines, PDF/TIFF/PNG >=300 dpi vector output).
 #   The palette is loaded from config/nature_palette.json so that the R
 #   (ggplot2/ComplexHeatmap) and Python (matplotlib) backends stay visually
 #   identical. All code is implemented from scratch; no third-party theme
@@ -19,7 +19,7 @@
 #
 # Inputs:  config/nature_palette.json (auto-located; override with the
 #          RICE_PALETTE environment variable or the palette_file argument)
-# Outputs: figures in PDF + SVG + TIFF (300 dpi)
+# Outputs: figures in PDF + TIFF + PNG (300 dpi)
 #
 # Notes:
 #   - Works with ggplot2 >= 3.4 (linewidth aesthetic API).
@@ -88,7 +88,7 @@ rice_palette <- local({
 
 #' Resolve the font family used for figure text.
 #'
-#' Arial is used when it is registered as a Type 1 font for the PDF/SVG
+#' Arial is used when it is registered as a Type 1 font for the PDF/TIFF/PNG
 #' devices; otherwise Helvetica is used. Helvetica is a PDF base-14 font that
 #' is always available and metrically compatible with Arial, which guarantees
 #' that text is embedded (and remains editable) in vector output on every
@@ -192,7 +192,7 @@ nature_semantic <- function(name) {
 #' Convert millimetres to inches.
 mm_to_inch <- function(mm) mm / 25.4
 
-#' Save a figure in Nature-compatible formats (PDF + SVG + TIFF 300 dpi).
+#' Save a figure in Nature-compatible formats (PDF + TIFF + PNG 300 dpi).
 #'
 #' Accepts ggplot2 objects and ComplexHeatmap objects (Heatmap / HeatmapList).
 #'
@@ -250,7 +250,7 @@ save_nature_figure <- function(plot, file_stem, width_mm = NULL, height_mm = NUL
                     stop("Unsupported format for ComplexHeatmap objects: ", f, call. = FALSE))
       devfun <- get(dev, envir = asNamespace("ComplexHeatmap"))
       args <- list(file = out, width = w_in, height = h_in)
-      if (f %in% c("tif", "tiff")) args$res <- dpi
+      if (f %in% c("tif", "tiff", "png")) args$res <- dpi
       args <- c(args, list(...))
       do.call(devfun, args)
       ComplexHeatmap::draw(plot)

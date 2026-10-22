@@ -5,6 +5,17 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.6] — 2026-10-23
+
+### Changed
+- **Default figure formats switched to PDF / TIFF / PNG** (was PDF / SVG / TIFF):
+  shared helpers `scripts/utils/plot_theme.R` / `plot_theme.py`, `config/nature_palette.json`,
+  19 plotting scripts with inline save loops, plus docs and SKILL wording.
+  PNG is written at 300 dpi; SVG is no longer emitted by default (still supported when
+  requested explicitly via the R helper's `formats` argument).
+- Restored TIFF/PNG completeness in `design/03_qpcr_analysis.py` and
+  `qtl/05_bsa_scan.py` (previously PDF/PNG only).
+
 ## [3.3.5] — 2026-10-23
 
 ### Added

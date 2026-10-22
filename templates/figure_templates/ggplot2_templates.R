@@ -7,7 +7,7 @@
 #   Rice-skills pipeline. Each template_*() function returns a ready-to-use
 #   ggplot2 object (or a pheatmap object for template_heatmap); the caller is
 #   responsible for saving it with save_nature_figure() / save_pheatmap_nature()
-#   from the shared theme (PDF + SVG + TIFF at 300 dpi).
+#   from the shared theme (PDF + TIFF + PNG at 300 dpi).
 #
 #   All colours are taken from config/nature_palette.json through the shared
 #   theme API (rice_palette(), nature_semantic(), diverging_palette(),
@@ -182,7 +182,7 @@ scale_fill_significant <- function(...) {
   })
 }
 
-#' Save a pheatmap object in Nature-compatible formats (PDF + SVG + TIFF 300 dpi).
+#' Save a pheatmap object in Nature-compatible formats (PDF + TIFF + PNG 300 dpi).
 #'
 #' pheatmap objects cannot be passed to save_nature_figure() (which accepts
 #' ggplot2 and ComplexHeatmap objects only), so this helper opens the devices
@@ -213,6 +213,8 @@ save_pheatmap_nature <- function(ph, file_stem, width_mm = NULL, height_mm = NUL
     } else {
       switch(tolower(f),
              pdf = grDevices::pdf(out, width = w_in, height = h_in),
+             png = grDevices::png(out, width = w_in, height = h_in, units = "in",
+                                  res = pal$figure$dpi_raster),
              svg = grDevices::svg(out, width = w_in, height = h_in),
              stop("Unsupported format for pheatmap objects: ", f, call. = FALSE))
     }

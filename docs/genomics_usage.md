@@ -114,7 +114,7 @@ ADMIXTURE 与 PLINK 仅在上游（.Q 矩阵、VCF 转换）需要，脚本均�
 | `popgen/05_admix/` | `admixture_k<K>.*`、`cv_curve.*` |
 | `popgen/06_phylogeny/` | `tree.nwk`、`phylogeny.*` |
 
-所有目录含 `run_info.txt`（参数 + 包版本 + 种子），图均为 PDF+SVG+TIFF（300 dpi）。
+所有目录含 `run_info.txt`（参数 + 包版本 + 种子），图均为 PDF+TIFF+PNG（300 dpi）。
 
 ## 4. 与转录组/代谢组模块的衔接
 

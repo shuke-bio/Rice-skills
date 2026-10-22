@@ -34,7 +34,7 @@
 #   de_all_<contrast>.csv                   full DE results per contrast
 #   de_sig_<contrast>.csv                   significant DE genes (Up/Down)
 #   normalized_counts_vst.csv               VST-normalised counts (blind=FALSE)
-#   dispersion_estimates.{pdf,svg,tiff}     DESeq2 dispersion diagnostic
+#   dispersion_estimates.{pdf,tiff,png}     DESeq2 dispersion diagnostic
 #   de_summary.csv                          up/down/ns counts per contrast
 #   run_info.txt                            provenance (parameters, versions, seed)
 #
@@ -159,14 +159,14 @@ read_metadata_aligned <- function(path, mat) {
   list(matrix = mat[, shared, drop = FALSE], meta = meta)
 }
 
-#' Save base-graphics output in the three Nature formats (PDF, SVG, TIFF 300 dpi).
+#' Save base-graphics output in the three Nature formats (PDF, TIFF, PNG 300 dpi).
 save_base_figure <- function(draw, file_stem, width_mm = 89, height_mm = 89) {
-  for (f in c("pdf", "svg", "tiff")) {
+  for (f in c("pdf", "tiff", "png")) {
     out <- paste0(file_stem, ".", f)
     if (f == "pdf") {
       grDevices::pdf(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm))
-    } else if (f == "svg") {
-      grDevices::svg(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm))
+    } else if (f == "png") {
+      grDevices::png(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm), units = "in", res = 300)
     } else {
       grDevices::tiff(out, width = mm_to_inch(width_mm), height = mm_to_inch(height_mm),
                       units = "in", res = 300, compression = "lzw")

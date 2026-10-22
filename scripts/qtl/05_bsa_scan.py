@@ -326,7 +326,8 @@ def main(argv=None) -> int:
         from matplotlib.backends.backend_pdf import PdfPages
         with PdfPages(outdir / "bsa_scan.pdf") as pdf:
             pdf.savefig(fig)
-        fig.savefig(outdir / "bsa_scan.png", dpi=220, bbox_inches="tight")
+        fig.savefig(outdir / "bsa_scan.tiff", dpi=300, bbox_inches="tight")
+        fig.savefig(outdir / "bsa_scan.png", dpi=300, bbox_inches="tight")
         plt.close(fig)
 
     info = [

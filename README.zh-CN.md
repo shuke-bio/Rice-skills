@@ -18,8 +18,8 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.5.zip)
-![Version](https://img.shields.io/badge/version-3.3.5-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.6.zip)
+![Version](https://img.shields.io/badge/version-3.3.6-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-91-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -116,7 +116,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - 实验协议：敲除构建、DNA 提取、编辑鉴定、LUC/GUS 检测……
 
 **默认自动（无需额外指令）**
-- CNS 级图表——统一调色板，PDF / SVG / TIFF 300 dpi，每个分析脚本跑完自动出图（绘图技能按图表类型自动路由）
+- CNS 级图表——统一调色板，PDF / TIFF / PNG 300 dpi，每个分析脚本跑完自动出图（绘图技能按图表类型自动路由）
 - 结果解读与总结（关键发现、统计口径、结论边界）
 
 **按需加载（你明确要求才触发，不强制路由）**
@@ -144,7 +144,8 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - **v3.3.2 新增（文献方法落地）**：MeNet 多环境基因组预测 · ELMERF 耐盐 RGB 表型 · Chloro-Count 叶绿体计数 · AnnoSINE SINE 注释 · Oryza 属泛基因组阶段运行器；70 条文献的 S/A1/A2/A3/B 分级索引见 `docs/references/literature_methods_2022_2026.md`
 - **v3.3.3 新增（决策层）**：数据契约 + 10 张场景卡 + 三档方案生成器（含阻断项）+ 数据体检 + 22 张方法卡 + 10 张英文场景卡，文献仅取 A1–A3 白名单；见 `docs/decision/`
 - **v3.3.4 新增（依赖体检）**：`scripts/plan/04_check_deps.py` 扫描所选档位的脚本，列出缺失的 R/Python 包与外部工具及安装命令，**经你确认后**才安装并复检；系统工具不自动安装
-- **v3.3.5 新增（方案确认闸门）**：每档方案附**图形方案**（图名/类型/85–170 mm/300 dpi/PDF+SVG+TIFF/生成脚本）；`scripts/plan/05_run_plan.py` 输出确认单，**用户确认前拒绝执行**（`approval.json` 记录方案哈希），执行前自动做依赖体检
+- **v3.3.5 新增（方案确认闸门）**：每档方案附**图形方案**（图名/类型/85–170 mm/300 dpi/PDF+TIFF+PNG/生成脚本）；`scripts/plan/05_run_plan.py` 输出确认单，**用户确认前拒绝执行**（`approval.json` 记录方案哈希），执行前自动做依赖体检
+- **v3.3.6 调整**：默认出图格式改为 **PDF / TIFF / PNG**（原 PDF/SVG/TIFF），覆盖 R/Python 共享绘图助手、19 个绘图脚本与配置；SVG 仅在你显式指定时输出
 - **模块 8 · 群体遗传（v2.0）**：PCA 群体结构与 VanRaden 亲缘矩阵 → LD 衰减（半衰减距离）→
   Hudson Fst + 核苷酸多样性 π → ADMIXTURE 祖源与 CV 选 K → IBS 系统发育树（NJ/UPGMA）
 - **模块 9 · 设计与验证（v2.1）**：sgRNA 靶点设计（七大选择原则代码化）→ 双靶点自动配对 →
@@ -183,7 +184,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
   蛋白纯化与 SDS-PAGE、亚细胞定位、LUC 互补、mhiTAIL-PCR、GUS 染色、BioEdit）+ 
   `docs/research_workflow_tf.md`（转录因子研究全流程路线图）——与设计模块直接衔接
 - **CNS 级绘图**：R（ggplot2/ComplexHeatmap）与 Python（matplotlib）双后端共用同一份
-  调色板（`config/nature_palette.json`）；Arial/Helvetica 8 pt；PDF + SVG + TIFF(300 dpi)
+  调色板（`config/nature_palette.json`）；Arial/Helvetica 8 pt；PDF + TIFF + PNG(300 dpi)
 - **工程化**：每个输出目录自动生成 `run_info.txt`（参数 + 包版本 + 种子）；固定 `seed=42`；
   友好的错误提示；分块/并行友好的大规模计算设计
 
@@ -371,7 +372,7 @@ GWAS / 泛基因组 / CRISPR / 多组学联合分析…）会自动路由。
 ## 📊 输出
 
 所有结果写入 `results/`，按「模块/步骤」分目录，每目录含 `run_info.txt` 溯源文件；
-图表同时输出 PDF / SVG / TIFF(300 dpi)。完整目录释义见
+图表同时输出 PDF / TIFF / PNG(300 dpi)。完整目录释义见
 [docs/output_description.md](docs/output_description.md)。
 
 ## 📤 发布与上传

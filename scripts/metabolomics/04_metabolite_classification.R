@@ -206,7 +206,7 @@ plot_class_upset <- function(diff_df, counts, top_n, outdir) {
   names(input_list) <- top_classes[top_classes %in% names(input_list)]
   input_list <- lapply(input_list, function(idx) met_ids[idx])
   stem <- file.path(outdir, "class_upset")
-  for (fmt in c("pdf", "svg", "tiff")) {
+  for (fmt in c("pdf", "tiff", "png")) {
     out <- paste0(stem, ".", fmt)
     if (fmt == "tiff") {
       grDevices::tiff(out, width = mm_to_inch(89), height = mm_to_inch(100),
@@ -214,14 +214,14 @@ plot_class_upset <- function(diff_df, counts, top_n, outdir) {
     } else if (fmt == "pdf") {
       grDevices::pdf(out, width = mm_to_inch(89), height = mm_to_inch(100))
     } else {
-      grDevices::svg(out, width = mm_to_inch(89), height = mm_to_inch(100))
+      grDevices::png(out, width = mm_to_inch(89), height = mm_to_inch(100), units = "in", res = 300)
     }
     print(UpSetR::upset(UpSetR::fromList(input_list), order.by = "freq",
                         main.bar.color = rice_palette()$series12[1],
                         sets.bar.color = rice_palette()$series12[1]))
     grDevices::dev.off()
   }
-  message("Saved figures: class_upset (PDF/SVG/TIFF)")
+  message("Saved figures: class_upset (PDF/TIFF/PNG)")
 }
 
 # ---------------------------------------------------------------------------

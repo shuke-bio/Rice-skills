@@ -42,7 +42,7 @@
 #   gene_kegg_enrichment.csv        transcriptome enrichment (up/down merged)
 #   metabolite_pathway_enrichment.csv  metabolome enrichment results
 #   joint_pathway_table.csv         joined table with category labels
-#   joint_pathway_dotplot.*         dot plot of joint pathways (PDF/SVG/TIFF)
+#   joint_pathway_dotplot.*         dot plot of joint pathways (PDF/TIFF/PNG)
 #   pathway_links.csv               node-pathway links (input for the sankey in 06)
 #   run_info.txt
 #

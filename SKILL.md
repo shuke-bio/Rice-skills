@@ -1,7 +1,7 @@
 ---
 name: rice-skills
-description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、多位点 QTN·QEI·上位性（3VmrMLM/Fast3VmrMLM）、case-control QTN（FastBiCmrMLM，Linux）、多亲本 QTL（mppQTL）、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；引物与 CRISPR 靶点设计；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/SVG/TIFF ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告等关键词时触发。
-version: 3.3.5
+description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、多位点 QTN·QEI·上位性（3VmrMLM/Fast3VmrMLM）、case-control QTN（FastBiCmrMLM，Linux）、多亲本 QTL（mppQTL）、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；引物与 CRISPR 靶点设计；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/TIFF/PNG ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告等关键词时触发。
+version: 3.3.6
 license: MIT
 species: Oryza sativa (水稻, Japonica)
 trigger:
@@ -151,7 +151,7 @@ SALT_1,salt,1,Nipponbare,8.1,1.87
 ## 3. 工作流总览
 
 > **统一约定（默认自动链）**：用户提供输入 → 跑脚本**自动出图**（CNS 级出版图，
-> PDF/SVG/TIFF 300 dpi，见 §4；绘图技能按 §5.1 默认路由自动加载）→ agent
+> PDF/TIFF/PNG 300 dpi，见 §4；绘图技能按 §5.1 默认路由自动加载）→ agent
 > **自动产出结果解读与总结**（关键发现、统计口径、结论边界）。这三步无需用户任何
 > 额外指令。**文献检索/下载、论文写作/润色、投稿相关、汇报 PPT 等不属于默认链**——
 > 仅在用户明确要求时按 §5.3–§5.5 加载对应技能执行。
@@ -184,7 +184,7 @@ FASTQ ─► [10 变异检测] BAM ─► VCF ─► 过滤 ─► SnpEff 注释
 **默认自动链（无需用户开口）**：
 
 ```
-分析结果 + 出版图（PDF/SVG/TIFF 300 dpi，绘图技能按 §5.1 自动加载）
+分析结果 + 出版图（PDF/TIFF/PNG 300 dpi，绘图技能按 §5.1 自动加载）
    │
    ▼
 [结果解读与总结] 关键发现 / 统计口径 / 结论边界 / 局限性        ← nature-writing · nature-statistics
@@ -301,7 +301,7 @@ agent 按 §5 路由表加载对应技能执行。
 
 | # | 脚本 | 步骤 | 工具 | 关键输出 |
 |---|---|---|---|---|
-| 01 | `01_qc_filter.py` | 数据质控与过滤：低表达基因过滤、样本 PCA、样本相关性、文库大小检查 | pandas/numpy/matplotlib | `counts_filtered.csv`、QC 报告与图（PDF/SVG/TIFF） |
+| 01 | `01_qc_filter.py` | 数据质控与过滤：低表达基因过滤、样本 PCA、样本相关性、文库大小检查 | pandas/numpy/matplotlib | `counts_filtered.csv`、QC 报告与图（PDF/TIFF/PNG） |
 | 02 | `02_deseq2.R` | 差异表达：两组或多组两两比较，log2FC / pvalue / padj；支持 `~ batch + group` | DESeq2（edgeR 可选） | `de_all_*.csv`、`de_sig_*.csv`、VST 归一化矩阵、离散度诊断图 |
 | 03 | `03_enrichment.R` | 功能富集：GO BP/CC/MF、KEGG（Reactome 可选） | clusterProfiler + `org.Osativa.eg.db` | 富集结果表、点图/气泡图 |
 | 04 | `04_gsea.R` | GSEA：排序基因列表 + 自定义 GMT（水稻无 MSigDB，提供 GMT 构建说明） | fgsea / clusterProfiler::GSEA | NES/p/padj 表、富集曲线 |
@@ -335,7 +335,7 @@ agent 按 §5 路由表加载对应技能执行。
 ## 4. CNS 级绘图规范（混合后端，全包统一，**自动出图**）
 
 > **默认行为（重要）**：每个分析脚本运行后**自动**在 `--outdir` 生成 CNS 级出版图表
-> （PDF/SVG/TIFF 300 dpi 并存）。绘图逻辑内置于脚本本身
+> （PDF/TIFF/PNG 300 dpi 并存）。绘图逻辑内置于脚本本身
 > （`scripts/utils/plot_theme.R` / `plot_theme.py` + `config/nature_palette.json`），
 > **用户无需开口**——跑完分析即得图。出图时 agent 按 §5.1 路由表**自动加载对应绘图技能**
 > 作规范参考（配色/字体/多面板/期刊模板）。出图后 agent 继续**自动产出结果解读与总结**
@@ -362,7 +362,7 @@ agent 按 §5 路由表加载对应技能执行。
   `docs/references/plot_color_palettes.md` §8。
 - **字体**：Arial（或度量兼容的 Helvetica）；正文 8 pt、标题 9 pt 加粗、刻度/图例 7 pt；
   线宽 0.5 pt；PDF 文本可编辑可嵌入。
-- **输出**：每张图同时输出 **PDF + SVG + TIFF（300 dpi）**；单栏 89 mm、1.5 栏 120 mm、
+- **输出**：每张图同时输出 **PDF + TIFF + PNG（300 dpi）**；单栏 89 mm、1.5 栏 120 mm、
   双栏 180 mm。
 - **绘图逻辑**：每张图对应明确科学结论；无意义装饰一律省略；图注科学含义写在生成脚本注释中。
 - **主题实现**：自行实现，未复制任何第三方主题源码（含 `natureskills/nature-figure`）。
@@ -470,7 +470,7 @@ agent 按 §5 路由表加载对应技能执行。
   （演示 `assets/` 未复制、`nature-social-science` 未收录）见 `third_party/nature-skills/NOTICE.md`；
   二次分发请保留该目录的 `LICENSE` 与 `NOTICE.md`。
 - 与本包自研绘图主题（`config/nature_palette.json` + `scripts/utils/plot_theme.*`）相互独立：
-  本包分析脚本默认使用自研主题（R + Python 双后端，输出 PDF/SVG/TIFF）；
+  本包分析脚本默认使用自研主题（R + Python 双后端，输出 PDF/TIFF/PNG）；
   nature-figure 作为"规范参考与模板库"加载，两者不冲突。
 - `nature-skills/skills/nature-shared/` 是上游内部共享参考包（被 writing/polishing/response/
   reader/paper2ppt 依赖），不作为独立工作流入口。

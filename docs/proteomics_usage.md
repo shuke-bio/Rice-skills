@@ -69,7 +69,7 @@ Rscript scripts/proteomics/03_plot_proteome.R \
 
 - 火山图（上/下调着色 + top 蛋白标注：ggrepel）；
 - Top N 差异蛋白 z-score 热图（样本按组排列）；
-- 均为 PDF/SVG/TIFF 三格式。
+- 均为 PDF/TIFF/PNG 三格式。
 
 ### 2.4 功能富集与网络（复用现有模块）
 

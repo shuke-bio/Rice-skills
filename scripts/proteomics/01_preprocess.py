@@ -29,7 +29,7 @@ Outputs (written to --outdir):
     proteins_filtered.csv      filtered + normalised (+ imputed) matrix
     missing_summary.csv        per-protein / per-sample missing statistics
     pca_scores.csv             PCA scores (normalised data) + group
-    missing_barplot.*          per-sample missing fraction (PDF/SVG/TIFF)
+    missing_barplot.*          per-sample missing fraction (PDF/TIFF/PNG)
     pca_samples.*              PCA scatter coloured by group
     sample_correlation.*       Spearman correlation heatmap
     cv_distribution.*          within-group CV per protein

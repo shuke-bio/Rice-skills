@@ -2,7 +2,7 @@
 
 > 本目录提供 Rice-skills 全部出版图表的**可复制起点模板**：每个模板函数
 > 返回一张符合 Nature 绘图规范的图（配色来自 `config/nature_palette.json`，
-> Arial/Helvetica 8 pt，PDF + SVG + TIFF 300 dpi，单栏 89 mm）。
+> Arial/Helvetica 8 pt，PDF + TIFF + PNG 300 dpi，单栏 89 mm）。
 > **`scripts/` 下的成品绘图脚本即由这些模板生成**——写新图时先在这里找模板，
 > 复制改写，而不是从零开始。
 
@@ -107,5 +107,5 @@ save_nature_figure(fig, "results/fig_volcano", width_mm=89, height_mm=80)
   `#E8A33D`；阈值线用 `reference_line` 灰色虚线。
 - 字体 Arial/Helvetica，正文 8 pt、标题 9 pt 加粗、刻度/图例 7 pt，线宽 0.5 pt。
 - 单栏 89 mm / 1.5 栏 120 mm / 双栏 180 mm；每张图同时输出
-  PDF + SVG + TIFF（300 dpi）。
+  PDF + TIFF + PNG（300 dpi）。
 - 每张图对应明确科学结论；图注科学含义写在生成脚本注释中（英文注释）。

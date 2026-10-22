@@ -62,6 +62,10 @@
     "onehalf_column_mm": 120,
     "double_column_mm": 180,
     "dpi_raster": 300,
-    "formats": ["pdf", "svg", "tiff"]
+    "formats": [
+      "pdf",
+      "tiff",
+      "png"
+    ]
   }
 }

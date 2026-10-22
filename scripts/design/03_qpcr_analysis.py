@@ -48,7 +48,7 @@ Inputs:
 Outputs (--outdir):
     ddct_table.csv             per-bio-replicate ct/dct/ddct/rel_expression
     rel_expression_summary.csv gene, group, n, mean, sd, sem
-    qpcr_<gene>.pdf/png        per-gene bar plot (mean +/- SD, points)
+    qpcr_<gene>.pdf/tiff/png   per-gene bar plot (mean +/- SD, points)
     qpcr_all_genes_grid.pdf    optional grid (auto when <= 24 genes)
     correlation_qpcr_rnaseq.csv + scatter (when --rna-table given)
     run_info.txt
@@ -197,7 +197,8 @@ def plot_gene(gene, summary, groups, palette, outdir: Path, ymax=None):
         ax.spines[s].set_visible(False)
     fig.tight_layout()
     fig.savefig(outdir / f"qpcr_{gene}.pdf")
-    fig.savefig(outdir / f"qpcr_{gene}.png", dpi=220)
+    fig.savefig(outdir / f"qpcr_{gene}.tiff", dpi=300)
+    fig.savefig(outdir / f"qpcr_{gene}.png", dpi=300)
     plt.close(fig)
 
 
@@ -225,6 +226,8 @@ def plot_grid(genes, summary, groups, palette, outdir: Path):
         axes[k // ncol][k % ncol].axis("off")
     fig.tight_layout()
     fig.savefig(outdir / "qpcr_all_genes_grid.pdf")
+    fig.savefig(outdir / "qpcr_all_genes_grid.tiff", dpi=300)
+    fig.savefig(outdir / "qpcr_all_genes_grid.png", dpi=300)
     plt.close(fig)
 
 
@@ -292,7 +295,8 @@ def rnaseq_crosscheck(summary, groups, calibrator, rna_path: Path, rna_format: s
             ax.set_title(f"r = {rp:.3f}, p = {pp:.2g}  (n = {len(paired)})", fontsize=9)
             fig.tight_layout()
             fig.savefig(outdir / "qpcr_vs_rnaseq_scatter.pdf")
-            fig.savefig(outdir / "qpcr_vs_rnaseq_scatter.png", dpi=220)
+            fig.savefig(outdir / "qpcr_vs_rnaseq_scatter.tiff", dpi=300)
+            fig.savefig(outdir / "qpcr_vs_rnaseq_scatter.png", dpi=300)
             plt.close(fig)
         return {"n": len(paired), "pearson_r": float(rp), "pearson_p": float(pp),
                 "spearman_rho": float(rs), "spearman_p": float(ps)}

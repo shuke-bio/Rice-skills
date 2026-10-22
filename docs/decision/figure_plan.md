@@ -25,7 +25,7 @@ python scripts/plan/05_run_plan.py --plan results/plan/plan.json --tier minimal
 |---|---|
 | 宽度 | 单栏 85 mm / 双栏 170 mm |
 | 分辨率 | ≥300 dpi（位图）；矢量优先 |
-| 格式 | PDF + SVG + TIFF |
+| 格式 | PDF + TIFF + PNG |
 | 字体 | Arial / Helvetica，7–9 pt |
 | 配色 | `config/nature_palette.json`（低饱和、色盲友好） |
 | 坐标轴 | 完整刻度、单位、样本量标注 |

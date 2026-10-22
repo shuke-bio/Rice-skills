@@ -15,9 +15,9 @@
 #   Rscript scripts/popgen/05_plot_admixture.R \
 #       --q-files "run.2.Q,run.3.Q" --outdir ...
 #
-# Outputs (per K, PDF + SVG + TIFF):
-#   admixture_k<K>.{pdf,svg,tiff}
-#   cv_curve.{pdf,svg,tiff}     (only with --cv)
+# Outputs (per K, PDF + TIFF + PNG):
+#   admixture_k<K>.{pdf,tiff,png}
+#   cv_curve.{pdf,tiff,png}     (only with --cv)
 #   run_info.txt
 ###############################################################################
 

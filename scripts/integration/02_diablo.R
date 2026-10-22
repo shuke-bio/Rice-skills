@@ -42,7 +42,7 @@
 #   --metadata     sample metadata (first column = sample_id, group column required)
 #
 # Outputs (DIABLO path, written to --outdir):
-#   diablo_perf.*                   cross-validation error-rate plot (PDF/SVG/TIFF)
+#   diablo_perf.*                   cross-validation error-rate plot (PDF/TIFF/PNG)
 #   diablo_perf_error_rates.csv     tidy error rates per block/component
 #   diablo_scores.csv               per-block and consensus sample scores
 #   diablo_loadings.csv             per-block component loadings
@@ -211,12 +211,12 @@ save_plot_output <- function(x, file_stem, width_mm = 89, height_mm = 89) {
   }
   w_in <- mm_to_inch(width_mm)
   h_in <- mm_to_inch(height_mm)
-  for (f in c("pdf", "svg", "tiff")) {
+  for (f in c("pdf", "tiff", "png")) {
     out <- paste0(file_stem, ".", if (f == "tiff") "tiff" else f)
     if (f == "pdf") {
       grDevices::pdf(out, width = w_in, height = h_in)
-    } else if (f == "svg") {
-      grDevices::svg(out, width = w_in, height = h_in)
+    } else if (f == "png") {
+      grDevices::png(out, width = w_in, height = h_in, units = "in", res = 300)
     } else {
       grDevices::tiff(out, width = w_in, height = h_in, units = "in", res = 300,
                       compression = "lzw")

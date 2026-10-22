@@ -24,7 +24,7 @@
 #                  (01_preprocess, 02_oplsda, 05_biomarker, 06_network).
 #
 # Outputs (written to --outdir):
-#   fig1_preprocess_overview.*   (PDF/SVG/TIFF)
+#   fig1_preprocess_overview.*   (PDF/TIFF/PNG)
 #   fig2_oplsda_overview.*
 #   fig3_biomarker_overview.*
 #   fig4_network_overview.*
@@ -34,7 +34,7 @@
 #   - Every panel carries a subtitle stating its scientific conclusion.
 #   - The network figure is rebuilt from metabolite_edges.csv /
 #     metabolite_nodes.csv; ggraph is used when available, otherwise the igraph
-#     base device (PDF/SVG/TIFF via grDevices).
+#     base device (PDF/TIFF/PNG via grDevices).
 #   - patchwork combines the multi-panel figures; without it, panels are saved
 #     as figN_..._panelA/B/C.*.
 ###############################################################################
@@ -384,7 +384,7 @@ build_network_figure <- function(res_dir, outdir) {
     rng <- max(deg) - min(deg)
     v_size <- if (rng > 0) 2 + 8 * (deg - min(deg)) / rng else rep(4, length(deg))
     hub <- nodes$is_hub
-    for (fmt in c("pdf", "svg", "tiff")) {
+    for (fmt in c("pdf", "tiff", "png")) {
       out <- paste0(stem, ".", fmt)
       if (fmt == "tiff") {
         grDevices::tiff(out, width = mm_to_inch(89), height = mm_to_inch(89),
@@ -392,7 +392,7 @@ build_network_figure <- function(res_dir, outdir) {
       } else if (fmt == "pdf") {
         grDevices::pdf(out, width = mm_to_inch(89), height = mm_to_inch(89))
       } else {
-        grDevices::svg(out, width = mm_to_inch(89), height = mm_to_inch(89))
+        grDevices::png(out, width = mm_to_inch(89), height = mm_to_inch(89), units = "in", res = 300)
       }
       igraph::plot.igraph(g, layout = lay,
                    vertex.size = v_size, vertex.color = rice_palette()$series12[1],

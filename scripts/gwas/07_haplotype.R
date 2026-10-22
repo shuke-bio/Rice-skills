@@ -35,7 +35,7 @@
 #   haplotypes.csv          haplotype, frequency, n_samples (major-haplotype call)
 #   sample_haplotypes.csv   sample -> haplotype pair + group
 #   group_stats.csv         per-group n / mean / sd of the trait + test p-values
-#   haplotype_phenotype.*   boxplot of the trait by haplotype group (PDF/SVG/TIFF)
+#   haplotype_phenotype.*   boxplot of the trait by haplotype group (PDF/TIFF/PNG)
 #   haplotype_frequency.*   frequency barplot
 #   run_info.txt
 #
