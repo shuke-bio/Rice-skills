@@ -14,8 +14,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.7.zip)
-![Version](https://img.shields.io/badge/version-3.3.7-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.8.zip)
+![Version](https://img.shields.io/badge/version-3.3.8-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-91-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -43,11 +43,11 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 ## 🎯 What you can do
 
 **Transcriptome**
-- Full pipeline from FASTQ to differential expression (QC → alignment → counts → DESeq2 / edgeR)
-- Volcano / heatmap / batch correction / time-series differential expression
+- From count matrix to differential expression (QC → DESeq2 / edgeR); upstream alignment/quantification (HISAT2 / Salmon / featureCounts) runs as external tools
+- Volcano / heatmap / batch-aware models (batch as a covariate) / time-course contrasts via design
 - GO / KEGG / Reactome enrichment and GSEA
 - WGCNA co-expression modules and hub genes
-- Transcription-factor identification (PlantTFDB) and PPI networks
+- Transcription-factor identification (PlantTFDB) and TF–target networks; PPI via external STRING import
 
 **Metabolome**
 - Preprocessing, missing-value handling, normalization and QC
@@ -56,7 +56,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - Biomarker discovery (ROC + random forest) and metabolite–trait networks
 
 **Multi-omics integration**
-- MOFA latent factors; DIABLO / O2PLS discriminant integration
+- MOFA latent factors; DIABLO discriminant integration (O2PLS-style PLS is an approximation — see script note)
 - Gene–metabolite correlation networks, joint KEGG pathways and Circos visualization
 - GRNBoost2-style TF regulatory network inference
 
@@ -105,7 +105,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - Alternative-splicing analysis playbook (rMATS / SUPPA2) and small-RNA pipeline (miRDeep2)
 
 **Design & lab**
-- qPCR primer design; CRISPR sgRNA design with off-target search
+- qPCR primer design; CRISPR sgRNA design with in-sequence off-target statistics (genome-wide search needs external tools)
 - **qPCR relative quantification** (2^-ddCt, per-gene bar plots with SD) and
   qPCR↔RNA-seq correlation validation
 - Lab protocols: knockout constructs, DNA extraction, edit detection, LUC/GUS assays …
@@ -117,7 +117,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 
 **On demand (only when you ask — never force-routed)**
 - Literature search (multi-source), lawful full-text download, structured paper reading
-  - **Sources covered**: PubMed (E-utilities + MeSH), CrossRef (DOI / citation checks), OpenAlex, arXiv, Semantic Scholar, bioRxiv / medRxiv
+  - **Built-in sources**: PubMed (E-utilities + MeSH), CrossRef (DOI / citation checks), arXiv, OpenAlex, bioRxiv; Scopus / ScienceDirect require local `pybliometrics` configuration
+  - Semantic Scholar / medRxiv are secondary leads only and are **not** automated sources
   - Last-resort routes: Google Scholar · Web of Science · Scopus · CNKI (institutional access or manual; scraped sources are flagged as unstable when used)
   - Full text only via lawful channels: publisher APIs (Elsevier / Springer Nature / IEEE, your own key), open access (PMC / Unpaywall), CNKI institutional sessions — no Sci-Hub-style grey routes
 - Manuscript drafting & polishing (Nature-style), citation formatting & reference verification
@@ -191,7 +192,7 @@ automatically.
 ## 🧭 What's inside
 
 <details open>
-<summary><b>Module map (18 modules, 89 scripts)</b></summary>
+<summary><b>Module map (18 modules, 91 scripts)</b></summary>
 
 - **Module 1 · Transcriptome**: QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA →
   WGCNA → TF (PlantTFDB) → PPI

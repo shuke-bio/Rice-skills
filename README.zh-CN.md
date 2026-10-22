@@ -18,8 +18,8 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.7.zip)
-![Version](https://img.shields.io/badge/version-3.3.7-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.8.zip)
+![Version](https://img.shields.io/badge/version-3.3.8-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-91-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -49,11 +49,11 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 ## 🎯 能做什么
 
 **转录组**
-- FASTQ 到差异表达全流程（质控 → 比对 → counts → DESeq2 / edgeR）
-- 火山图 / 热图 / 批次校正 / 时间序列差异分析
+- count 矩阵到差异表达（质控 → DESeq2 / edgeR）；上游比对/定量（HISAT2 / Salmon / featureCounts）按外部工具运行
+- 火山图 / 热图 / 批次作为协变量建模 / 基于设计的时间点对比
 - GO / KEGG / Reactome 富集与 GSEA
 - WGCNA 共表达模块与 Hub 基因
-- 转录因子鉴定（PlantTFDB）与 PPI 网络
+- 转录因子鉴定（PlantTFDB）与 TF–靶基因网络；PPI 可导入 STRING
 
 **代谢组**
 - 预处理、缺失值处理、归一化与质控
@@ -62,7 +62,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - 生物标志物发现（ROC + 随机森林）与代谢物-性状关联网络
 
 **多组学联合**
-- MOFA 潜在因子；DIABLO / O2PLS 判别整合
+- MOFA 潜在因子；DIABLO 判别整合（O2PLS-style PLS 为近似实现，见脚本说明）
 - 基因-代谢物相关网络、联合 KEGG 通路与 Circos 可视化
 - GRNBoost2 式 TF 调控网络推断
 
@@ -111,7 +111,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - 可变剪接分析流程模板（rMATS / SUPPA2）与小 RNA 测序流程（miRDeep2）
 
 **设计与实验**
-- qPCR 引物设计；CRISPR sgRNA 设计（含脱靶搜索）
+- qPCR 引物设计；CRISPR sgRNA 设计（含序列内脱靶统计；全基因组脱靶需外部工具）
 - **qPCR 相对定量分析**（2^-ΔΔCt，每基因条形图含 SD）与 qPCR↔RNA-seq 相关性验证
 - 实验协议：敲除构建、DNA 提取、编辑鉴定、LUC/GUS 检测……
 
@@ -121,7 +121,8 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 
 **按需加载（你明确要求才触发，不强制路由）**
 - 文献多源检索、全文合法下载、结构化精读
-  - **检索覆盖库**：PubMed（E-utilities + MeSH 策略）· CrossRef（DOI / 引文核验）· OpenAlex · arXiv · Semantic Scholar · bioRxiv / medRxiv
+  - **内置检索源**：PubMed（E-utilities + MeSH 策略）· CrossRef（DOI / 引文核验）· arXiv · OpenAlex · bioRxiv；Scopus / ScienceDirect 需本机 `pybliometrics` 配置
+  - Semantic Scholar / medRxiv 仅作补充线索，**不属自动检索源**
   - 兜底路径：Google Scholar · Web of Science · Scopus · CNKI / 万方（后两类需机构权限或手动下载，抓取类源不稳定时会明确提示）
   - 全文下载走合法渠道：出版商 API（Elsevier / Springer Nature / IEEE，用你自己的 key）· 开放获取（PMC / Unpaywall）· CNKI 机构会话；不提供 Sci-Hub 等灰色渠道
 - 论文各章节写作、Nature 风格英文润色、引用规范与参考文献多源核验

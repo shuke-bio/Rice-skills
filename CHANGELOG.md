@@ -5,6 +5,21 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.8] — 2026-10-23
+
+### Fixed
+- README (both languages) module map said 89 scripts; corrected to 91.
+- Removed overstatements after a capability audit:
+  - RNA-seq starts from a count matrix; alignment/quantification (HISAT2/Salmon/featureCounts)
+    runs as external tools (there is no bundled FASTQ→counts pipeline).
+  - “batch correction” → batch-aware modelling (batch as a covariate); “time-series DE”
+    → time-course contrasts via the design.
+  - PPI networks are not bundled; TF–target networks are, with PPI via external STRING import.
+  - O2PLS is an O2PLS-style PLS approximation, not a native O2PLS implementation.
+  - sgRNA off-target statistics are in-sequence only; genome-wide search needs external tools.
+  - Literature sources: Semantic Scholar / medRxiv are secondary leads, not automated sources;
+    Scopus / ScienceDirect require local `pybliometrics` configuration.
+
 ## [3.3.7] — 2026-10-23
 
 ### Fixed
