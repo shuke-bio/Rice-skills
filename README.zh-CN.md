@@ -18,10 +18,10 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.4.zip)
-![Version](https://img.shields.io/badge/version-3.3.4-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.5.zip)
+![Version](https://img.shields.io/badge/version-3.3.5-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-90-teal)
+![Scripts](https://img.shields.io/badge/scripts-91-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -37,7 +37,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**程序生成的演示数据**（性状名为占位符，可任意替换为你自己的数据）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**90 个 R/Python 脚本**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**91 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配示例数据生成器与独立文档。
 
@@ -144,6 +144,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - **v3.3.2 新增（文献方法落地）**：MeNet 多环境基因组预测 · ELMERF 耐盐 RGB 表型 · Chloro-Count 叶绿体计数 · AnnoSINE SINE 注释 · Oryza 属泛基因组阶段运行器；70 条文献的 S/A1/A2/A3/B 分级索引见 `docs/references/literature_methods_2022_2026.md`
 - **v3.3.3 新增（决策层）**：数据契约 + 10 张场景卡 + 三档方案生成器（含阻断项）+ 数据体检 + 22 张方法卡 + 10 张英文场景卡，文献仅取 A1–A3 白名单；见 `docs/decision/`
 - **v3.3.4 新增（依赖体检）**：`scripts/plan/04_check_deps.py` 扫描所选档位的脚本，列出缺失的 R/Python 包与外部工具及安装命令，**经你确认后**才安装并复检；系统工具不自动安装
+- **v3.3.5 新增（方案确认闸门）**：每档方案附**图形方案**（图名/类型/85–170 mm/300 dpi/PDF+SVG+TIFF/生成脚本）；`scripts/plan/05_run_plan.py` 输出确认单，**用户确认前拒绝执行**（`approval.json` 记录方案哈希），执行前自动做依赖体检
 - **模块 8 · 群体遗传（v2.0）**：PCA 群体结构与 VanRaden 亲缘矩阵 → LD 衰减（半衰减距离）→
   Hudson Fst + 核苷酸多样性 π → ADMIXTURE 祖源与 CV 选 K → IBS 系统发育树（NJ/UPGMA）
 - **模块 9 · 设计与验证（v2.1）**：sgRNA 靶点设计（七大选择原则代码化）→ 双靶点自动配对 →

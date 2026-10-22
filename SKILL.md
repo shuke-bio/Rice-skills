@@ -1,7 +1,7 @@
 ---
 name: rice-skills
 description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、多位点 QTN·QEI·上位性（3VmrMLM/Fast3VmrMLM）、case-control QTN（FastBiCmrMLM，Linux）、多亲本 QTL（mppQTL）、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；引物与 CRISPR 靶点设计；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/SVG/TIFF ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告等关键词时触发。
-version: 3.3.4
+version: 3.3.5
 license: MIT
 species: Oryza sativa (水稻, Japonica)
 trigger:
@@ -674,6 +674,8 @@ v3.0 模块输出：
   `--demo` 内置 12 个场景（含 n=1 红线）。
 - `scripts/plan/02_check_data.py`：真实数据体检（缺失/文库/PCA 离群/批次混杂/多组学重叠）。
 - `scripts/plan/03_validate_cards.py`：校验 22 张方法卡（字段/脚本/期刊白名单/DOI）。
+- `scripts/plan/05_run_plan.py`：方案确认闸门——展示分析步骤与图形方案，
+  用户确认后写 `approval.json` 才允许执行；无确认或方案变更时拒绝。
 - `scripts/plan/04_check_deps.py`：依赖体检（R/Python 包 + 外部工具），**默认只检测**；
   用户明确同意后才加 `--install --yes` 安装并复检。系统工具只给安装指引，不自动装。
 - `docs/decision/`：数据契约、10 张场景卡（转录组、GWAS、多组学、单细胞/空间、代谢组、
@@ -681,5 +683,6 @@ v3.0 模块输出：
   `cards/`（22 张机器可读方法卡）、`en/`（10 张英文场景卡）、`template.json`。
 - 触发时机：用户问"我这批数据怎么分析 / 先做哪一步 / 能不能做 GWAS"时，
   **先出方案再跑脚本**；有阻断项时明确拒绝推断统计并给替代方案。
+- **硬性规则**：未展示并确认「分析步骤 + 图形方案」前，不得执行分析。
 - 文献准入：只引用 A1–A3 白名单期刊；非白名单的方法学原文只保留工具名。
 

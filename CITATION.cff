@@ -5,10 +5,10 @@ abstract: >-
   An open-source skill package for rice (Oryza sativa) covering transcriptomics,
   metabolomics and their integration, GWAS, population genetics, pangenome, QTL,
   proteomics, epigenomics, phenomics, single-cell and spatial omics, gene-family
-  evolution, and CRISPR/primer design. 18 analysis modules, 90 R/Python scripts
+  evolution, and CRISPR/primer design. 18 analysis modules, 91 R/Python scripts
   with built-in demo self-tests, publication-grade figures, and 541 curated
   third-party agent skills.
-version: 3.3.4
+version: 3.3.5
 date-released: "2026-10-19"
 type: software
 license: MIT

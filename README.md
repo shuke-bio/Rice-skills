@@ -14,10 +14,10 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.4.zip)
-![Version](https://img.shields.io/badge/version-3.3.4-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.5.zip)
+![Version](https://img.shields.io/badge/version-3.3.5-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-90-teal)
+![Scripts](https://img.shields.io/badge/scripts-91-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -230,6 +230,10 @@ automatically.
   scripts in a chosen plan tier for R/Python/tool dependencies, prints exact install
   commands, installs only after explicit consent, re-checks and logs; system tools are
   never auto-installed
+- **v3.3.5 additions**: plan & figure approval gate — each tier lists the figures
+  (type, 85/170 mm, 300 dpi, PDF+SVG+TIFF, script); `scripts/plan/05_run_plan.py`
+  prints the confirmation sheet and refuses to run until approved (`approval.json`
+  with a plan hash), then checks dependencies before executing demo-capable scripts
 - **Molecular lab companion**: rice CRISPR knockout reference + molecular protocols
 </details>
 
@@ -244,7 +248,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Example demo data for every module
-├── scripts/                        # 90 R/Python analysis scripts (18 modules)
+├── scripts/                        # 91 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 541 curated skills + palettes, 6 skill libraries + 4 tool/data components (NOTICE.md)

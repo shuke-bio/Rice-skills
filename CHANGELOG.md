@@ -5,6 +5,18 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.5] — 2026-10-23
+
+### Added
+- **Plan & figure approval gate** — every tier now carries a figure plan (name, type,
+  85/170 mm, 300 dpi, PDF+SVG+TIFF, generating script); `scripts/plan/05_run_plan.py`
+  prints the confirmation sheet and refuses to execute until the user approves
+  (`--approve` writes `approval.json` with a plan hash; `--execute` verifies it,
+  runs the dependency preflight, then executes demo-capable scripts and skips the rest
+  with an explicit reason).
+- `docs/decision/figure_plan.md`: confirmation sheet contents, figure standards and
+  approval/execution records.
+
 ## [3.3.4] — 2026-10-23
 
 ### Added

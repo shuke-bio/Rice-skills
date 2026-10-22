@@ -388,6 +388,86 @@ def sources_for(steps):
                         out.append(r)
     return out
 
+
+# --------------------------------------------------------------------------- #
+# 图形方案：每档给出"图名 / 类型 / 生成脚本 / 规格"
+# 规格默认 CNS 风格：单栏 85 mm、双栏 170 mm、300 dpi、PDF+SVG+TIFF
+# --------------------------------------------------------------------------- #
+FIG_SPEC = "85/170 mm, 300 dpi, PDF+SVG+TIFF"
+FIGURES = {
+ "rnaseq": {
+  "最小可行": [("PCA 散点", "散点", "01_qc_filter.py"), ("样本相关性热图", "热图", "01_qc_filter.py")],
+  "标准": [("PCA 散点", "散点", "01_qc_filter.py"), ("样本相关性热图", "热图", "01_qc_filter.py"),
+           ("差异火山图", "火山", "07_plot_transcriptome.R"), ("差异基因热图", "热图", "07_plot_transcriptome.R"),
+           ("GO/KEGG 富集气泡图", "气泡", "03_enrichment.R")],
+  "进阶": [("差异火山图", "火山", "07_plot_transcriptome.R"), ("GSEA 富集曲线", "曲线", "04_gsea.R"),
+           ("WGCNA 模块-性状热图", "热图", "05_wgcna.R"), ("基因-代谢物网络", "网络", "05_network_integration.R")],
+ },
+ "gwas": {
+  "最小可行": [("QQ 图", "QQ", "05_plot_gwas.R"), ("曼哈顿图", "曼哈顿", "05_plot_gwas.R")],
+  "标准": [("QQ 图", "QQ", "05_plot_gwas.R"), ("曼哈顿图", "曼哈顿", "05_plot_gwas.R"),
+           ("候选区间 LD 热图", "热图", "04_candidate_loci.R"), ("单倍型-表型箱线图", "箱线", "07_haplotype.R")],
+  "进阶": [("多位点 QTN 曼哈顿图", "曼哈顿", "09_multilocus_qtn.R"), ("QEI 环境互作热图", "热图", "09_multilocus_qtn.R"),
+           ("共定位 PP4 图", "柱状", "02_colocalization.R")],
+ },
+ "multiomics": {
+  "最小可行": [("各层 PCA", "散点", "metabolomics/01_preprocess.py"), ("样本匹配示意", "示意", "01_make_plan.py")],
+  "标准": [("OPLS-DA 得分图", "散点", "metabolomics/02_oplsda.R"), ("VIP 条形图", "条形", "metabolomics/02_oplsda.R"),
+           ("跨层相关热图", "热图", "02_diablo.R")],
+  "进阶": [("MOFA 因子图", "散点", "01_mofa.R"), ("基因-代谢物网络", "网络", "05_network_integration.R"),
+           ("共定位 PP4 图", "柱状", "02_colocalization.R")],
+ },
+ "singlecell": {
+  "最小可行": [("每样本 QC 小提琴图", "小提琴", "01_scanpy_pipeline.py"), ("整合 UMAP", "UMAP", "01_scanpy_pipeline.py")],
+  "标准": [("UMAP + 细胞类型", "UMAP", "01_scanpy_pipeline.py"), ("marker 点图", "点图", "01_scanpy_pipeline.py"),
+           ("细胞比例堆叠图", "堆叠", "01_scanpy_pipeline.py")],
+  "进阶": [("轨迹图", "轨迹", "01_scanpy_pipeline.py"), ("调控模块热图", "热图", "01_scanpy_pipeline.py"),
+           ("空间映射图", "空间", "01_spatial_pipeline.py")],
+ },
+ "spatial": {
+  "最小可行": [("空间域图", "空间", "01_spatial_pipeline.py"), ("QC 散点", "散点", "01_spatial_pipeline.py")],
+  "标准": [("空间域图", "空间", "01_spatial_pipeline.py"), ("区域 marker 空间图", "空间", "01_spatial_pipeline.py"),
+           ("区域差异热图", "热图", "01_spatial_pipeline.py")],
+  "进阶": [("邻域网络图", "网络", "01_spatial_pipeline.py"), ("多切片比较图", "空间", "01_spatial_pipeline.py")],
+ },
+ "metabolome": {
+  "最小可行": [("PCA 散点", "散点", "01_preprocess.py"), ("缺失率条形图", "条形", "01_preprocess.py")],
+  "标准": [("OPLS-DA 得分图", "散点", "02_oplsda.R"), ("VIP 条形图", "条形", "02_oplsda.R"),
+           ("通路气泡图", "气泡", "03_pathway.R"), ("ROC 曲线", "曲线", "05_biomarker.R")],
+  "进阶": [("代谢共表达网络", "网络", "06_metabolite_network.R"), ("mQTL 曼哈顿图", "曼哈顿", "02_colocalization.R")],
+ },
+ "qtl": {
+  "最小可行": [("LOD 曲线", "曲线", "01_qtl_mapping.R"), ("表型分布图", "直方", "01_qtl_mapping.R")],
+  "标准": [("LOD 曲线", "曲线", "01_qtl_mapping.R"), ("QTL 区间图", "区间", "01_qtl_mapping.R"),
+           ("BSA ΔSNP-index 图", "曲线", "05_bsa_scan.py")],
+  "进阶": [("共定位图", "柱状", "02_colocalization.R"), ("单倍型箱线图", "箱线", "07_haplotype.R")],
+ },
+ "gs": {
+  "最小可行": [("表型分布", "直方", "01_phenotype_blup.R"), ("遗传力条形图", "条形", "01_phenotype_blup.R")],
+  "标准": [("预测-观测散点", "散点", "03_gs_gblup.R"), ("CV 准确率箱线图", "箱线", "03_gs_gblup.R"),
+           ("AMMI 双标图", "双标", "04_ammi_gge.R")],
+  "进阶": [("MeNet 预测散点", "散点", "06_menet_gs.py"), ("模型对比图", "条形", "06_menet_gs.py")],
+ },
+ "pangenome": {
+  "最小可行": [("泛基因组增长曲线", "曲线", "01_pangenome_graph.sh"), ("组装质量条形图", "条形", "01_pangenome_graph.sh")],
+  "标准": [("PAV 热图", "热图", "03_pav_analysis.R"), ("核心/可变基因饼图", "饼图", "03_pav_analysis.R"),
+           ("Pan-GWAS 曼哈顿图", "曼哈顿", "04_pan_gwas.R")],
+  "进阶": [("SV Circos 图", "Circos", "02_sv_detect.sh"), ("SINE 分布图", "分布", "06_annosine.sh")],
+ },
+ "epigenome": {
+  "最小可行": [("样本相关性热图", "热图", "01_methylation_analysis.R"), ("覆盖度分布图", "分布", "01_methylation_analysis.R")],
+  "标准": [("DMR/DAR 火山图", "火山", "01_methylation_analysis.R"), ("区域注释饼图", "饼图", "01_methylation_analysis.R"),
+           ("metagene 轮廓图", "曲线", "01_methylation_analysis.R")],
+  "进阶": [("Hi-C 互作热图", "热图", "02_atac_chip_analysis.R"), ("共定位图", "柱状", "02_colocalization.R")],
+ },
+ "proteome": {
+  "最小可行": [("PCA 散点", "散点", "01_preprocess.py"), ("缺失率条形图", "条形", "01_preprocess.py")],
+  "标准": [("差异蛋白火山图", "火山", "02_diff_protein.R"), ("差异蛋白热图", "热图", "03_plot_proteome.R"),
+           ("结构域富集条形图", "条形", "05_interpro_domains.py")],
+  "进阶": [("PTM 位点图", "分布", "02_diff_protein.R"), ("蛋白-mRNA 一致性散点", "散点", "01_preprocess.py")],
+ },
+}
+
 # --------------------------------------------------------------------------- #
 # 路由与渲染
 # --------------------------------------------------------------------------- #
@@ -418,6 +498,20 @@ def build(d):
         tiers = plan_multiomics(d)
     else:
         tiers = plan_rnaseq(d)
+    key = ("qtl" if goal == "qtl" or design == "ril_magic_nam" else
+           "gs" if goal == "prediction" else
+           "singlecell" if assay == "single_cell" else
+           "spatial" if assay == "spatial" else
+           "pangenome" if assay == "pangenome" else
+           "epigenome" if assay in ("wgbs", "atac") else
+           "proteome" if assay == "proteome" else
+           "metabolome" if assay == "metabolome" and goal in ("marker_discovery", "differential_expression") else
+           "rnaseq" if goal in ("differential_expression", "marker_discovery") and assay in ("bulk_rna", "rna_metabolome") else
+           "gwas" if goal == "gwas" or assay == "resequencing" else
+           "multiomics")
+    for t in tiers:
+        t["figures"] = [{"name": n, "type": ty, "script": sc, "spec": FIG_SPEC}
+                        for n, ty, sc in FIGURES.get(key, {}).get(t["tier"], [])]
     return {"input": d, "blockers": b, "warnings": w,
             "tiers": tiers, "generated": str(date.today())}
 
@@ -437,8 +531,12 @@ def render_md(r):
     for t in r["tiers"]:
         L += [f"## {t['tier']}：{t['intent']}", "", "**步骤**"]
         L += [f"1. {s}" for s in t["steps"]]
-        L += ["", "**预期产出**：" + "；".join(t["outputs"]),
-              "", f"**风险与边界**：{t['risk']}"]
+        L += ["", "**预期产出**：" + "；".join(t["outputs"])]
+        if t.get("figures"):
+            L += ["", "**图形方案**"]
+            for f in t["figures"]:
+                L.append(f"- {f['name']}（{f['type']}，{f['spec']}）— `{f['script']}`")
+        L += ["", f"**风险与边界**：{t['risk']}"]
         refs = sources_for(t["steps"])
         if refs:
             L += ["", "**方法依据**"]

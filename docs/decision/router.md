@@ -19,6 +19,9 @@
 
 ## 2. 标准流程（agent 应固定执行）
 
+> **硬性规则：用户未确认「分析方案 + 图形方案」前，不执行任何分析脚本。**
+> 确认单：`python scripts/plan/05_run_plan.py --plan results/plan/plan.json --tier minimal`
+
 1. **补齐字段**：按 `data_contract.md` 问 10 项；能从上下文推断的直接填，不要重复问；
 2. **数据体检**（有文件时）：
    `python scripts/plan/02_check_data.py --matrix ... --metadata ... --outdir results/qc`
@@ -29,6 +32,8 @@
    把缺失清单给用户确认；同意后才加 `--install --yes`。
 4. **先看阻断项**：有 `blockers` 就停下，向用户说明原因并给替代方案；
 5. **让用户选档**：最小可行 / 标准 / 进阶；
+5.5 **展示方案**（分析步骤 + 图形方案 + 产出），等用户明确确认；
+   确认后 `05_run_plan.py --approve`，再 `--execute`；
 6. **执行**：先 `--demo` 验证环境，再传真实参数（见 `docs/*_usage.md`）。
 
 ## 3. 不该做的事
