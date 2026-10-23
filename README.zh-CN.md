@@ -19,6 +19,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23586529.svg)](https://doi.org/10.5281/zenodo.23586529)
 [![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.10.zip)
 ![Version](https://img.shields.io/badge/version-3.3.10-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
@@ -440,6 +441,8 @@ python tests/test_utils.py     # Python 主题/出图/数据IO 冒烟测试
 ## 📄 许可证
 
 [MIT](LICENSE) — 可自由用于学术与商业用途；引用或二次开发欢迎注明出处。
+
+**引用方式**：概念 DOI（所有版本通用）[10.5281/zenodo.23586529](https://doi.org/10.5281/zenodo.23586529)；机器可读元数据见 [`CITATION.cff`](CITATION.cff)。
 
 ## 🙏 第三方组件与致谢
 

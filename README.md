@@ -15,6 +15,7 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23586529.svg)](https://doi.org/10.5281/zenodo.23586529)
 [![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.10.zip)
 ![Version](https://img.shields.io/badge/version-3.3.10-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
@@ -310,6 +311,8 @@ python tests/test_utils.py     # Python utility layer
 
 MIT — see [LICENSE](LICENSE). Third-party components keep their own licenses;
 see [`third_party/NOTICE.md`](third_party/NOTICE.md) and per-library files.
+
+**Cite this work.** Concept DOI (all versions): [10.5281/zenodo.23586529](https://doi.org/10.5281/zenodo.23586529). Machine-readable metadata: [`CITATION.cff`](CITATION.cff).
 
 ## 📬 Contact
 

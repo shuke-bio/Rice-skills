@@ -12,6 +12,7 @@ version: 3.3.10
 date-released: "2026-10-19"
 type: software
 license: MIT
+doi: 10.5281/zenodo.23586529
 repository-code: "https://github.com/shuke-bio/Rice-skills"
 keywords:
   - rice
