@@ -5,6 +5,18 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.11] — 2026-10-23
+
+### Added
+- `npx rice-skills install --project`: installs the skill into
+  `./.workbuddy/skills/Rice-skills` for project-level discovery.
+- `--write-agents`: creates a project `AGENTS.md` that binds rice analyses to the
+  installed skill (analysis + figure plan first, dependency check before install),
+  so users do not have to name the skill. Existing `AGENTS.md` is never overwritten.
+- `templates/AGENTS.md`: copyable project convention template.
+- This release also re-archives the repository on Zenodo with the corrected author
+  (Fu, Liang) and the DOI badge present in the snapshot.
+
 ## [3.3.10] — 2026-10-23
 
 ### Added

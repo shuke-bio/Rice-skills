@@ -18,20 +18,42 @@ const PKG = require("../package.json");
 const REPO = "shuke-bio/Rice-skills";
 const DEFAULT_REF = `v${PKG.version}`;
 
+const AGENTS_TEXT = `# Project conventions
+
+- Rice omics analyses in this workspace use \`.workbuddy/skills/Rice-skills\`.
+- Before starting, read \`SKILL.md\` and \`docs/decision/README.md\` from that folder.
+- Always present an analysis + figure plan first, and wait for user approval before running.
+- Check dependencies first and list anything missing; install only after explicit consent.
+- Demo data are program-generated and must not be used for biological conclusions.
+`;
+
+function writeAgents() {
+  const file = path.join(process.cwd(), "AGENTS.md");
+  if (fs.existsSync(file)) {
+    console.log("AGENTS.md already exists — left unchanged.");
+    return;
+  }
+  fs.writeFileSync(file, AGENTS_TEXT, "utf8");
+  console.log("Created AGENTS.md (project-level skill binding).");
+}
+
 function help() {
   console.log(`rice-skills ${PKG.version}
 
 Usage:
-  rice-skills install [--dir <path>] [--ref <tag>] [--force] [--from <tarball>]
-  rice-skills check   [--dir <path>]
+  rice-skills install [--dir <path> | --project] [--ref <tag>] [--force] [--from <tarball>] [--write-agents]
+  rice-skills check   [--dir <path> | --project]
   rice-skills version
   rice-skills help
 
 Options:
-  --dir <path>   Target directory (default: ./Rice-skills)
-  --ref <tag>    GitHub tag to install (default: v${PKG.version})
-  --force        Install into a non-empty directory
-  --from <file>  Install from a local .tar.gz instead of downloading
+  --dir <path>    Target directory (default: ./Rice-skills)
+  --project       Install into ./.workbuddy/skills/Rice-skills (project-level skill)
+  --ref <tag>     GitHub tag to install (default: v${PKG.version})
+  --force         Install into a non-empty directory
+  --from <file>   Install from a local .tar.gz instead of downloading
+  --write-agents  Create ./AGENTS.md binding this project to the installed skill
+                  (never overwrites an existing AGENTS.md)
 
 Examples:
   npx rice-skills install
@@ -86,7 +108,13 @@ function download(url, dest) {
 }
 
 async function install(opts) {
-  const target = path.resolve(opts.dir || "Rice-skills");
+  if (opts.project && opts.dir) {
+    console.error("Use either --project or --dir, not both.");
+    process.exit(1);
+  }
+  const target = opts.project
+    ? path.join(process.cwd(), ".workbuddy", "skills", "Rice-skills")
+    : path.resolve(opts.dir || "Rice-skills");
   const ref = String(opts.ref || DEFAULT_REF);
   const force = Boolean(opts.force);
 
@@ -122,10 +150,13 @@ async function install(opts) {
   console.log("Next: see docs/installation.md, then run a demo:");
   console.log("  Rscript scripts/gwas/09_multilocus_qtn.R --demo");
   console.log("  python scripts/design/03_qpcr_analysis.py --demo");
+  if (opts["write-agents"]) writeAgents();
 }
 
 function check(opts) {
-  const dir = path.resolve(opts.dir || "Rice-skills");
+  const dir = opts.project
+    ? path.join(process.cwd(), ".workbuddy", "skills", "Rice-skills")
+    : path.resolve(opts.dir || "Rice-skills");
   const required = ["SKILL.md", "README.md", "config/nature_palette.json", "scripts"];
   let ok = true;
   for (const f of required) {

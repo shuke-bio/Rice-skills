@@ -16,8 +16,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23586529.svg)](https://doi.org/10.5281/zenodo.23586529)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.10.zip)
-![Version](https://img.shields.io/badge/version-3.3.10-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.11.zip)
+![Version](https://img.shields.io/badge/version-3.3.11-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
 ![Scripts](https://img.shields.io/badge/scripts-91-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
@@ -149,6 +149,8 @@ single-cell / pangenome steps scale with your data, not with the package.
 ```bash
 npx skills add shuke-bio/Rice-skills --list          # browse available skills
 npx skills add shuke-bio/Rice-skills --skill rice-skills --yes --copy
+# or install as a project-level skill with an AGENTS.md binding:
+# npx rice-skills install --project --write-agents
 ```
 
 **B. Git clone**

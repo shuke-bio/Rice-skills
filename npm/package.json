@@ -1,6 +1,6 @@
 {
   "name": "rice-skills",
-  "version": "3.3.10",
+  "version": "3.3.11",
   "description": "Installer for Rice-skills: an open-source rice multi-omics and breeding analysis toolkit (18 modules, 91 R/Python scripts).",
   "keywords": [
     "rice",

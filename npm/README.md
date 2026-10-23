@@ -12,11 +12,14 @@ pinned GitHub tag, so the package stays small and every install is version-expli
 # install the latest packaged version into ./Rice-skills
 npx rice-skills install
 
-# choose a target directory (e.g. your agent's skills folder)
+# install as a project-level skill + create AGENTS.md (no need to name the skill)
+npx rice-skills install --project --write-agents
+
+# choose a custom target directory
 npx rice-skills install --dir ~/.workbuddy/skills/Rice-skills
 
 # install a specific tag into a non-empty directory
-npx rice-skills install --dir ./Rice-skills --ref v3.3.10 --force
+npx rice-skills install --dir ./Rice-skills --ref v3.3.11 --force
 
 # verify an installation
 npx rice-skills check --dir ./Rice-skills
@@ -28,7 +31,10 @@ npx rice-skills check --dir ./Rice-skills
    (or reads a local tarball with `--from`);
 2. Extracts it with the top-level folder stripped;
 3. Checks that `SKILL.md` exists;
-4. Prints the next steps (demo commands, docs).
+4. With `--project`, installs into `./.workbuddy/skills/Rice-skills`; with
+   `--write-agents`, creates `./AGENTS.md` binding the project to the skill
+   (never overwrites an existing file);
+5. Prints the next steps (demo commands, docs).
 
 It does not install R/Python packages. Use the repository's dependency checker after
 installing:

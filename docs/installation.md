@@ -145,3 +145,17 @@ Rscript -e 'install.packages(c(
 ## 6. 目录权限
 
 所有脚本把结果写到 `--outdir`（默认 `results/`），不会修改仓库源码。`results/` 已在 `.gitignore` 中忽略，可安全删除重跑。
+
+## 项目级安装（推荐给固定项目）
+
+```bash
+npx rice-skills install --project --write-agents
+```
+
+- 技能装到 `./.workbuddy/skills/Rice-skills/`；
+- 在项目根目录生成 `AGENTS.md`，绑定"本项目的水稻分析默认用该技能"；
+- 之后直接说"这批数据做差异分析，出图"即可，不用点名 Rice-skills；
+- 已存在 `AGENTS.md` 时不会覆盖。
+
+手动方式：把仓库复制到 `项目/.workbuddy/skills/Rice-skills/`，并参考
+`templates/AGENTS.md` 写一份项目约定。
