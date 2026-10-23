@@ -45,6 +45,10 @@ python scripts/plan/04_check_deps.py --plan results/plan/plan.json --tier minima
 - npm download counts are the reason this package exists: GitHub does not expose
   install counts for `npx skills add`.
 
+## Publishing
+
+See [PUBLISHING.md](PUBLISHING.md) for a step-by-step npm release guide.
+
 ## License
 
 MIT — see [LICENSE](LICENSE). The installed repository contains third-party components
