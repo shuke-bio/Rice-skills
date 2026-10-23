@@ -18,6 +18,7 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
 [![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.3.9.zip)
 ![Version](https://img.shields.io/badge/version-3.3.9-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
