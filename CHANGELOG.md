@@ -5,6 +5,13 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.13] — 2026-10-23
+
+### Changed
+- Patch release to align the GitHub/Zenodo snapshot with `main`: the SKILL.md
+  description is the original 1203-character version (full trigger coverage), not the
+  temporary 922-character variant shipped in the v3.3.12 release snapshot.
+
 ## [3.3.12] — 2026-10-23
 
 ### Added
