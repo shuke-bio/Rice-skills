@@ -34,3 +34,7 @@ Thumbs.db
 
 # filter-branch temp dir (never commit)
 .git-rewrite/
+
+# npm installer
+npm/node_modules/
+npm/*.tgz

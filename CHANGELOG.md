@@ -5,6 +5,17 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.9] — 2026-10-23
+
+### Added
+- **npm installer** (`npm/`): `npx rice-skills install` downloads the pinned GitHub tag,
+  extracts it (top folder stripped), verifies `SKILL.md`, and prints next steps.
+  Supports `--dir`, `--ref`, `--force`, `--from` (offline/CI) and `check`.
+  The npm package contains only the installer (~4 kB), not the analysis repository.
+  npm download counts provide the install metric GitHub does not expose.
+- GitHub Actions workflow `.github/workflows/npm-publish.yml` publishes the installer on
+  release when `NPM_TOKEN` is configured.
+
 ## [3.3.8] — 2026-10-23
 
 ### Fixed

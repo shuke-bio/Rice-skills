@@ -1,0 +1,42 @@
+{
+  "name": "rice-skills",
+  "version": "3.3.9",
+  "description": "Installer for Rice-skills: an open-source rice multi-omics and breeding analysis toolkit (18 modules, 91 R/Python scripts).",
+  "keywords": [
+    "rice",
+    "oryza-sativa",
+    "bioinformatics",
+    "multi-omics",
+    "gwas",
+    "breeding",
+    "skills",
+    "agent"
+  ],
+  "homepage": "https://github.com/shuke-bio/Rice-skills",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shuke-bio/Rice-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shuke-bio/Rice-skills/issues"
+  },
+  "license": "MIT",
+  "author": "shuke-bio",
+  "bin": {
+    "rice-skills": "bin/rice-skills.js"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "tar": "^7.4.3"
+  },
+  "scripts": {
+    "test": "node test/smoke.js"
+  }
+}
