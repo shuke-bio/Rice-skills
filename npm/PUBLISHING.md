@@ -35,7 +35,7 @@ npm whoami        # 应输出你的用户名
 ## 3. 发布
 
 ```bash
-cd /c/Users/86182/Desktop/Rice-skills/npm
+cd /path/to/Rice-skills/npm
 npm publish --access public
 ```
 
