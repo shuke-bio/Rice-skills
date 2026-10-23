@@ -26,5 +26,6 @@ keywords:
   - plant-breeding
   - agent-skills
 authors:
-  - name: "shuke-bio"
+  - family-names: "Fu"
+    given-names: "Liang"
     website: "https://github.com/shuke-bio"

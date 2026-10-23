@@ -21,7 +21,7 @@
     "url": "https://github.com/shuke-bio/Rice-skills/issues"
   },
   "license": "MIT",
-  "author": "shuke-bio",
+  "author": "Fu Liang",
   "bin": {
     "rice-skills": "bin/rice-skills.js"
   },

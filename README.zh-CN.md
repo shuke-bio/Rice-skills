@@ -442,7 +442,7 @@ python tests/test_utils.py     # Python 主题/出图/数据IO 冒烟测试
 
 [MIT](LICENSE) — 可自由用于学术与商业用途；引用或二次开发欢迎注明出处。
 
-**引用方式**：概念 DOI（所有版本通用）[10.5281/zenodo.23586529](https://doi.org/10.5281/zenodo.23586529)；机器可读元数据见 [`CITATION.cff`](CITATION.cff)。
+**引用方式**：Fu, Liang. *Rice-skills* (2026). 概念 DOI（所有版本通用）[10.5281/zenodo.23586529](https://doi.org/10.5281/zenodo.23586529)；机器可读元数据见 [`CITATION.cff`](CITATION.cff)。
 
 ## 🙏 第三方组件与致谢
 

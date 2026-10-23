@@ -3,7 +3,7 @@
   "description": "Rice-skills is an open-source skill package for rice (Oryza sativa) omics and breeding analysis. It provides 18 analysis modules and 91 R/Python scripts covering transcriptomics, metabolomics, multi-omics integration, variant calling, GWAS (GLM/MLM/FarmCPU, multi-locus QTN, QEI, epistasis, case-control, multi-parent QTL, meta-GWAS), population genetics, pangenome/SV/PAV, QTL/BSA, proteomics, epigenomics, phenomics and genomic selection, single-cell and spatial omics, primer/CRISPR design, and qPCR analysis. Every analysis step produces publication-grade figures (PDF/TIFF/PNG, 300 dpi, shared colour palette). A decision layer turns a 10-field data contract into blockers and three-tier analysis plans with figure plans, requires explicit user approval before execution, and checks/install dependencies only with consent. Released under the MIT licence; third-party components are documented in third_party/NOTICE.md.",
   "creators": [
     {
-      "name": "shuke-bio"
+      "name": "Fu, Liang"
     }
   ],
   "license": "MIT",

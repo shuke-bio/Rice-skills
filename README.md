@@ -312,7 +312,7 @@ python tests/test_utils.py     # Python utility layer
 MIT — see [LICENSE](LICENSE). Third-party components keep their own licenses;
 see [`third_party/NOTICE.md`](third_party/NOTICE.md) and per-library files.
 
-**Cite this work.** Concept DOI (all versions): [10.5281/zenodo.23586529](https://doi.org/10.5281/zenodo.23586529). Machine-readable metadata: [`CITATION.cff`](CITATION.cff).
+**Cite this work.** Fu, Liang. *Rice-skills* (2026). Concept DOI (all versions): [10.5281/zenodo.23586529](https://doi.org/10.5281/zenodo.23586529). Machine-readable metadata: [`CITATION.cff`](CITATION.cff).
 
 ## 📬 Contact
 
