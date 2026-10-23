@@ -5,6 +5,13 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.10] — 2026-10-23
+
+### Added
+- `.zenodo.json`: Zenodo metadata (title, description, creators, MIT licence, keywords,
+  related identifier) so every GitHub release is archived with a DOI.
+- This release exists to trigger the first Zenodo archive after enabling the repository.
+
 ## [3.3.9] — 2026-10-23
 
 ### Added
