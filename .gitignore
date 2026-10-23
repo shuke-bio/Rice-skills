@@ -38,3 +38,13 @@ Thumbs.db
 # npm installer
 npm/node_modules/
 npm/*.tgz
+
+# local-only materials (never publish)
+Rice-skills-wiki/
+RiceSkills展示PPT/
+RiceSkills能力总览/
+RiceSkills推广素材/
+Rice-skills库审计/
+水稻生信方法调研/
+Rice-skills-v*.zip
+Rice-skills推广素材/
