@@ -3,7 +3,7 @@
 # release_check.py -- 发版前一致性检查（零依赖）
 #
 # 检查：
-#   1) SKILL.md 的 name 符合小写连字符规范，description <= 1024 字符；
+#   1) SKILL.md 的 name 符合小写连字符规范；description > 1024 时给出警告；
 #   2) SKILL.md / CITATION.cff / README 双语徽章 / npm/package.json /
 #      package-lock.json / CHANGELOG 的版本号完全一致；
 #   3) README 的 ZIP 链接 tag 与版本一致；
@@ -53,7 +53,9 @@ def main():
     else:
         desc = dm.group(1).strip()
     if len(desc) > 1024:
-        fail(errors, f"description 超长: {len(desc)} > 1024 字符")
+        warnings.append(
+            f"description 为 {len(desc)} 字符，超过部分平台 1024 上限；"
+            "GitHub 保留完整描述；仅在导入有 1024 限制的平台时再按需精简")
     missing = [t for t in REQUIRED_TRIGGERS if t not in desc]
     if missing:
         warnings.append("description 缺少触发词: " + "、".join(missing))

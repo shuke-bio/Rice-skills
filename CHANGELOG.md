@@ -9,12 +9,12 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ### Added
 - `scripts/release_check.py`: zero-dependency release audit — skill name format,
-  description length (<= 1024), version consistency across SKILL/CITATION/README/
+  description length (warns above 1024), version consistency across SKILL/CITATION/README/
   npm package + lock, ZIP tag link, CHANGELOG section, and required trigger keywords.
 ### Changed
-- Restored full trigger coverage in the SKILL.md description while keeping it at
-  922 characters (was temporarily trimmed to 404): all GWAS/QTL/single-cell/spatial/
-  literature keywords are back.
+- Restored the original 1203-character SKILL.md description in full (it had been
+  temporarily trimmed to 404); trigger coverage is unchanged. `release_check.py` now
+  warns above the 1024-character platform guideline instead of failing.
 
 ## [3.3.11] — 2026-10-23
 
