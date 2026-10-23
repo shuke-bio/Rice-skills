@@ -1,7 +1,7 @@
 ---
 name: rice-skills
-description: 水稻（Oryza sativa）多组学与育种分析技能：转录组（QC、DESeq2/edgeR、GO/KEGG/GSEA、WGCNA、TF）、代谢组（OPLS-DA/VIP、通路、标志物）、多组学整合（MOFA、DIABLO）、变异检测与 GWAS（GLM/MLM/FarmCPU、多位点 QTN/QEI/上位性、case-control、多亲本 QTL、Meta-GWAS）、群体遗传、泛基因组 SV/PAV、QTL/BSA、蛋白组、表观组、表型组/GS、单细胞与空间、qPCR 引物与 CRISPR sgRNA 设计。默认先给「分析+图形方案」，用户确认后执行；缺依赖先列清单，同意后安装；图默认 PDF/TIFF/PNG、300 dpi。触发词：水稻转录组、差异表达、火山图、富集分析、GWAS、QTL、代谢组、多组学、WGCNA、单细胞、空间转录组、引物设计、CRISPR、qPCR、CNS 级绘图。
-version: 3.3.11
+description: 水稻（Oryza sativa）多组学与育种分析技能：转录组（QC、DESeq2/edgeR、GO/KEGG/Reactome、GSEA、WGCNA、TF/PPI）、代谢组（OPLS-DA/VIP、通路、ROC/随机森林、网络）、多组学（MOFA、DIABLO、O2PLS、联合通路、Circos、GRNBoost2）、变异检测（BWA→GATK→SnpEff）、GWAS（GLM/MLM/FarmCPU、3VmrMLM/Fast3VmrMLM 多位点 QTN·QEI·上位性、FastBiCmrMLM 二分类、mppQTL 多亲本、Meta-GWAS、共定位 PP4）、群体遗传（PCA/亲缘、LD、Fst/π、ADMIXTURE、XP-EHH）、泛基因组（SV/PAV、Pan-GWAS、eQTL/mQTL/pQTL）、QTL/BSA、蛋白组（limma、UniProt、InterPro）、表观组（WGBS/DMR、ATAC/ChIP）、表型组（BLUP/遗传力、光谱、GBLUP、AMMI/GGE）、单细胞/空间（Scanpy、Squidpy、RSTA/scGPT）、qPCR 引物、CRISPR sgRNA（序列内脱靶）、qPCR 2^-ΔΔCt、实验协议。分析即出 CNS 级图（PDF/TIFF/PNG、300 dpi、共享调色板）；默认先给分析与图形方案，确认后执行；缺依赖先列清单，同意后安装。触发词：水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告。
+version: 3.3.12
 license: MIT
 species: Oryza sativa (水稻, Japonica)
 trigger:
