@@ -5,6 +5,15 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.4.1] — 2026-10-26
+
+### Added
+- `metabolomics/08_mgwas.R`: metabolite GWAS (PCA + VanRaden kinship + eigen-transformed
+  MLM) and mQTL mode (marker regression + LOD); demo has 3 planted metabolite-SNP pairs.
+- `gwas/12_kmer_gwas.py`: k-mer dosage GWAS (KMERIA-style): quantile dosage, PCA,
+  kinship, eigen-transformed MLM, BH correction, significant k-mers mapped back to FASTA.
+- Script count 95 -> 97; version 3.4.1.
+
 ## [3.4.0] — 2026-10-26
 
 ### Added

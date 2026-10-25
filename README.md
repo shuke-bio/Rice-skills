@@ -16,10 +16,10 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23586529.svg)](https://doi.org/10.5281/zenodo.23586529)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.4.0.zip)
-![Version](https://img.shields.io/badge/version-3.4.0-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.4.1.zip)
+![Version](https://img.shields.io/badge/version-3.4.1-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-95-teal)
+![Scripts](https://img.shields.io/badge/scripts-97-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -245,6 +245,9 @@ automatically.
 - **v3.4.0 additions**: genome-wide CRISPR off-target search (`design/04_offtarget.py`),
   TWAS (`qtl/06_twas.R`) and two-sample Mendelian randomization (`qtl/07_mr.R`); all with
   synthetic demos and explicit method boundaries
+- **v3.4.1 additions**: metabolite GWAS/mQTL (`metabolomics/08_mgwas.R`) and
+  k-mer dosage GWAS (`gwas/12_kmer_gwas.py`, KMERIA-style with quantile dosage, PCA,
+  kinship and eigen-transformed MLM; significant k-mers map back to the genome)
 - **Molecular lab companion**: rice CRISPR knockout reference + molecular protocols
 </details>
 
@@ -259,7 +262,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Example demo data for every module
-├── scripts/                        # 95 R/Python analysis scripts (18 modules)
+├── scripts/                        # 97 R/Python analysis scripts (18 modules)
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 541 curated skills + palettes, 6 skill libraries + 4 tool/data components (NOTICE.md)

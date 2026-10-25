@@ -20,10 +20,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23586529.svg)](https://doi.org/10.5281/zenodo.23586529)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.4.0.zip)
-![Version](https://img.shields.io/badge/version-3.4.0-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.4.1.zip)
+![Version](https://img.shields.io/badge/version-3.4.1-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-95-teal)
+![Scripts](https://img.shields.io/badge/scripts-97-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -39,7 +39,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**程序生成的演示数据**（性状名为占位符，可任意替换为你自己的数据）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**95 个 R/Python 脚本**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**97 个 R/Python 脚本**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配示例数据生成器与独立文档。
 
@@ -150,6 +150,7 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - **v3.3.5 新增（方案确认闸门）**：每档方案附**图形方案**（图名/类型/85–170 mm/300 dpi/PDF+TIFF+PNG/生成脚本）；`scripts/plan/05_run_plan.py` 输出确认单，**用户确认前拒绝执行**（`approval.json` 记录方案哈希），执行前自动做依赖体检
 - **v3.3.6 调整**：默认出图格式改为 **PDF / TIFF / PNG**（原 PDF/SVG/TIFF），覆盖 R/Python 共享绘图助手、19 个绘图脚本与配置；SVG 仅在你显式指定时输出
 - **v3.4.0 新增**：全基因组 CRISPR 脱靶检索（`design/04_offtarget.py`）、TWAS（`qtl/06_twas.R`）、两样本孟德尔随机化（`qtl/07_mr.R`），均带合成数据 demo 与方法边界说明
+- **v3.4.1 新增**：代谢物 GWAS/mQTL（`metabolomics/08_mgwas.R`）、k-mer 剂量 GWAS（`gwas/12_kmer_gwas.py`，KMERIA 路线：分位数剂量 + PCA + 亲缘 + 特征分解 MLM，显著 k-mer 可回贴基因组）
 - **模块 8 · 群体遗传（v2.0）**：PCA 群体结构与 VanRaden 亲缘矩阵 → LD 衰减（半衰减距离）→
   Hudson Fst + 核苷酸多样性 π → ADMIXTURE 祖源与 CV 选 K → IBS 系统发育树（NJ/UPGMA）
 - **模块 9 · 设计与验证（v2.1）**：sgRNA 靶点设计（七大选择原则代码化）→ 双靶点自动配对 →
@@ -208,7 +209,7 @@ Rice-skills/
 │   └── annotations/                # 内置官方注释快照：MSU↔RAP-DB 映射 / TF 列表 / GSEA 基因集
 ├── scripts/
 │   ├── transcriptomics/            # 01_qc_filter.py … 07_plot_transcriptome.R
-│   ├── metabolomics/               # 01_preprocess.py … 07_plot_metabolome.R
+│   ├── metabolomics/               # 01_preprocess.py … 08_mgwas.R（v3.4）
 │   ├── integration/                # 01_mofa.R … 06_plot_integration.R
 │   ├── gwas/                       # 01_plink_qc.sh … 07_haplotype.R（v2.0/v3.0/v3.1 · GWAS 全链 + Meta + 单倍型）
 │   ├── popgen/                     # 01_pca_structure.R … 06_phylogeny.R（v2.0 · 群体遗传）
