@@ -5,6 +5,17 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.4.2] — 2026-10-26
+
+### Added
+- `pangenome/07_t2t_qc.sh`: built-in assembly stats (contigs, total, N50, GC, gaps) plus
+  optional BUSCO / Merqury / RepeatMasker / Liftoff execution (`--run-tools`).
+- `pangenome/08_graph_genotype.sh`: graph genotyping plan/runner for vg Giraffe
+  (autoindex -> giraffe -> pack -> call) and PanGenie; PHG noted as alternative.
+- `phenomics/09_dl_gs.py`: DL-GS baseline with Ridge, ElasticNet, MLP and optional 1D CNN;
+  same-fold comparison (r/MSE/MAE) and CV predictions.
+- Script count 97 -> 100 (98 R/Python + 2 shell); version 3.4.2.
+
 ## [3.4.1] — 2026-10-26
 
 ### Added
