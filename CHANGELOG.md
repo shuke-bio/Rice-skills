@@ -5,6 +5,18 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.4.0] — 2026-10-26
+
+### Added
+- `design/04_offtarget.py`: genome-wide SpCas9 off-target search (both strands, NGG PAM,
+  mismatch positions, risk tiers). Built-in scanner for <= 50 Mb; larger genomes must use
+  Cas-OFFinder/CRISPOR. Demo plants on-target + 1/2-mismatch sites.
+- `qtl/06_twas.R`: weighted-sum TWAS (FUSION-like) from eQTL weights + GWAS summary;
+  BH adjustment, demo recovers the causal gene.
+- `qtl/07_mr.R`: two-sample MR with allele harmonization, IVW (fixed/random), MR-Egger,
+  weighted median, heterogeneity Q; demo recovers a 0.35 causal effect.
+- Script count 91 -> 95 (includes `scripts/release_check.py`); version 3.4.0.
+
 ## [3.3.13] — 2026-10-23
 
 ### Changed

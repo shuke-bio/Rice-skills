@@ -19,7 +19,7 @@ npx rice-skills install --project --write-agents
 npx rice-skills install --dir ~/.workbuddy/skills/Rice-skills
 
 # install a specific tag into a non-empty directory
-npx rice-skills install --dir ./Rice-skills --ref v3.3.13 --force
+npx rice-skills install --dir ./Rice-skills --ref v3.4.0 --force
 
 # verify an installation
 npx rice-skills check --dir ./Rice-skills
