@@ -78,6 +78,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--n-pcs", type=int, default=30)
     p.add_argument("--resolution", type=float, default=0.8)
     p.add_argument("--batch-key", default=None)
+    p.add_argument("--celltypist-model", default=None,
+                   help="Path to a celltypist .pkl model for automatic annotation")
+    p.add_argument("--doublet", action="store_true",
+                   help="Run Scrublet doublet detection (requires scrublet)")
     p.add_argument("--outdir", default="results/single_cell/01_pipeline")
     p.add_argument("--seed", type=int, default=42)
     return p.parse_args(argv)
@@ -174,6 +178,19 @@ def main(argv: list[str] | None = None) -> int:
     # ------------------------------------------------------------------
     # 3) Normalise + HVG + PCA + neighbours
     # ------------------------------------------------------------------
+    if args.doublet:
+        try:
+            import scrublet as scr
+            scrub = scr.Scrublet(adata.X, expected_doublet_rate=0.06)
+            scores, preds = scrub.scrub_doublets()
+            adata.obs["doublet_score"] = scores
+            adata.obs["is_doublet"] = preds
+            adata.obs[["doublet_score", "is_doublet"]].to_csv(
+                outdir / "doublet_scores.csv")
+            print(f"[single_cell] scrublet: {int(preds.sum())} doublets flagged")
+        except Exception as exc:  # noqa: BLE001
+            print(f"(doublet detection skipped: {exc})")
+
     adata.layers["counts"] = adata.X.copy()
     sc.pp.normalize_total(adata, target_sum=1e4)
     sc.pp.log1p(adata)
@@ -231,6 +248,21 @@ def main(argv: list[str] | None = None) -> int:
     # ------------------------------------------------------------------
     # 5) Optional: marker-set scoring (e.g. RSTA cell-type markers)
     # ------------------------------------------------------------------
+    if args.celltypist_model:
+        try:
+            import celltypist
+            from celltypist import models
+            model = models.Model.load(model=args.celltypist_model)
+            raw = adata.raw.to_adata()
+            pred = celltypist.annotate(raw, model=model, majority_voting=True)
+            labels = pred.predicted_labels
+            labels.to_csv(outdir / "celltypist_labels.csv")
+            adata.obs["celltypist_label"] = labels.reindex(adata.obs_names)[
+                "majority_voting"].values
+            print("[single_cell] celltypist annotation written")
+        except Exception as exc:  # noqa: BLE001
+            print(f"(celltypist skipped: {exc})")
+
     if args.markers:
         mk = pd.read_csv(args.markers)
         sets = {}

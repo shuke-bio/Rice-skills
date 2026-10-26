@@ -41,6 +41,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -422,6 +423,10 @@ def main(argv: list[str] | None = None) -> int:
                         help="Maximum distance between the two targets (bp)")
     parser.add_argument("--min-gc", type=float, default=40.0)
     parser.add_argument("--max-gc", type=float, default=80.0)
+    parser.add_argument("--genome", default=None,
+                        help="Optional genome FASTA for genome-wide off-target search (delegates to 04_offtarget.py)")
+    parser.add_argument("--max-mm", type=int, default=3,
+                        help="Max mismatches for --genome off-target search")
     args = parser.parse_args(argv)
 
     name, seq = read_fasta(Path(args.fasta))
@@ -454,6 +459,32 @@ def main(argv: list[str] | None = None) -> int:
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     save_table(cand, outdir / "sgrna_candidates.csv")
+
+    # Optional genome-wide off-target search (delegates to 04_offtarget.py)
+    if args.genome:
+        top = cand[cand["pass"]].head(50).copy()
+        if len(top):
+            top["sgrna_id"] = [f"sg{i+1}" for i in range(len(top))]
+            top[["sgrna_id", "protospacer"]].rename(
+                columns={"protospacer": "sequence"}).to_csv(
+                outdir / "offtarget_input.csv", index=False)
+            cmd = [sys.executable, str(Path(__file__).with_name("04_offtarget.py")),
+                   "--sgrna", str(outdir / "offtarget_input.csv"),
+                   "--genome", args.genome, "--outdir", str(outdir / "offtarget"),
+                   "--max-mm", str(args.max_mm)]
+            LOGGER.info("Genome-wide off-target: %s", " ".join(cmd))
+            subprocess.run(cmd, check=True)
+            summ_path = outdir / "offtarget" / "offtarget_summary.csv"
+            if summ_path.exists():
+                summ = pd.read_csv(summ_path)
+                summ = summ.rename(columns={"sgrna": "protospacer"})
+                cand = cand.merge(
+                    summ[["protospacer", "total_hits", "mm0", "mm1", "mm2", "mm3plus"]],
+                    on="protospacer", how="left")
+                save_table(cand, outdir / "sgrna_candidates.csv")
+                LOGGER.info("Merged genome-wide off-target counts into sgrna_candidates.csv")
+    else:
+        LOGGER.warning("No --genome: only local (in-sequence) off-target counts were computed.")
 
     pairs = pair_targets(cand, args.min_gap, args.max_gap, args.n_pairs)
     ok = cand[cand["pass"]].reset_index(drop=True)

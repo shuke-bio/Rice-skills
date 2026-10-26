@@ -97,6 +97,8 @@ if (nrow(m) < 3) stop("Fewer than 3 usable SNPs after harmonization")
 
 m$ratio <- m$beta_out / m$beta_ex
 m$se_ratio <- m$se_out / abs(m$beta_ex)
+m$F_stat <- (m$beta_ex / m$se_ex)^2
+mean_F <- mean(m$F_stat, na.rm = TRUE)
 m <- m[is.finite(m$ratio) & is.finite(m$se_ratio) & m$se_ratio > 0, , drop = FALSE]
 if (nrow(m) < 3) stop("Fewer than 3 valid SNPs after ratio calculation")
 
@@ -140,6 +142,24 @@ res <- data.frame(
 )
 
 write.csv(res, file.path(outdir, "mr_results.csv"), row.names = FALSE)
+if (isTRUE(opt("presso", FALSE))) {
+  if (requireNamespace("MRPRESSO", quietly = TRUE)) {
+    pr <- tryCatch(MRPRESSO::mr_presso(
+      BetaOutcome = m$beta_out, BetaExposure = m$beta_ex,
+      SdOutcome = m$se_out, SdExposure = m$se_ex,
+      NbDistribution = 1000, SignifThreshold = 0.05,
+      OUTLIERtest = TRUE, DISTORTIONtest = TRUE), error = function(e) NULL)
+    if (!is.null(pr)) {
+      write.csv(pr$`Main MR results`, file.path(outdir, "mr_presso.csv"), row.names = FALSE)
+      cat("[mr] MR-PRESSO results written\n")
+    }
+  } else {
+    writeLines(c("# MR-PRESSO plan", "install.packages('MRPRESSO')",
+                 "# MRPRESSO::mr_presso(BetaOutcome=..., BetaExposure=..., SdOutcome=..., SdExposure=...)"),
+               file.path(outdir, "mr_presso_plan.txt"))
+    cat("[mr] MRPRESSO not installed; plan written\n")
+  }
+}
 write.csv(m[, c("snp_id", "beta_ex", "se_ex", "beta_out", "se_out", "ratio", "se_ratio")],
           file.path(outdir, "mr_snps.csv"), row.names = FALSE)
 writeLines(c(
@@ -147,6 +167,7 @@ writeLines(c(
   paste0("exposure=", normalizePath(exp_path, mustWork = FALSE)),
   paste0("outcome=", normalizePath(out_path, mustWork = FALSE)),
   paste0("n_snp=", nrow(m)),
+  sprintf("mean_F=%.1f", mean_F),
   "methods=IVW_fixed, IVW_random, MR_Egger, Weighted_median"
 ), file.path(outdir, "run_info.txt"))
 

@@ -78,9 +78,13 @@ repeats <- suppressWarnings(as.integer(opt(opts, "repeats", "3")))
 lambdas_arg <- opt(opts, "lambdas")
 n_cap <- suppressWarnings(as.integer(opt(opts, "n-markers-cap", "20000")))
 outdir <- opt(opts, "outdir", "results/phenomics/03_gs")
+method <- tolower(opt(opts, "method", "gblup"))
 
 if (any(vapply(list(genotype_path, phenotype_path, trait), is.null, logical(1)))) {
   stop("Required: --genotype, --phenotype, --trait. See --help.", call. = FALSE)
+}
+if (!method %in% c("gblup", "rrblup", "bayesb")) {
+  stop("--method must be gblup, rrblup or bayesb", call. = FALSE)
 }
 need_pkgs(c("ggplot2", "jsonlite"))
 dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
@@ -120,6 +124,66 @@ message(sprintf("  samples: %d | markers: %d | trait: %s", n, ncol(G0), trait))
 K <- vanraden_kinship(G0)
 K <- K / mean(diag(K))
 y_scaled <- scale(y_all)
+
+# ---------------------------------------------------------------------------
+# 2b) Alternative GS methods (rrBLUP / BayesB)
+# ---------------------------------------------------------------------------
+if (method != "gblup") {
+  if (method == "rrblup" && !requireNamespace("rrBLUP", quietly = TRUE)) {
+    stop("method=rrblup requires rrBLUP; install.packages('rrBLUP')", call. = FALSE)
+  }
+  if (method == "bayesb" && !requireNamespace("BGLR", quietly = TRUE)) {
+    stop("method=bayesb requires BGLR; install.packages('BGLR')", call. = FALSE)
+  }
+  cv_rows <- list()
+  for (rep_i in seq_len(repeats)) {
+    folds <- sample(rep(seq_len(k_folds), length.out = n))
+    for (fold in seq_len(k_folds)) {
+      train <- which(folds != fold); test <- which(folds == fold)
+      if (method == "rrblup") {
+        fit <- rrBLUP::mixed.solve(y = y_scaled[train], K = K[train, train, drop = FALSE])
+        pred <- as.numeric(K[test, train, drop = FALSE] %*% fit$u) + fit$beta
+      } else {
+        y_na <- y_scaled; y_na[test] <- NA
+        fit <- BGLR::BGLR(y = y_na, ETA = list(list(K = K, model = "BayesB")),
+                          nIter = 2000, burnIn = 500, verbose = FALSE)
+        pred <- as.numeric(fit$yHat[test])
+      }
+      r <- suppressWarnings(stats::cor(pred, y_scaled[test]))
+      rmse <- sqrt(mean((pred - y_scaled[test])^2))
+      cv_rows[[length(cv_rows) + 1L]] <- data.frame(
+        rep_id = rep_i, fold = fold, method = method,
+        accuracy = round(r, 4), rmse = round(rmse, 4))
+    }
+  }
+  cv <- do.call(rbind, cv_rows)
+  utils::write.csv(cv, file.path(outdir, "cv_accuracy.csv"), row.names = FALSE)
+  acc <- c(mean_acc = mean(cv$accuracy, na.rm = TRUE), sd_acc = stats::sd(cv$accuracy, na.rm = TRUE))
+  message(sprintf("  CV (%s): mean accuracy %.3f +/- %.3f", method, acc[1], acc[2]))
+  if (method == "rrblup") {
+    fit <- rrBLUP::mixed.solve(y = y_scaled, K = K)
+    gebv <- as.numeric(K %*% fit$u) + fit$beta
+  } else {
+    fit <- BGLR::BGLR(y = y_scaled, ETA = list(list(K = K, model = "BayesB")),
+                      nIter = 3000, burnIn = 1000, verbose = FALSE)
+    gebv <- as.numeric(fit$yHat)
+  }
+  out <- data.frame(sample_id = shared, phenotype = y_all, gebv = round(gebv, 4))
+  utils::write.csv(out, file.path(outdir, "gebv_all.csv"), row.names = FALSE)
+  writeLines(c(
+    paste0("Rice-skills -- GS summary (", method, ")"),
+    sprintf("samples / markers : %d / %d", n, ncol(G0)),
+    sprintf("trait             : %s", trait),
+    sprintf("CV                : %d-fold x %d repeats", k_folds, repeats),
+    sprintf("prediction acc.   : %.3f +/- %.3f (r, held-out)", acc[1], acc[2])
+  ), file.path(outdir, "accuracy_summary.txt"))
+  write_run_info_r(outdir, "03_gs_gblup.R", params = list(
+    genotype = genotype_path, phenotype = phenotype_path, trait = trait,
+    method = method, k_folds = k_folds, repeats = repeats,
+    accuracy = unname(acc[1]), n_samples = n, n_markers = ncol(G0)))
+  message("Done (", method, "). Outputs written to: ", normalizePath(outdir))
+  quit(save = "no", status = 0)
+}
 
 # ---------------------------------------------------------------------------
 # 3) Cross-validated lambda selection + accuracy

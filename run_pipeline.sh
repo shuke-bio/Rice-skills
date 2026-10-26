@@ -84,8 +84,7 @@ if [ -z "$PYTHON" ]; then
     fi
   done
   if [ -z "$PYTHON" ]; then
-    for _cand in "$HOME/AppData/Local/Programs/Python"/Python*/python.exe \
-                 /c/Users/*/AppData/Local/Programs/Python/Python*/python.exe; do
+    for _cand in "$HOME/AppData/Local/Programs/Python"/Python*/python.exe; do
       if [ -x "$_cand" ] && "$_cand" -c "import matplotlib" >/dev/null 2>&1; then PYTHON="$_cand"; break; fi
     done
   fi

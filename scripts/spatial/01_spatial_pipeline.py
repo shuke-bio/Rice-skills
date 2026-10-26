@@ -43,6 +43,7 @@ Outputs:
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -66,6 +67,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--n-pcs", type=int, default=30)
     p.add_argument("--resolution", type=float, default=0.5)
     p.add_argument("--n-svg", type=int, default=2000, help="Genes tested for Moran's I (top HVG).")
+    p.add_argument("--deconv-sc", default=None,
+                   help="scRNA reference CSV for NNLS deconvolution (delegates to 02_deconvolution.py)")
+    p.add_argument("--deconv-labels", default=None,
+                   help="Cell-type labels CSV for --deconv-sc")
     p.add_argument("--outdir", default="results/spatial/01_pipeline")
     p.add_argument("--seed", type=int, default=42)
     return p.parse_args(argv)
@@ -93,6 +98,18 @@ def main(argv: list[str] | None = None) -> int:
 
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
+
+    if args.deconv_sc and args.deconv_labels:
+        if str(args.input).lower().endswith(".csv"):
+            cmd = [sys.executable, str(Path(__file__).with_name("02_deconvolution.py")),
+                   "--sc", args.deconv_sc, "--labels", args.deconv_labels,
+                   "--spatial", str(args.input), "--outdir", str(outdir / "deconvolution")]
+            if args.coords:
+                cmd += ["--coords", args.coords]
+            print("[spatial] deconvolution:", " ".join(cmd))
+            subprocess.run(cmd, check=True)
+        else:
+            print("(deconvolution skipped: --deconv-* currently supports CSV input only)")
     setup_nature_style()
     sc.settings.verbosity = 1
 

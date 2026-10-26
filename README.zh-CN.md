@@ -20,10 +20,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23586529.svg)](https://doi.org/10.5281/zenodo.23586529)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.4.2.zip)
-![Version](https://img.shields.io/badge/version-3.4.2-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.12.0.zip)
+![Version](https://img.shields.io/badge/version-3.12.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-100-teal)
+![Scripts](https://img.shields.io/badge/scripts-130-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -39,7 +39,7 @@
 > **适用对象：任何从事水稻组学分析的研究者与团队。** 通用工具链——数据格式通用、参数全部可配、
 > 不绑定任何实验室、平台或测序公司；仓库内所有示例数据均为**程序生成的演示数据**（性状名为占位符，可任意替换为你自己的数据）。
 >
-> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**100 个分析脚本（R/Python/shell）**
+> 一个可打包上传 GitHub / OpenAI Skills 的完整科研软件包：**130 个 R/Python 脚本 + 23 个 shell 封装**
 > （分析 + 工具；v3.2 新增 Bayesian 共定位/2D-GWAS/GRN 推断/miRNA 靶点/motif-TF 匹配/
 > R/Python 双后端统一绘图规范，固定随机种子，全程可复现；每个模块配示例数据生成器与独立文档。
 
@@ -51,9 +51,11 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 ## 🎯 能做什么
 
 **转录组**
-- count 矩阵到差异表达（质控 → DESeq2 / edgeR）；上游比对/定量（HISAT2 / Salmon / featureCounts）按外部工具运行
+- FASTQ → counts（fastp → HISAT2 → featureCounts）与 count 矩阵到差异表达（质控 → DESeq2 / edgeR）
+- ComBat 批次校正与时间序列模型（`group × time` F 检验）
 - 火山图 / 热图 / 批次作为协变量建模 / 基于设计的时间点对比
-- GO / KEGG / Reactome 富集与 GSEA
+- GO / KEGG / Reactome 富集、GSEA 与 ssGSEA/GSVA 通路活性
+- isoform 水平差异转录本使用（DTU）
 - WGCNA 共表达模块与 Hub 基因
 - 转录因子鉴定（PlantTFDB）与 TF–靶基因网络；PPI 可导入 STRING
 
@@ -62,14 +64,18 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - OPLS-DA 与 VIP 标志物筛选
 - KEGG 代谢物通路富集
 - 生物标志物发现（ROC + 随机森林）与代谢物-性状关联网络
+- SIRIUS formula/structure 执行 + GNPS 上传说明；注释合并
+- GEMMA AI-REML mGWAS（kinship + LMM）
 
 **多组学联合**
 - MOFA 潜在因子；DIABLO 判别整合（O2PLS-style PLS 为近似实现，见脚本说明）
 - 基因-代谢物相关网络、联合 KEGG 通路与 Circos 可视化
 - GRNBoost2 式 TF 调控网络推断
+- MOFA 因子解释（方差/载荷/性状相关）；DIABLO 调参
 
 **变异检测与注释**
 - 完整链路：BWA 比对 → GATK 变异检测 → VCF 过滤 → SnpEff 注释
+- 共识变异（bcftools + FreeBayes + GATK）、DeepVariant、定相、SV/CNV
 
 **GWAS 与基因组学**
 - PLINK 质控 → rMVP（GLM / MLM / FarmCPU，`--model`）或 GAPIT（七模型）/ 内置 OLS-GLM
@@ -79,33 +85,40 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - **多位点 QTN / QTN×环境（QEI）/ 上位性（QTN×QTN）**——3VmrMLM / Fast3VmrMLM
 - **二分类（case-control）性状多位点 GWAS**——FastBiCmrMLM（Linux / WSL）
 - **多亲本群体 QTL**——MAGIC / NAM / ROAM（mppQTL）
+- **TWAS（支持 LD）**、两样本 MR（IVW/Egger/加权中位数 + MR-PRESSO）、SuSiE/ABF fine-mapping
+- mGWAS/mQTL、k-mer GWAS、rare-variant burden、MTAG 计划、FUSION 权重、CIM、QTL 上位性、BSA ED/SL
 
 **群体遗传**
 - PCA 群体结构 + 亲缘关系 · LD 衰减 · Fst / π · ADMIXTURE · 系统发育
-- XP-EHH 选择扫描
+- XP-EHH、iHS/CLR 与 Dsuite 渐渗计划
 
 **泛基因组与 QTL**
 - SV / PAV 检测与 Pan-GWAS —— 三种途径：组装（minimap2 + SYRI）、图（minigraph-cactus VCF 基因分型）与基于读取的（HitSV 短读 / 长读 / 混合调用及基因分型）
 - eQTL / mQTL / pQTL 映射与 GWAS×QTL 共定位
+- T2T 组装 QC、vg/PanGenie 图基因型、PHG、odgi 图可视化
 - BSA / QTL-seq 全基因组扫描（ΔSNP-index + G′，模拟法置信线）
 - QTL/BSA 区间 SNP 提取与基因区域注释（启动子/UTR/外显子/内含子，含 ΔAF 与差异判定）——区间 VCF + 三表 Excel
 - **SINE 注释**（AnnoSINE）· **Oryza 属泛基因组流程**（Snakemake 阶段运行器）
 
 **蛋白质组**
 - 预处理与差异丰度分析；UniProt 蛋白→基因映射自动化
-- InterProScan 结构域富集
+- InterProScan 结构域富集；PTM 富集、STRING PPI 与 AlphaFold DB 查询
 
 **表观基因组**
 - WGBS 甲基化 DMR 分析；ATAC / ChIP 差异区域
+- Hi-C TAD/loops 计划、scATAC（TF-IDF/LSI）、ArchR/Signac 计划
 
 **表型组与育种**
 - BLUP / 遗传力；光谱指数（NDVI 等）
 - GBLUP 基因组选择（含交叉验证）；AMMI / GGE biplot
+- DL-GS 基线（Ridge/ElasticNet/MLP/CNN）、多性状 GBLUP、时序 GWAS
 - **多环境基因组预测**（MeNet）· **耐盐 RGB 表型**（ELMERF）· **叶绿体计数**（Chloro-Count）
 
 **单细胞与空间组学**
-- Scanpy 全流程（聚类 / marker 基因 / PAGA）
+- Scanpy 全流程（聚类 / marker 基因 / PAGA）+ 整合/注释 + 配体-受体通讯
+- scVI/CellChat 计划（可选依赖）
 - Squidpy 空间域与 Moran's I；RSTA / scGPT 基础模型集成指引
+- NNLS 反卷积与 cell2location/COMMOT 计划
 
 **进化与调控**
 - KA/KS 基因家族进化
@@ -113,7 +126,8 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - 可变剪接分析流程模板（rMATS / SUPPA2）与小 RNA 测序流程（miRDeep2）
 
 **设计与实验**
-- qPCR 引物设计；CRISPR sgRNA 设计（含序列内脱靶统计；全基因组脱靶需外部工具）
+- qPCR 引物设计；CRISPR sgRNA 设计（含序列内脱靶统计）
+- 碱基/先导编辑设计、编辑效率排序、全基因组脱靶（≤50 Mb 内置）
 - **qPCR 相对定量分析**（2^-ΔΔCt，每基因条形图含 SD）与 qPCR↔RNA-seq 相关性验证
 - 实验协议：敲除构建、DNA 提取、编辑鉴定、LUC/GUS 检测……
 
@@ -152,6 +166,16 @@ with CNS-grade figures. See `docs/` for full documentation (Chinese).
 - **v3.4.0 新增**：全基因组 CRISPR 脱靶检索（`design/04_offtarget.py`）、TWAS（`qtl/06_twas.R`）、两样本孟德尔随机化（`qtl/07_mr.R`），均带合成数据 demo 与方法边界说明
 - **v3.4.1 新增**：代谢物 GWAS/mQTL（`metabolomics/08_mgwas.R`）、k-mer 剂量 GWAS（`gwas/12_kmer_gwas.py`，KMERIA 路线：分位数剂量 + PCA + 亲缘 + 特征分解 MLM，显著 k-mer 可回贴基因组）
 - **v3.4.2 新增**：T2T 组装 QC（`pangenome/07_t2t_qc.sh`）、图泛基因组基因型计划/执行（`pangenome/08_graph_genotype.sh`，vg Giraffe + PanGenie）、DL-GS 基线（`phenomics/09_dl_gs.py`，Ridge/ElasticNet/MLP/CNN 同折比较）
+- **v3.5.0 新增**：PURE-like TF 优先级排序（`transcriptomics/08_tf_prioritize.py`）、共识变异检测（`variants/05_consensus_call.sh`）、fine-mapping（`qtl/08_finemap_susie.R`，有 susieR 用 SuSiE，否则近似 ABF）
+- **v3.6.0 新增**：单细胞整合/注释（`single_cell/02_integration_annotation.py`）、细胞通讯（`single_cell/03_cell_communication.py`）、空间 NNLS 反卷积（`spatial/02_deconvolution.py`）、SV/CNV（`variants/06_sv_cnv.sh`）、iHS/CLR+Dsuite（`popgen/08_selection_scan.sh`）、代谢物注释合并（`metabolomics/09_annotate.py`）、DTU（`transcriptomics/09_dtu.py`）
+- **v3.7.0 新增**：碱基/先导编辑设计（`design/05_base_prime_edit.py`）、Hi-C 计划（`epigenomics/03_hic_analysis.sh`）、scATAC（`epigenomics/04_scatac.py`）、流程导出（`utils/export_workflow.py`）、基准套件（`utils/benchmark_suite.py`）、HPC 提交（`utils/hpc_submit.py`）、因果网络（`integration/08_causal_network.py`）、时序 GWAS（`phenomics/10_temporal_gwas.py`）
+- **v3.7.1 快速改进**：sgRNA `--genome` 全基因组脱靶、GS `--method rrblup|bayesb`、Scanpy `--celltypist-model`/`--doublet`、空间 `--deconv-*`、`release_check.py` 脚本计数校验
+- **v3.8.0 新增**：FASTQ→counts（`transcriptomics/00_fastq_counts.sh`）、ssGSEA（`transcriptomics/10_ssgsea.R`）、PTM/PPI（`proteomics/06_ptm_ppi.py`）、导入版构建（`utils/build_skill_import.py`）、CI 工作流、运行时依赖/许可清单
+- **v3.9.0 新增**：ComBat + 时间序列模型（`transcriptomics/11_batch_timecourse.R`）、TWAS LD 校正（`qtl/06_twas.R --ld`）、rare-variant burden（`gwas/13_burden_test.py`）、QTL 上位性（`qtl/10_qtl_epistasis.R`）
+- **v3.10.0 新增**：SIRIUS/GEMMA 执行封装、BSA ED/SL、AlphaFold DB 查询、多性状 GBLUP 汇总
+- **v3.11.0 新增**：MOFA 因子解释、DIABLO 调参计划、scVI/CellChat、cell2location/COMMOT、DeepVariant/定相封装；方案生成器已纳入新脚本
+- **v3.12.0 新增**：FUSION 权重训练、CIM、PHG、ArchR/Signac 计划、编辑效率启发式排序、MTAG 计划；MR 支持 `--presso`
+- **P2 另含** 泛基因组图可视化（`pangenome/09_graph_visualize.sh`，odgi）
 - **模块 8 · 群体遗传（v2.0）**：PCA 群体结构与 VanRaden 亲缘矩阵 → LD 衰减（半衰减距离）→
   Hudson Fst + 核苷酸多样性 π → ADMIXTURE 祖源与 CV 选 K → IBS 系统发育树（NJ/UPGMA）
 - **模块 9 · 设计与验证（v2.1）**：sgRNA 靶点设计（七大选择原则代码化）→ 双靶点自动配对 →

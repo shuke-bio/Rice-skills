@@ -1,7 +1,7 @@
 # rice-skills (npm installer)
 
 Installer for [Rice-skills](https://github.com/shuke-bio/Rice-skills) — an open-source
-rice multi-omics and breeding analysis toolkit (18 modules, 91 R/Python scripts, MIT).
+rice multi-omics and breeding analysis toolkit (18 modules, 130 R/Python + 23 shell scripts, MIT).
 
 The npm package contains **only the installer**; analysis scripts are downloaded from the
 pinned GitHub tag, so the package stays small and every install is version-explicit.
@@ -19,7 +19,7 @@ npx rice-skills install --project --write-agents
 npx rice-skills install --dir ~/.workbuddy/skills/Rice-skills
 
 # install a specific tag into a non-empty directory
-npx rice-skills install --dir ./Rice-skills --ref v3.4.2 --force
+npx rice-skills install --dir ./Rice-skills --ref v3.12.0 --force
 
 # verify an installation
 npx rice-skills check --dir ./Rice-skills

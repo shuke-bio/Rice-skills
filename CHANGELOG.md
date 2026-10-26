@@ -5,6 +5,115 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+> 说明：3.4.0–3.11.0 为开发批次，未单独创建 GitHub Release；对外发布以 v3.12.0 为累积版本。
+
+
+## [3.12.0] — 2026-10-26
+
+### Added
+- `qtl/12_fusion_weights.R`: ridge-based FUSION-like cis-eQTL weights; demo R2=0.37.
+- `qtl/13_cim.R`: composite interval mapping with cofactor selection; demo peak at snp040.
+- `pangenome/10_phg.sh`: Practical Haplotype Graph plan/runner.
+- `epigenomics/05_archr_signac.R`: ArchR/Signac plan generator.
+- `design/06_edit_efficiency.py`: heuristic BE/PE guide ranking + BE-Hive/PRIDICT plan.
+- `gwas/14_mtag.py`: MTAG input validation + command plan.
+- `qtl/07_mr.R`: optional `--presso` (MR-PRESSO if installed, otherwise plan).
+- R/Python scripts 125 -> 130; shell wrappers 22 -> 23; version 3.12.0.
+
+## [3.11.0] — 2026-10-26
+
+### Added
+- `integration/09_mofa_interpret.R`: factor variance, top loadings, factor-trait correlations.
+- `integration/10_diablo_tune.R`: DIABLO tuning plan/runner (mixOmics optional).
+- `single_cell/04_scvi_cellchat.py`: scVI runner (if installed) + CellChat R plan.
+- `spatial/03_cell2location.py`: cell2location/COMMOT plan generator.
+- `variants/07_deepvariant.sh`, `variants/08_phasing.sh`: DeepVariant and WhatsHap/SHAPEIT plans.
+- `scripts/plan/01_make_plan.py`: new modules injected into tier steps.
+- R/Python scripts 121 -> 125; shell wrappers 20 -> 22; version 3.11.0.
+
+## [3.10.0] — 2026-10-26
+
+### Added
+- `metabolomics/10_sirius.sh`: SIRIUS formula/structure plan/runner + GNPS upload guide.
+- `metabolomics/11_gemma_mgwas.sh`: GEMMA kinship + AI-REML LMM plan/runner.
+- `qtl/11_bsa_ed_sl.py`: BSA ED/SL statistics with window smoothing and Fisher SL.
+- `proteomics/07_alphafold.py`: AlphaFold DB query (pLDDT/PDB/PAE), optional PDB download.
+- `phenomics/11_multitrait_gs.R`: per-trait GBLUP + GEBV correlation (not joint MTM).
+- R/Python scripts 118 -> 121; shell wrappers 18 -> 20; version 3.10.0.
+
+## [3.9.0] — 2026-10-26
+
+### Added
+- `transcriptomics/11_batch_timecourse.R`: ComBat (if sva available) + per-gene
+  `lm(y ~ group*time)` vs `lm(y ~ group)` F-test; demo.
+- `qtl/06_twas.R`: optional `--ld` matrix; denominator now `sqrt(w' R w)` (LD-aware).
+- `gwas/13_burden_test.py`: rare-variant gene burden with PCA covariates; demo 5/5 causal.
+- `qtl/10_qtl_epistasis.R`: pairwise `g1*g2` interaction scan; demo recovers planted pair.
+- R/Python scripts 115 -> 118; version 3.9.0.
+
+## [3.8.0] — 2026-10-26
+
+### Added
+- `transcriptomics/00_fastq_counts.sh`: fastp + HISAT2 + featureCounts plan/runner.
+- `transcriptomics/10_ssgsea.R`: ssGSEA/GSVA with mean-z fallback.
+- `proteomics/06_ptm_ppi.py`: PTM Fisher enrichment + STRING PPI edges/hubs.
+- `utils/build_skill_import.py`: generates an importable SKILL.md with description <=1024
+  without changing the 1365-character GitHub description.
+- `.github/workflows/ci.yml`: release_check + compileall + quick benchmark.
+- `docs/new_modules_usage.md`, `docs/runtime_dependencies.md`; NOTICE runtime-tool section.
+- `release_check.py` count regex supports English/Chinese; MR reports mean F-statistic.
+- R/Python scripts 112 -> 115; shell wrappers 17 -> 18; version 3.8.0.
+
+## [3.7.1] — 2026-10-26
+
+### Changed
+- `design/01_sgrna_design.py`: `--genome` delegates to `04_offtarget.py` and merges genome-wide
+  off-target counts into the candidate table; without it, a warning states that only local
+  in-sequence counts were computed.
+- `phenomics/03_gs_gblup.R`: `--method gblup|rrblup|bayesb` (rrBLUP/BGLR required for the latter two).
+- `single_cell/01_scanpy_pipeline.py`: `--celltypist-model` and `--doublet` (Scrublet), both optional.
+- `spatial/01_spatial_pipeline.py`: `--deconv-sc/--deconv-labels` delegates to NNLS deconvolution.
+- `scripts/release_check.py`: verifies README script counts and badge against actual files.
+
+## [3.7.0] — 2026-10-26
+
+### Added
+- `design/05_base_prime_edit.py`: CBE/ABE guide design with codon/AA changes and pegRNA PBS/RTT.
+- `epigenomics/03_hic_analysis.sh`: Hi-C balance/zoomify/TAD/loops plan-runner.
+- `epigenomics/04_scatac.py`: TF-IDF + LSI + KMeans scATAC; demo ARI=1.0.
+- `utils/export_workflow.py`: export steps to Nextflow/Snakemake/Dockerfile.
+- `utils/benchmark_suite.py`: demo regression suite (quick/all), 3/3 quick passed.
+- `utils/hpc_submit.py`: SLURM/PBS submission script generator.
+- `integration/08_causal_network.py`: gene-metabolite correlation network with optional MR edges.
+- `phenomics/10_temporal_gwas.py`: per-timepoint GWAS + growth-rate GWAS; demo recovers time-dependent causal SNP.
+- R/Python scripts 105 -> 112; shell wrappers 15 -> 17; version 3.7.0.
+- `pangenome/09_graph_visualize.sh`: odgi build/sort/viz for pangenome graphs.
+
+## [3.6.0] — 2026-10-26
+
+### Added
+- `single_cell/02_integration_annotation.py`: HVG/PCA/batch centering (Harmony if available),
+  KMeans, marker-based annotation; demo ARI=1.0.
+- `single_cell/03_cell_communication.py`: ligand-receptor scoring with label permutation and BH;
+  demo recovers CLV3->CLV1 Meristem->Vascular.
+- `spatial/02_deconvolution.py`: NNLS deconvolution against scRNA type signatures; demo r≈0.97.
+- `variants/06_sv_cnv.sh`: Sniffles2/cuteSV/Delly SV/CNV plan/runner.
+- `popgen/08_selection_scan.sh`: selscan iHS/CLR + norm + Dsuite plan/runner.
+- `metabolomics/09_annotate.py`: merge SIRIUS and GNPS annotations with score filters.
+- `transcriptomics/09_dtu.py`: isoform-level DTU via chi-square + BH; demo recovers G2.
+- R/Python scripts 100 -> 105; shell wrappers 13 -> 15; version 3.6.0.
+
+## [3.5.0] — 2026-10-26
+
+### Added
+- `transcriptomics/08_tf_prioritize.py`: PURE-like TF ranking from co-expression,
+  motif hits and ChIP/DAP evidence; demo recovers 3/3 true regulators in top 3.
+- `variants/05_consensus_call.sh`: bcftools + FreeBayes + GATK consensus calling
+  (`bcftools isec -n=2`), plan-first with `--run`.
+- `qtl/08_finemap_susie.R`: fine-mapping with SuSiE when `susieR` is installed,
+  approximate Wakefield ABF fallback otherwise; 95% credible set output.
+- R/Python scripts 98 -> 100; shell wrappers 12 -> 13; version 3.5.0.
+
 ## [3.4.2] — 2026-10-26
 
 ### Added

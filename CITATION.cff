@@ -5,11 +5,12 @@ abstract: >-
   An open-source skill package for rice (Oryza sativa) covering transcriptomics,
   metabolomics and their integration, GWAS, population genetics, pangenome, QTL,
   proteomics, epigenomics, phenomics, single-cell and spatial omics, gene-family
-  evolution, and CRISPR/primer design. 18 analysis modules, 100 scripts (R/Python/shell)
-  with built-in demo self-tests, publication-grade figures, and 541 curated
-  third-party agent skills.
-version: 3.4.2
-date-released: "2026-10-19"
+  evolution, and CRISPR/primer design, with causal inference (TWAS/MR/fine-mapping),
+  single-cell/spatial analysis and base/prime editing design. 18 analysis modules,
+  130 R/Python scripts plus 23 shell wrappers, with built-in demo self-tests,
+  publication-grade figures, and 541 curated third-party agent skills.
+version: 3.12.0
+date-released: "2026-10-26"
 type: software
 license: MIT
 doi: 10.5281/zenodo.23586529
@@ -22,6 +23,11 @@ keywords:
   - GWAS
   - population-genetics
   - pangenome
+  - TWAS
+  - Mendelian randomization
+  - single-cell
+  - spatial transcriptomics
+  - genome editing
   - single-cell
   - plant-breeding
   - agent-skills

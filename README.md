@@ -8,18 +8,18 @@
 
 <h3>水稻（<i>Oryza sativa</i>）核心组学 + 育种分析技能包 + CNS 级绘图</h3>
 
-<b>Transcriptome · Metabolome · Integration · GWAS · Population genetics · Pangenome · QTL ·<br>
-Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution · CRISPR design</b>
+<b>Transcriptome · Metabolome · Integration · GWAS · Causal inference · Population genetics ·<br>
+Pangenome · QTL · Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Editing · Workflows</b>
 
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Wiki](https://img.shields.io/badge/wiki-Rice--skills-blue)](https://github.com/shuke-bio/Rice-skills/wiki)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23586529.svg)](https://doi.org/10.5281/zenodo.23586529)
-[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.4.2.zip)
-![Version](https://img.shields.io/badge/version-3.4.2-brightgreen)
+[![Download ZIP](https://img.shields.io/badge/download-ZIP-success.svg)](https://github.com/shuke-bio/Rice-skills/archive/refs/tags/v3.12.0.zip)
+![Version](https://img.shields.io/badge/version-3.12.0-brightgreen)
 ![Modules](https://img.shields.io/badge/modules-18-purple)
-![Scripts](https://img.shields.io/badge/scripts-100-teal)
+![Scripts](https://img.shields.io/badge/scripts-130-teal)
 ![Skills](https://img.shields.io/badge/curated%20skills-541-orange)
 ![R >= 4.3](https://img.shields.io/badge/R-%3E%3D4.3-276DC3)
 ![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-3776AB)
@@ -45,9 +45,11 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 ## 🎯 What you can do
 
 **Transcriptome**
-- From count matrix to differential expression (QC → DESeq2 / edgeR); upstream alignment/quantification (HISAT2 / Salmon / featureCounts) runs as external tools
+- FASTQ → counts (fastp → HISAT2 → featureCounts) and count matrix → differential expression (QC → DESeq2 / edgeR)
+- ComBat batch correction and time-course models (`group × time` F-test)
 - Volcano / heatmap / batch-aware models (batch as a covariate) / time-course contrasts via design
-- GO / KEGG / Reactome enrichment and GSEA
+- GO / KEGG / Reactome enrichment, GSEA and ssGSEA/GSVA pathway activity
+- Isoform-level differential transcript usage (DTU)
 - WGCNA co-expression modules and hub genes
 - Transcription-factor identification (PlantTFDB) and TF–target networks; PPI via external STRING import
 
@@ -56,14 +58,18 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - OPLS-DA with VIP-based marker selection
 - KEGG metabolite pathway enrichment
 - Biomarker discovery (ROC + random forest) and metabolite–trait networks
+- SIRIUS formula/structure execution + GNPS upload guide; annotation merge
+- GEMMA AI-REML mGWAS (kinship + LMM)
 
 **Multi-omics integration**
 - MOFA latent factors; DIABLO discriminant integration (O2PLS-style PLS is an approximation — see script note)
 - Gene–metabolite correlation networks, joint KEGG pathways and Circos visualization
 - GRNBoost2-style TF regulatory network inference
+- MOFA factor interpretation (variance/loadings/trait correlation); DIABLO tuning
 
 **Variant calling & annotation**
 - Full chain: BWA alignment → GATK variant calling → VCF filtering → SnpEff annotation
+- Consensus calling (bcftools + FreeBayes + GATK), DeepVariant, phasing, SV/CNV
 
 **GWAS & genomics**
 - PLINK QC → rMVP / GAPIT / built-in GLM association tests
@@ -73,33 +79,40 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - **Multi-locus QTNs / QTN×environment (QEI) / epistasis (QTN×QTN)** — 3VmrMLM / Fast3VmrMLM
 - **Binary (case-control) multi-locus GWAS** — FastBiCmrMLM (Linux / WSL)
 - **Multi-parent population QTL** — MAGIC / NAM / ROAM (mppQTL)
+- **TWAS with LD**, two-sample MR (IVW/Egger/weighted median + MR-PRESSO), SuSiE/ABF fine-mapping
+- mGWAS/mQTL, k-mer GWAS, rare-variant burden, MTAG plan, FUSION weights, CIM, QTL epistasis, BSA ED/SL
 
 **Population genetics**
 - PCA structure + kinship · LD decay · Fst / π · ADMIXTURE · phylogeny
-- XP-EHH selection scans
+- XP-EHH, iHS/CLR and Dsuite introgression plans
 
 **Pangenome & QTL**
 - SV / PAV detection and Pan-GWAS — three routes: assembly (minimap2 + SYRI),
   graph (minigraph-cactus VCF genotyping) and read-based (HitSV short-read /
   long-read / hybrid calling with genotyping)
 - eQTL / mQTL / pQTL mapping and GWAS×QTL colocalization
+- T2T assembly QC, vg/PanGenie graph genotyping, PHG, odgi graph visualization
 - Genome-wide BSA / QTL-seq scan (ΔSNP-index + G′, simulation-based confidence)
 - QTL/BSA interval SNP extraction with gene-region annotation (promoter/UTR/exon/intron) — region VCF + 3-sheet Excel
 
 **Proteomics**
 - Preprocessing and differential abundance; UniProt protein→gene mapping automation
-- InterProScan domain enrichment
+- InterProScan domain enrichment; PTM enrichment, STRING PPI and AlphaFold DB query
 
 **Epigenomics**
 - WGBS methylation DMR analysis; ATAC / ChIP differential regions
+- Hi-C TAD/loops plan, scATAC (TF-IDF/LSI), ArchR/Signac plans
 
 **Phenomics & breeding**
 - BLUP / heritability; spectral indices (NDVI …)
 - GBLUP genomic selection with cross-validation; AMMI / GGE biplots
+- DL-GS baseline (Ridge/ElasticNet/MLP/CNN), multi-trait GBLUP, temporal GWAS
 
 **Single-cell & spatial**
-- Scanpy pipeline (clustering / marker genes / PAGA)
+- Scanpy pipeline (clustering / marker genes / PAGA) plus integration/annotation and ligand–receptor communication
+- scVI/CellChat plans (optional dependencies)
 - Squidpy spatial domains and Moran's I; RSTA / scGPT foundation-model integration guide
+- NNLS deconvolution and cell2location/COMMOT plans
 
 **Evolution & regulation**
 - KA/KS gene-family evolution
@@ -107,7 +120,8 @@ Proteomics · Epigenomics · Phenomics · Single-cell · Spatial · Evolution ·
 - Alternative-splicing analysis playbook (rMATS / SUPPA2) and small-RNA pipeline (miRDeep2)
 
 **Design & lab**
-- qPCR primer design; CRISPR sgRNA design with in-sequence off-target statistics (genome-wide search needs external tools)
+- qPCR primer design; CRISPR sgRNA design with in-sequence off-target statistics
+- Base/prime editing design, edit-efficiency ranking, genome-wide off-target (≤50 Mb built-in)
 - **qPCR relative quantification** (2^-ddCt, per-gene bar plots with SD) and
   qPCR↔RNA-seq correlation validation
 - Lab protocols: knockout constructs, DNA extraction, edit detection, LUC/GUS assays …
@@ -196,26 +210,26 @@ automatically.
 ## 🧭 What's inside
 
 <details open>
-<summary><b>Module map (18 modules, 91 scripts)</b></summary>
+<summary><b>Module map (18 modules, 130 R/Python scripts + 23 shell)</b></summary>
 
-- **Module 1 · Transcriptome**: QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA →
-  WGCNA → TF (PlantTFDB) → PPI
+- **Module 1 · Transcriptome**: FASTQ→counts → QC → DESeq2/edgeR DE → GO/KEGG/Reactome → GSEA/ssGSEA →
+  WGCNA → TF ranking (PlantTFDB/PURE-like) → PPI; ComBat + time-course, DTU
 - **Module 2 · Metabolome**: imputation/normalization → OPLS-DA + VIP → KEGG →
-  biomarker (ROC + RF) → metabolite network
-- **Module 3 · Integration**: MOFA → DIABLO/O2PLS → joint KEGG → Circos
+  biomarker (ROC + RF) → metabolite network; mGWAS/mQTL, SIRIUS, GEMMA AI-REML
+- **Module 3 · Integration**: MOFA (+ factor interpretation) → DIABLO/O2PLS (+ tuning) → joint KEGG → Circos
 - **Module 7 · GWAS**: PLINK QC → rMVP/GAPIT/GLM → Manhattan/QQ → loci annotation ·
-  multi-locus QTN / QEI / epistasis (3VmrMLM, Fast3VmrMLM) · binary case-control
-  (FastBiCmrMLM, Linux/WSL) · multi-parent MAGIC/NAM/ROAM QTL (mppQTL)
-- **Module 11 · Pangenome**: graph/SV/PAV/Pan-GWAS · Oryza genus pangenome workflow
-  (Snakemake stage runner) · SINE annotation (AnnoSINE)
-- **Module 16 · Phenomics**: BLUP/GBLUP/AMMI · multi-environment genomic prediction
-  (MeNet) · salt-stress RGB phenotyping (ELMERF) · chloroplast counting (Chloro-Count)
+  multi-locus QTN / QEI / epistasis · case-control · multi-parent QTL ·
+  TWAS (LD-aware) · MR (+MR-PRESSO) · fine-mapping · mGWAS · k-mer GWAS · burden · MTAG plan
+- **Module 11 · Pangenome**: graph/SV/PAV/Pan-GWAS · Oryza genus workflow · SINE annotation ·
+  T2T QC · vg/PanGenie genotyping · PHG · odgi visualization
+- **Module 16 · Phenomics**: BLUP/GBLUP/AMMI · multi-environment GP · RGB phenotyping ·
+  chloroplast counting · DL-GS baseline · multi-trait GBLUP · temporal GWAS
 - **Module 8 · Population genetics**: PCA + VanRaden kinship → LD decay →
   Fst/π → ADMIXTURE → phylogeny → XP-EHH
-- **Modules 9–18**: CRISPR/primer design · variant calling (BWA→GATK→SnpEff) ·
-  pangenome SV/PAV · QTL (eQTL/mQTL) · proteomics · epigenomics (WGBS/ATAC/ChIP) ·
-  phenomics (BLUP/GBLUP/AMMI) · single-cell (Scanpy) · spatial (Squidpy) ·
-  KA/KS evolution
+- **Modules 9–18**: CRISPR/base/prime editing + off-target · consensus/DeepVariant/phasing ·
+  pangenome SV/PAV · QTL/BSA/ED-SL · proteomics (PTM/PPI/AlphaFold) · epigenomics
+  (WGBS/ATAC/ChIP/Hi-C/scATAC) · phenomics · single-cell (Scanpy/scVI/CellChat) ·
+  spatial (Squidpy/NNLS/cell2location) · KA/KS evolution
 - **v3.2 additions**: Bayesian colocalization (self-implemented, dependency-free) ·
   2D-GWAS · GRNBoost2-style networks · power analysis · UniProt mapping ·
   InterProScan enrichment · miRNA targets · motif→TF matching
@@ -239,6 +253,9 @@ automatically.
   (type, 85/170 mm, 300 dpi, PDF+TIFF+PNG, script); `scripts/plan/05_run_plan.py`
   prints the confirmation sheet and refuses to run until approved (`approval.json`
   with a plan hash), then checks dependencies before executing demo-capable scripts
+- **v3.4–v3.12 additions**: off-target/TWAS/MR/mGWAS/k-mer/burden · T2T/graph genotype/PHG ·
+  single-cell/spatial upgrades · editing design · workflow export/HPC/CI ·
+  now 130 R/Python + 23 shell
 - **v3.3.6 change**: default figure formats are now **PDF / TIFF / PNG** (previously
   PDF/SVG/TIFF) across the shared R and Python helpers, 19 plotting scripts and the
   configuration; SVG remains available only on explicit request
@@ -251,6 +268,36 @@ automatically.
 - **v3.4.2 additions**: T2T assembly QC (`pangenome/07_t2t_qc.sh`), graph pangenome
   genotyping plan/runner (`pangenome/08_graph_genotype.sh`, vg Giraffe + PanGenie) and a
   DL genomic-selection baseline (`phenomics/09_dl_gs.py`, Ridge/ElasticNet/MLP/CNN CV)
+- **v3.5.0 additions**: PURE-like TF prioritization (`transcriptomics/08_tf_prioritize.py`),
+  consensus variant calling (`variants/05_consensus_call.sh`) and fine-mapping
+  (`qtl/08_finemap_susie.R`, SuSiE when installed, approximate ABF fallback)
+- **v3.6.0 additions**: single-cell integration/annotation (`single_cell/02_integration_annotation.py`),
+  cell-cell communication (`single_cell/03_cell_communication.py`), spatial NNLS deconvolution
+  (`spatial/02_deconvolution.py`), SV/CNV plan/runner (`variants/06_sv_cnv.sh`), iHS/CLR+Dsuite
+  (`popgen/08_selection_scan.sh`), metabolite annotation merge (`metabolomics/09_annotate.py`)
+  and DTU (`transcriptomics/09_dtu.py`)
+- **v3.7.0 additions**: base/prime editing design (`design/05_base_prime_edit.py`), Hi-C plan
+  (`epigenomics/03_hic_analysis.sh`), scATAC (`epigenomics/04_scatac.py`), workflow export
+  (`utils/export_workflow.py`), benchmark suite (`utils/benchmark_suite.py`), HPC submit
+  (`utils/hpc_submit.py`), causal network (`integration/08_causal_network.py`) and temporal
+  GWAS (`phenomics/10_temporal_gwas.py`)
+- **v3.7.1 quick wins**: sgRNA `--genome` genome-wide off-target, GS `--method rrblup|bayesb`,
+  Scanpy `--celltypist-model`/`--doublet`, spatial `--deconv-*`, and README script-count checks
+  in `release_check.py`
+- **v3.8.0 additions**: FASTQ→counts (`transcriptomics/00_fastq_counts.sh`), ssGSEA
+  (`transcriptomics/10_ssgsea.R`), PTM/PPI (`proteomics/06_ptm_ppi.py`), import builder
+  (`utils/build_skill_import.py`), CI workflow, and runtime-dependency/licence inventory
+- **v3.9.0 additions**: ComBat + time-course model (`transcriptomics/11_batch_timecourse.R`),
+  LD-aware TWAS (`qtl/06_twas.R --ld`), rare-variant burden (`gwas/13_burden_test.py`) and
+  QTL epistasis (`qtl/10_qtl_epistasis.R`)
+- **v3.10.0 additions**: SIRIUS/GEMMA execution wrappers, BSA ED/SL, AlphaFold DB query
+  and multi-trait GBLUP summary
+- **v3.11.0 additions**: MOFA factor interpretation, DIABLO tuning plan, scVI/CellChat,
+  cell2location/COMMOT, DeepVariant and phasing wrappers; plan generator now includes
+  the new modules
+- **v3.12.0 additions**: FUSION weight training, CIM, PHG, ArchR/Signac plans, edit-efficiency
+  heuristic ranking and MTAG plan; MR now supports `--presso`
+- **P2 also includes** pangenome graph visualization (`pangenome/09_graph_visualize.sh`, odgi)
 - **Molecular lab companion**: rice CRISPR knockout reference + molecular protocols
 </details>
 
@@ -265,7 +312,7 @@ Rice-skills/
 ├── config/nature_palette.json      # Shared Nature-style palette (R + Python)
 ├── assets/                         # Cover image + bundled annotation snapshots
 ├── demo_data/                      # Example demo data for every module
-├── scripts/                        # 100 analysis scripts (R/Python/shell), 18 modules
+├── scripts/                        # 130 R/Python scripts + 23 shell wrappers, 18 modules
 ├── templates/                      # ggplot2/matplotlib figure templates + Rmd report
 ├── examples/                       # Input format specs + metadata templates
 ├── third_party/                    # 541 curated skills + palettes, 6 skill libraries + 4 tool/data components (NOTICE.md)

@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "release"
+
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy scikit-learn
+
+      - name: Release consistency
+        run: python scripts/release_check.py
+
+      - name: Python syntax
+        run: |
+          python -m compileall -q scripts
+          echo "compileall OK"
+
+      - name: Demo benchmarks (all)
+        run: python scripts/utils/benchmark_suite.py --all --outdir results/ci_benchmark
+
+      - name: Upload benchmark report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-report
+          path: results/ci_benchmark/benchmark_report.csv
+          if-no-files-found: ignore

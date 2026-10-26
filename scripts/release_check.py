@@ -99,6 +99,36 @@ def main():
     except Exception as e:
         fail(errors, f"CHANGELOG 读取失败: {e}")
 
+    # ---- script counts vs README ----
+    py_n = sum(1 for dp, dn, fns in os.walk(os.path.join(ROOT, "scripts"))
+               for f in fns if f.endswith((".R", ".py")))
+    sh_n = sum(1 for dp, dn, fns in os.walk(os.path.join(ROOT, "scripts"))
+               for f in fns if f.endswith(".sh"))
+    try:
+        rd = open(os.path.join(ROOT, "README.md"), encoding="utf-8").read()
+        m = re.search(r"(\d+)\s*(?:R/Python scripts|个 R/Python 脚本)\s*\+\s*(\d+)\s*(?:shell wrappers|个 shell 封装)", rd)
+        if m:
+            if int(m.group(1)) != py_n:
+                fail(errors, f"README 写 {m.group(1)} R/Python 脚本，实际 {py_n}")
+            if int(m.group(2)) != sh_n:
+                fail(errors, f"README 写 {m.group(2)} shell 封装，实际 {sh_n}")
+        else:
+            warnings.append("README 未找到 'N R/Python scripts + M shell wrappers' 计数行")
+        bm = re.search(r"badge/scripts-(\d+)", rd)
+        if bm and int(bm.group(1)) != py_n:
+            fail(errors, f"README badge scripts-{bm.group(1)} 与实际 {py_n} 不符")
+        cf = open(os.path.join(ROOT, "CITATION.cff"), encoding="utf-8").read()
+        cm = re.search(r"(\d+) R/Python scripts plus (\d+) shell wrappers", cf)
+        if cm:
+            if int(cm.group(1)) != py_n:
+                fail(errors, f"CITATION 写 {cm.group(1)} R/Python 脚本，实际 {py_n}")
+            if int(cm.group(2)) != sh_n:
+                fail(errors, f"CITATION 写 {cm.group(2)} shell 封装，实际 {sh_n}")
+        else:
+            warnings.append("CITATION 未找到脚本计数")
+    except Exception as e:
+        warnings.append(f"脚本计数检查失败: {e}")
+
     # ---- 一致性 ----
     uniq = {v for v in versions.values() if v}
     if len(uniq) != 1:

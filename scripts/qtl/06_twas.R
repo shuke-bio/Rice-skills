@@ -50,6 +50,7 @@ make_demo <- function() {
   list(eqtl = eqtl, gwas = gw, causal = causal)
 }
 
+ld_path <- opt("ld")
 if (isTRUE(opt("demo", FALSE))) {
   d <- make_demo()
   write.csv(d$eqtl, file.path(outdir, "demo_eqtl_weights.csv"), row.names = FALSE)
@@ -75,12 +76,31 @@ need(gw, c("snp_id", "beta", "se"), "gwas")
 
 gw$z <- gw$beta / gw$se
 m <- merge(eq, gw[, c("snp_id", "z")], by = "snp_id")
+LD <- NULL; ld_ids <- NULL
+if (!is.null(ld_path) && file.exists(ld_path)) {
+  ldf <- read.csv(ld_path, check.names = FALSE)
+  if (!"snp_id" %in% colnames(ldf)) stop("LD file needs snp_id column")
+  ld_ids <- ldf$snp_id
+  LD <- as.matrix(ldf[, setdiff(colnames(ldf), "snp_id"), drop = FALSE])
+  storage.mode(LD) <- "double"
+  diag(LD) <- 1
+}
 if (!nrow(m)) stop("No shared SNPs between eqtl and gwas")
 
 res <- do.call(rbind, lapply(split(m, m$gene_id), function(d) {
   d <- d[is.finite(d$weight) & is.finite(d$z), , drop = FALSE]
   if (!nrow(d)) return(NULL)
-  denom <- sqrt(sum(d$weight^2))
+  if (!is.null(LD)) {
+    idx <- match(d$snp_id, ld_ids)
+    ok <- !is.na(idx)
+    d <- d[ok, , drop = FALSE]; idx <- idx[ok]
+    if (!nrow(d)) return(NULL)
+    R <- LD[idx, idx, drop = FALSE]
+    R[is.na(R)] <- 0; diag(R) <- 1
+    denom <- sqrt(as.numeric(t(d$weight) %*% R %*% d$weight))
+  } else {
+    denom <- sqrt(sum(d$weight^2))
+  }
   if (!is.finite(denom) || denom == 0) return(NULL)
   z <- sum(d$weight * d$z) / denom
   p <- 2 * pnorm(-abs(z))
@@ -97,6 +117,7 @@ writeLines(c(
   paste0("date=", format(Sys.time(), "%Y-%m-%dT%H:%M:%S")),
   paste0("eqtl=", normalizePath(eqtl_path, mustWork = FALSE)),
   paste0("gwas=", normalizePath(gwas_path, mustWork = FALSE)),
+  paste0("ld=", if (is.null(LD)) "identity" else normalizePath(ld_path, mustWork = FALSE)),
   paste0("genes=", nrow(res)),
   "method=weighted-sum (FUSION-like); p from normal approximation; BH adjustment"
 ), file.path(outdir, "run_info.txt"))

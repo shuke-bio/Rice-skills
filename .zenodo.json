@@ -1,6 +1,6 @@
 {
   "title": "Rice-skills: an open-source rice multi-omics and breeding analysis toolkit",
-  "description": "Rice-skills is an open-source skill package for rice (Oryza sativa) omics and breeding analysis. It provides 18 analysis modules and 91 R/Python scripts covering transcriptomics, metabolomics, multi-omics integration, variant calling, GWAS (GLM/MLM/FarmCPU, multi-locus QTN, QEI, epistasis, case-control, multi-parent QTL, meta-GWAS), population genetics, pangenome/SV/PAV, QTL/BSA, proteomics, epigenomics, phenomics and genomic selection, single-cell and spatial omics, primer/CRISPR design, and qPCR analysis. Every analysis step produces publication-grade figures (PDF/TIFF/PNG, 300 dpi, shared colour palette). A decision layer turns a 10-field data contract into blockers and three-tier analysis plans with figure plans, requires explicit user approval before execution, and checks/install dependencies only with consent. Released under the MIT licence; third-party components are documented in third_party/NOTICE.md.",
+  "description": "Rice-skills is an open-source skill package for rice (Oryza sativa) omics and breeding analysis. It provides 18 analysis modules with 130 R/Python scripts plus 23 shell wrappers covering transcriptomics (FASTQ->counts, ComBat/time-course, ssGSEA, DTU), metabolomics (mGWAS/mQTL, SIRIUS, GEMMA AI-REML), multi-omics integration (MOFA/DIABLO with interpretation and tuning), variant calling (consensus, DeepVariant, phasing, SV/CNV), GWAS and causal inference (GLM/MLM/FarmCPU, multi-locus QTN/QEI/epistasis, case-control, multi-parent QTL, meta-GWAS, TWAS with LD, two-sample MR, fine-mapping, k-mer GWAS, rare-variant burden, FUSION weights, CIM, BSA ED/SL), population genetics (XP-EHH, iHS/CLR, Dsuite), pangenome (SV/PAV/Pan-GWAS, T2T QC, vg/PanGenie, PHG, odgi), QTL/BSA, proteomics (PTM/PPI/AlphaFold), epigenomics (WGBS/ATAC/ChIP, Hi-C, scATAC), phenomics and genomic selection (GBLUP, DL-GS, multi-trait, temporal GWAS), single-cell and spatial omics, base/prime editing design, primer/CRISPR design, and qPCR analysis. Every analysis step produces publication-grade figures (PDF/TIFF/PNG, 300 dpi, shared colour palette). A decision layer turns a 10-field data contract into blockers and three-tier analysis plans with figure plans, requires explicit user approval before execution, and checks/installs dependencies only with consent. Released under the MIT licence; third-party components are documented in third_party/NOTICE.md.",
   "creators": [
     {
       "name": "Fu, Liang"
@@ -19,7 +19,12 @@
     "genomic selection",
     "pangenome",
     "reproducible analysis",
-    "agent skills"
+    "agent skills",
+    "TWAS",
+    "Mendelian randomization",
+    "single-cell",
+    "spatial transcriptomics",
+    "genome editing"
   ],
   "related_identifiers": [
     {

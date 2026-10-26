@@ -32,3 +32,15 @@ Rice-skills 自研部分（scripts/、docs/、config/、templates/、tests/、ex
 为保护个人隐私，本目录上游文档中的个人邮箱与本地用户路径已做脱敏处理
 （邮箱替换为“已脱敏”，`/Users/<name>/` 替换为 `/Users/demo/`），不影响任何功能；
 原始信息请见各上游仓库。
+
+## 运行时外部工具（未打包）
+
+本仓库不复制、不打包下列工具的源码或二进制，仅在脚本中生成命令或调用本机安装版本：
+fastp、HISAT2、samtools、featureCounts、PLINK、rMVP、GAPIT、Cas-OFFinder、CRISPOR、
+vg、PanGenie、minigraph-cactus、odgi、cooler、HiCExplorer、Sniffles2、cuteSV、Delly、
+Manta、SURVIVOR、selscan、Dsuite、SIRIUS、GNPS、susieR、rrBLUP、BGLR、GSVA、
+harmonypy、celltypist、scrublet、cell2location、COMMOT、BE-Hive、PRIDICT 等。
+
+完整清单、官方入口与许可核验状态见 `docs/runtime_dependencies.md`。分发 Docker 镜像或
+商业部署前，必须逐一核对上游 LICENSE 原文并把结论补入本文件；GPL 系工具只通过命令行
+调用，不并入本仓库 MIT 主体。

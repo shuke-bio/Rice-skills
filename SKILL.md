@@ -1,7 +1,7 @@
 ---
 name: rice-skills
-description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、多位点 QTN·QEI·上位性（3VmrMLM/Fast3VmrMLM）、case-control QTN（FastBiCmrMLM，Linux）、多亲本 QTL（mppQTL）、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；qPCR 引物设计；CRISPR sgRNA 设计（含序列内脱靶统计；全基因组脱靶需外部工具）；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/TIFF/PNG ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告、TWAS、孟德尔随机化、全基因组脱靶、mGWAS、k-mer GWAS、T2T QC、图泛基因组基因型、深度学习 GS 等关键词时触发。
-version: 3.4.2
+description: 水稻（Oryza sativa）多组学分析 Skill（全组学平台）。覆盖转录组、代谢组及联合分析（数据质控、DESeq2/edgeR、GO/KEGG/Reactome 富集、GSEA、WGCNA、转录因子与 PPI；OPLS-DA/VIP、代谢通路、ROC/随机森林、代谢网络；MOFA/DIABLO/O2PLS）；基因组学（变异检测 BWA→GATK→SnpEff、GWAS 三引擎、多位点 QTN·QEI·上位性（3VmrMLM/Fast3VmrMLM）、case-control QTN（FastBiCmrMLM，Linux）、多亲本 QTL（mppQTL）、Meta-GWAS、群体遗传、泛基因组 SV/PAV/Pan-GWAS、eQTL/mQTL QTL 映射、BSA/QTL-seq 扫描与区间提取）；蛋白质组（limma 差异蛋白、火山/热图）；表观基因组（WGBS/DMR、ATAC/ChIP 差异区域）；表型组（BLUP/遗传力、光谱指数、GS 指引）；单细胞与空间组学（Scanpy/Squidpy 流程、RSTA/RICE scGPT 集成指引）；qPCR 引物设计；CRISPR sgRNA 设计（含序列内脱靶统计；全基因组脱靶需外部工具）；qPCR 相对定量（2^-ΔΔCt）与转录组交叉验证；配套分子实验协议参考。**分析即出图：每个分析步骤自动生成 CNS 级出版图表**（低饱和色盲友好配色、Arial/Helvetica 7-9 pt、PDF/TIFF/PNG ≥300 dpi；绘图内置于脚本 + config/nature_palette.json，跑完即得，无需另行调用绘图技能）。**默认自动链**：跑分析 → 自动出图 → 自动产出结果解读总结（无需用户开口）；文献检索/下载、论文写作/润色、统计审查/预审稿/审稿回复、论文转 PPT 等（third_party 内置 22 个 Apache-2.0 nature-skills）为**按需加载**，用户明确要求时才触发（两级路由见 SKILL.md §5）。当用户提到水稻转录组、水稻代谢组、水稻GWAS、多位点GWAS、上位性、QTN×环境、QEI、case-control GWAS、MAGIC/NAM/ROAM、群体结构/群体遗传、泛基因组、eQTL、蛋白质组、表观组/甲基化/ATAC、表型/BLUP、单细胞/scRNA、空间转录组/Stereo-seq、引物设计、CRISPR 靶点、qPCR 定量、多组学联合分析、WGCNA、GSEA、DESeq2、OPLS-DA、MOFA、DIABLO、差异表达、富集分析、CNS 级绘图、发表图/论文配图、画图、写论文、论文润色、英文润色、查文献、文献检索、文献调研、下载论文、精读论文、总结结果、结果解读、审稿回复、论文转PPT、开题报告、TWAS、孟德尔随机化、全基因组脱靶、mGWAS、k-mer GWAS、T2T QC、图泛基因组基因型、深度学习 GS、TF 优先级排序、共识变异、fine-mapping、细胞通讯、空间反卷积、SV/CNV、iHS、Dsuite、代谢物注释、DTU、碱基编辑、先导编辑、Hi-C、scATAC、因果网络、时序 GWAS 等关键词时触发。
+version: 3.12.0
 license: MIT
 species: Oryza sativa (水稻, Japonica)
 trigger:
@@ -224,7 +224,7 @@ agent 按 §5 路由表加载对应技能执行。
 | 05 | `05_plot_gwas.R` | 出版级 Manhattan / QQ / 组合总览图 | ggplot2+patchwork | 三类图 × 3 格式 |
 | 09 | `09_multilocus_qtn.R` | **多位点 QTN / QEI（QTN×环境）/ QQI（上位性）**（3VmrMLM 家族：IIIVmrMLM（CRAN，Win/Linux）/ Fast3VmrMLM（大数据）；含 Hap/NCII/mQTL 模块，`--method single_env\|multi_env\|epistasis`） | 可选 IIIVmrMLM / Fast3VmrMLM（GPL-3，运行时安装） | `qtn_results.csv`、`association_results.csv`、引擎原生结果 |
 | 10 | `10_case_control_qtn.R` | **二分类/case-control 性状 QTN**（FastBiCmrMLM 混合逻辑回归，四算法按样本量自动分派；**仅 Linux/WSL**） | FastBiCmrMLM（无 LICENSE，运行时安装） | `qtn_results.csv`、`association_results.csv` |
-| 11 | `11_multiparent_qtl.R` | **多亲本群体 QTL**（mppQTL：MAGIC/NAM/ROAM，两步多位点模型） | mppQTL（GPL-3，运行时安装） | `qtl_results.csv`、`gws_scan.csv`、每性状×环境 xlsx |
+| 11 | `11_multiparent_qtl.R` · **`13_burden_test.py`**（rare-variant burden） | **多亲本群体 QTL**（mppQTL：MAGIC/NAM/ROAM，两步多位点模型） | mppQTL（GPL-3，运行时安装） | `qtl_results.csv`、`gws_scan.csv`、每性状×环境 xlsx |
 | 12 | `12_kmer_gwas.py`（v3.4） | **k-mer 剂量 GWAS（KMERIA 路线）**：分位数剂量、PCA、VanRaden 亲缘、特征分解 MLM、BH 校正；显著 k-mer 回贴 FASTA | numpy/pandas/scipy/sklearn | `kmer_gwas_results.csv`、`kmer_gwas_significant.csv` |
 
 ### 模块 8：群体遗传（scripts/popgen/，v2.0 新增）
@@ -242,9 +242,11 @@ agent 按 §5 路由表加载对应技能执行。
 
 | # | 脚本 | 步骤 | 关键输出 |
 |---|---|---|---|
-| 01 | `01_sgrna_design.py` | SpCas9 靶点设计：标准方案七原则全部代码化（CDS 优先 / GC 40-80% / 禁连续≥4T / 骨架配对≥7bp 剔除 / 中上游偏好 / BsaI 位点检查 / 序列内脱靶统计）+ **双靶点自动配对**（间隔 ≥100 bp）+ **pYLCRISPR/Cas9 构建引物自动生成**（gRT#+/U6#T#-、SP-L1/SP-R、通用引物表） | 候选表（含逐条通过/剔除原因）、推荐双靶点、构建引物、靶点分布图 |
+| 01 | `01_sgrna_design.py` | SpCas9 靶点设计（`--genome` 可调用 04 做全基因组脱靶）：标准方案七原则全部代码化（CDS 优先 / GC 40-80% / 禁连续≥4T / 骨架配对≥7bp 剔除 / 中上游偏好 / BsaI 位点检查 / 序列内脱靶统计）+ **双靶点自动配对**（间隔 ≥100 bp）+ **pYLCRISPR/Cas9 构建引物自动生成**（gRT#+/U6#T#-、SP-L1/SP-R、通用引物表） | 候选表（含逐条通过/剔除原因）、推荐双靶点、构建引物、靶点分布图 |
 | 02 | `02_primer_design.py` | 引物设计（primer3 引擎）：qPCR 跨内含子（逐结合点定向）/ CRISPR 靶点验证（±flank）/ 通用克隆；Tm、GC、发夹、同源/异源二聚体完整质量指标 | 引物表、质量报告、覆盖图 |
 | 04 | `04_offtarget.py`（v3.4） | **全基因组脱靶检索**（SpCas9 NGG）：正负链扫描、错配位点/风险分级；≤50 Mb 内置扫描，水稻全基因组请用 Cas-OFFinder/CRISPOR | 内置扫描器（无外部依赖） | `offtarget_hits.csv`、`offtarget_summary.csv` |
+| 05 | `05_base_prime_edit.py`（v3.7） | **碱基编辑/先导编辑设计** | 内置规则 | `base_edit_guides.csv`、`pegRNA_design.csv` |
+| 06 | `06_edit_efficiency.py`（v3.12） | 编辑效率启发式排序 + BE-Hive/PRIDICT 计划 | 内置规则 | `edit_efficiency_ranking.csv` |
 | 03 | `03_qpcr_analysis.py`（v3.2） | **qPCR 相对定量（2^-ΔΔCt）**：长表 Ct 输入（技术重复自动平均）→ 校准组=1 相对表达 → 每基因条形图（mean±SD）+ 全部基因 grid；可选 **qPCR↔RNA-seq 相关性验证**（Pearson/Spearman + 散点） | ddct_table、rel_expression_summary、qpcr_*.pdf、相关性表 |
 
 配套实验参考（三份文档互补）：
@@ -256,15 +258,15 @@ agent 按 §5 路由表加载对应技能执行。
 
 | 模块 | 目录 | 核心脚本 | 说明 |
 |---|---|---|---|
-| **10 · 变异检测与注释** | `scripts/variants/` | 01_bwa_align.sh → 02_gatk_call.sh → 03_vcf_filter.sh → 04_snpeff_annotate.sh | FASTQ→BAM→VCF（GATK/bcftools）→硬过滤→SnpEff 注释；重工具模板式调用（用户自装，脚本自动探测+安装指引） |
-| **11 · 泛基因组** | `scripts/pangenome/` | 01_pangenome_graph.sh（minigraph/cactus/PGGB）· 02_sv_detect.sh（minimap2+SYRI；**read-based 路线 HitSV：短读/长读/混合 SV 检测+基因分型，GPL-3.0 运行安装**）· 03_pav_analysis.R · 04_pan_gwas.R · **05_oryza_pangenome_pipeline.sh**（Oryza 属泛基因组 Snakemake 阶段运行器，MIT）· **06_annosine.sh**（SINE 注释，MIT）· **07_t2t_qc.sh**（T2T 组装 QC：N50/gap/GC + BUSCO/Merqury/RepeatMasker/Liftoff 可选）· **08_graph_genotype.sh**（图泛基因组基因型：vg Giraffe + PanGenie，PHG 备选） | 图构建→SV→PAV（核心/可变/私有 + 性状关联 + Manhattan）→Pan-GWAS（复用 GWAS 引擎）；方法笔记 `docs/references/hitsv_sv_calling.md` |
-| **12 · QTL 映射（eQTL/mQTL/pQTL）** | `scripts/qtl/` | 01_qtl_mapping.R · 02_colocalization.R · 03_coloc_bayesian.R · 04_qtl_region_snps.py · 05_bsa_scan.py · **06_twas.R（TWAS）** · **07_mr.R（孟德尔随机化）** | 自研 cis/trans 引擎（向量化 OLS + 保守 BH）、cis-距离图、Manhattan、每特征最佳命中；共定位筛查/PP4；**BSA 全基因组扫描（ΔSNP-index + G′）→ 区间 SNP 提取 + 基因区域注释（区间 VCF + 三表 Excel）** |
+| **10 · 变异检测与注释** | `scripts/variants/` | 01_bwa_align.sh → 02_gatk_call.sh → 03_vcf_filter.sh → 04_snpeff_annotate.sh · **05_consensus_call.sh**（bcftools + FreeBayes + GATK 投票共识）· **06_sv_cnv.sh**（Sniffles2/cuteSV/Delly SV/CNV）· **07_deepvariant.sh**（DeepVariant）· **08_phasing.sh**（WhatsHap/SHAPEIT） | FASTQ→BAM→VCF（GATK/bcftools）→硬过滤→SnpEff 注释；重工具模板式调用（用户自装，脚本自动探测+安装指引） |
+| **11 · 泛基因组** | `scripts/pangenome/` | 01_pangenome_graph.sh（minigraph/cactus/PGGB）· 02_sv_detect.sh（minimap2+SYRI；**read-based 路线 HitSV：短读/长读/混合 SV 检测+基因分型，GPL-3.0 运行安装**）· 03_pav_analysis.R · 04_pan_gwas.R · **05_oryza_pangenome_pipeline.sh**（Oryza 属泛基因组 Snakemake 阶段运行器，MIT）· **06_annosine.sh**（SINE 注释，MIT）· **07_t2t_qc.sh**（T2T 组装 QC：N50/gap/GC + BUSCO/Merqury/RepeatMasker/Liftoff 可选）· **08_graph_genotype.sh**（图泛基因组基因型：vg Giraffe + PanGenie，PHG 备选）· **09_graph_visualize.sh**（odgi 图可视化）· **10_phg.sh**（PHG 计划） | 图构建→SV→PAV（核心/可变/私有 + 性状关联 + Manhattan）→Pan-GWAS（复用 GWAS 引擎）；方法笔记 `docs/references/hitsv_sv_calling.md` |
+| **12 · QTL 映射（eQTL/mQTL/pQTL）** | `scripts/qtl/` | 01_qtl_mapping.R · 02_colocalization.R · 03_coloc_bayesian.R · 04_qtl_region_snps.py · 05_bsa_scan.py · **10_qtl_epistasis.R**（QTL 上位性）· **11_bsa_ed_sl.py**（BSA ED/SL）· **12_fusion_weights.R**（FUSION 权重）· **13_cim.R**（CIM） · **06_twas.R（TWAS，支持 `--ld`）** · **07_mr.R（孟德尔随机化）** · **08_finemap_susie.R（SuSiE/ABF fine-mapping）** | 自研 cis/trans 引擎（向量化 OLS + 保守 BH）、cis-距离图、Manhattan、每特征最佳命中；共定位筛查/PP4；**BSA 全基因组扫描（ΔSNP-index + G′）→ 区间 SNP 提取 + 基因区域注释（区间 VCF + 三表 Excel）** |
 | **13 · Meta-GWAS** | `scripts/gwas/06_meta_gwas.R` | 多研究逆方差合并 + Cochran Q/I² + 随机效应 + 森林图；配 `docs/rice_databases.md` 水稻数据库导航 |
 | **14 · 蛋白质组** | `scripts/proteomics/` | 01_preprocess.py · 02_diff_protein.R（limma/Welch）· 03_plot_proteome.R | 过滤（≥70%）/归一化/批次/填充→差异蛋白→火山+热图 |
-| **15 · 表观基因组** | `scripts/epigenomics/` | 01_methylation_analysis.R（DMR）· 02_atac_chip_analysis.R（DAR/DHR） | 区域甲基化/peak 计数→差异检验→火山+热图；上游 Bismark/MACS2 模板见文档 |
-| **16 · 表型组** | `scripts/phenomics/` | 01_phenotype_blup.R · 02_spectral_indices.R · **06_menet_gs.py**（多环境 GS，MeNet，学术许可）· **07_elmerf_salt.py**（耐盐 RGB 表型，ELMERF，Apache-2.0）· **08_chlorocount.py**（叶绿体计数，BSD-3）· **09_dl_gs.py**（DL-GS 基线：Ridge/ElasticNet/MLP/CNN 同折比较） | MAD 异常标记 + 环境调整 BLUP + 遗传力；7 种植被指数；PlantCV/GS 指引 |
-| **17 · 单细胞** | `scripts/single_cell/` | 01_scanpy_pipeline.py | Scanpy 全流程模板（QC→聚类→marker→打分→PAGA）；RSTA/RICE scGPT 集成指引 |
-| **18 · 空间组学** | `scripts/spatial/` | 01_spatial_pipeline.py | Stereo-seq/Visium→表达域→Moran's I SVG→邻域富集；RSTA 时空图谱对接 |
+| **15 · 表观基因组** | `scripts/epigenomics/` | 01_methylation_analysis.R（DMR）· 02_atac_chip_analysis.R（DAR/DHR）· **03_hic_analysis.sh**（Hi-C TAD/loops 计划）· **04_scatac.py**（scATAC）· **05_archr_signac.R**（ArchR/Signac 计划） | 区域甲基化/peak 计数→差异检验→火山+热图；上游 Bismark/MACS2 模板见文档 |
+| **16 · 表型组** | `scripts/phenomics/` | 01_phenotype_blup.R · 02_spectral_indices.R · **03_gs_gblup.R**（`--method gblup|rrblup|bayesb`）· **06_menet_gs.py**（多环境 GS，MeNet，学术许可）· **07_elmerf_salt.py**（耐盐 RGB 表型，ELMERF，Apache-2.0）· **08_chlorocount.py**（叶绿体计数，BSD-3）· **09_dl_gs.py**（DL-GS 基线：Ridge/ElasticNet/MLP/CNN 同折比较）· **10_temporal_gwas.py**（时间分辨 GWAS + 生长速率）· **11_multitrait_gs.R**（多性状 GBLUP 汇总） | MAD 异常标记 + 环境调整 BLUP + 遗传力；7 种植被指数；PlantCV/GS 指引 |
+| **17 · 单细胞** | `scripts/single_cell/` | 01_scanpy_pipeline.py（`--celltypist-model` / `--doublet`） · **02_integration_annotation.py**（整合/聚类/注释）· **03_cell_communication.py**（LR 通讯）· **04_scvi_cellchat.py**（scVI/CellChat 计划） | Scanpy 全流程模板（QC→聚类→marker→打分→PAGA）；RSTA/RICE scGPT 集成指引 |
+| **18 · 空间组学** | `scripts/spatial/` | 01_spatial_pipeline.py（`--deconv-sc/--deconv-labels`） · **02_deconvolution.py**（NNLS 反卷积）· **03_cell2location.py**（cell2location/COMMOT 计划） | Stereo-seq/Visium→表达域→Moran's I SVG→邻域富集；RSTA 时空图谱对接 |
 
 > v3.0 各模块均配**示例数据生成器**（`scripts/utils/make_demo_*.py`）与独立文档
 > （`docs/variants_usage.md`、`pangenome_usage.md`、`qtl_usage.md`、`proteomics_usage.md`、
@@ -282,6 +284,7 @@ agent 按 §5 路由表加载对应技能执行。
 | 3 | `scripts/phenomics/03_gs_gblup.R` | **GBLUP 基因组选择**：VanRaden 亲缘 + 岭回归解 + 自动 λ + 重复 k 折 CV 准确率 | demo r=0.31±0.11 |
 | 4 | `scripts/phenomics/04_ammi_gge.R` | **AMMI/GGE biplot**：SVD 互作分解、which-won-where 多边形、ASV 稳定性表 | 3 环境 IPC 秩 2 数学自洽 |
 | 5 | `scripts/popgen/07_xpehh.R` | **XP-EHH 选择扫描**：精确单倍型 EHH + iEHH 积分 + 窗口 z 标准化 + 候选窗口 | demo 亚群分化 |z|=33 |
+| 6 | `scripts/popgen/08_selection_scan.sh`（v3.6） | **iHS/CLR + Dsuite 渐渗**：selscan→norm→Dsuite Dtrios/Fbranch，计划优先 | 外部工具（selscan/Dsuite） | iHS/CLR 标准化结果、D/Fbranch |
 | 6 | `scripts/evolution/01_ka_ks.py` | **KA/KS 基因家族进化**：BLOSUM62 NW 比对（或外部比对）+ pal2nal + Nei-Gojobori/JC | 模拟 dN/dS≈0.11 → 中位 0.195 |
 | 7 | `scripts/tf/01_promoter_kmer.py` | **启动子 k-mer 富集**：链感知启动子提取 + Fisher/BH + top k-mer 条形图（top k-mer 可与 PlantTFDB motif 比对） | 注入 motif 排名 #1（FDR 3e-9） |
 | 8 | `docs/small_rna_splicing_usage.md` | **miRNA 与可变剪接流程模板**（miRDeep2/rMATS/SUPPA2 命令 + 水稻资源 + 与模块衔接） | 文档级 |
@@ -292,10 +295,10 @@ agent 按 §5 路由表加载对应技能执行。
 |---|---|---|---|
 | 1 | `scripts/qtl/03_coloc_bayesian.R` | **Bayesian 共定位（PP4）**：coloc.abf 自实现（近似 Bayes 因子 + H0-H4 后验，零依赖），SNP 级共享因果后验，对接 02 筛查结果 | demo 共享因果 PP4=0.994 lead=SNP017；不同因果 PP3>PP4 |
 | 2 | `scripts/gwas/08_2d_association.R` | **2D-GWAS 成对性状关联**：性状 A 极端分组的 B 关联对比（PATOWAS 方法整理），条件特异性位点判定 + 双向散点 | demo 植入上位性 SNP030 以 +A 方向回收，假阳性≈期望值 |
-| 3 | `scripts/integration/07_grn_boost.py` | **TF 调控网络推断**：GRNBoost2 式随机梯度提升（sklearn 实现，arboreto 免安装），按 target 排序边表 | demo 三模块重建、诱饵 TF 排除 |
+| 3 | `scripts/integration/07_grn_boost.py · **08_causal_network.py**（基因-代谢物关联/因果边）· **09_mofa_interpret.R**（MOFA 因子解释）· **10_diablo_tune.R**（DIABLO 调参）` | **TF 调控网络推断**：GRNBoost2 式随机梯度提升（sklearn 实现，arboreto 免安装），按 target 排序边表 | demo 三模块重建、诱饵 TF 排除 |
 | 4 | `scripts/phenomics/05_power_analysis.R` | **功效与样本量**：两群 t 检验功效/n、GWAS 位点检测功效（非中心 χ²）与 80% 功效所需 PVE、GS 训练群大小（Daetwyler） | 与 R 内置 power.t.test 对拍一致（0.4657） |
 | 5 | `scripts/proteomics/04_uniprot_mapping.py` | **UniProt 蛋白→基因映射自动化**：下载 UP000059680 TSV→解析 MSU/RAP-DB 双风格 locus（MSU 优先、版本号剥离、去重）→ 输出 `protein_gene_map.csv`（模块 1 富集衔接）；缓存 + `--tsv-file`/`--insecure` 离线兜底 | demo 自检（LOC_ 归一化/MSU 优先/unmatched 检测）通过 |
-| 6 | `scripts/proteomics/05_interpro_domains.py` | **InterProScan TSV 解析 + 差异蛋白结构域富集**：超几何过度表示 + BH FDR + 条形图；`--background` 限定检测蛋白全集 | demo 植入结构域 top 排名（fold 4.1，FDR 1.2e-30） |
+| 6 | `scripts/proteomics/05_interpro_domains.py · **06_ptm_ppi.py**（PTM 富集 + STRING PPI）· **07_alphafold.py**（AlphaFold DB 查询）` | **InterProScan TSV 解析 + 差异蛋白结构域富集**：超几何过度表示 + BH FDR + 条形图；`--background` 限定检测蛋白全集 | demo 植入结构域 top 排名（fold 4.1，FDR 1.2e-30） |
 | 7 | `scripts/evolution/02_mirna_targets.py` | **miRNA 靶基因预测**：psRNATarget 式种子/3' 配对打分本地实现（G:U 半配对、cleavage/inhibition 分级），零依赖 | demo 完美位点=cleavage(0 分)、种子错配=inhibition；真实 FASTA 冒烟通过 |
 | 8 | `scripts/tf/02_motif_tf_match.py` | **motif→TF 匹配**：MEME PWM 库解析 + log-odds 双链滑窗匹配（衔接 01 k-mer 输出）；TF 排名；后续 TOMTOM/PlantPAN 定量 | demo 3 consensus 命中对应 PWM、2 噪声 k-mer 未匹配 |
 
@@ -303,6 +306,7 @@ agent 按 §5 路由表加载对应技能执行。
 
 | # | 脚本 | 步骤 | 工具 | 关键输出 |
 |---|---|---|---|---|
+| 00 | `00_fastq_counts.sh`（v3.8） | FASTQ→counts：fastp + HISAT2 + featureCounts，计划优先 | 外部工具 | `*_counts.txt`、BAM、fastp 报告 |
 | 01 | `01_qc_filter.py` | 数据质控与过滤：低表达基因过滤、样本 PCA、样本相关性、文库大小检查 | pandas/numpy/matplotlib | `counts_filtered.csv`、QC 报告与图（PDF/TIFF/PNG） |
 | 02 | `02_deseq2.R` | 差异表达：两组或多组两两比较，log2FC / pvalue / padj；支持 `~ batch + group` | DESeq2（edgeR 可选） | `de_all_*.csv`、`de_sig_*.csv`、VST 归一化矩阵、离散度诊断图 |
 | 03 | `03_enrichment.R` | 功能富集：GO BP/CC/MF、KEGG（Reactome 可选） | clusterProfiler + `org.Osativa.eg.db` | 富集结果表、点图/气泡图 |
@@ -310,6 +314,11 @@ agent 按 §5 路由表加载对应技能执行。
 | 05 | `05_wgcna.R` | 共表达网络：软阈值筛选、模块识别、模块-性状关联、Hub 基因、模块富集 | WGCNA | 模块-性状热图、hub 基因列表、模块特征基因 |
 | 06 | `06_tf_analysis.R` | 转录因子：PlantTFDB/iTAK 注释整合，差异表达 TF 筛选与家族统计 | R + 注释文件 | `de_TF.csv`、TF 家族统计图 |
 | 07 | `07_plot_transcriptome.R` | 转录组出版图汇编：火山图、MA 图、热图、富集总览 | ggplot2 + plot_theme.R | 多面板组合图 |
+| 08 | `08_tf_prioritize.py`（v3.5） | TF 优先级排序（PURE-like）：共表达+motif+ChIP/DAP | numpy/pandas/scipy | `tf_ranking.csv` |
+| 09 | `09_dtu.py`（v3.6） | **差异转录本使用（DTU）**：isoform × group 卡方 + BH + 主 isoform 比例变化 | numpy/pandas/scipy | `dtu_results.csv`、`isoform_proportions.csv` |
+| 10 | `10_ssgsea.R`（v3.8） | ssGSEA/GSVA 通路活性；无 GSVA 时均值 z-score 回退 | GSVA（可选） | `ssgsea_scores.csv` |
+| 11 | `11_batch_timecourse.R`（v3.9） | **ComBat + 时间序列模型**：`lm(y~group*time)` vs `lm(y~group)` F 检验 | sva（可选） | `timecourse_results.csv` |
+| 08 | `08_tf_prioritize.py`（v3.5） | **TF 优先级排序（PURE-like）**：共表达 top 靶基因 + motif 命中 + ChIP/DAP 证据，z-score 加权排名 | numpy/pandas/scipy | `tf_ranking.csv`、贡献分解 |
 
 ### 模块 2：代谢组单独分析（scripts/metabolomics/）
 
@@ -322,6 +331,9 @@ agent 按 §5 路由表加载对应技能执行。
 | 05 | `05_biomarker.R` | 生物标志物：ROC/AUC、随机森林重要性、组合筛选 | pROC / randomForest | ROC 曲线、重要性排序 |
 | 06 | `06_metabolite_network.R` | 代谢网络：代谢物-代谢物相关性（\|r\|>0.8）、枢纽识别 | igraph | 网络边表/点表、网络图 |
 | 08 | `08_mgwas.R`（v3.4） | **代谢物 GWAS / mQTL**：自然群体 PCA+VanRaden+特征分解 MLM；RIL 标记回归 + LOD；BH 校正 | 内置（无外部依赖） | `mgwas_results.csv` / `mqtl_results.csv`、显著表 |
+| 09 | `09_annotate.py`（v3.6） | **代谢物注释合并**：SIRIUS formula/adduct + GNPS 库匹配 | numpy/pandas | `annotated_features.csv` |
+| 10 | `10_sirius.sh`（v3.10） | **SIRIUS 注释执行**：formula/structure + GNPS 上传说明 | SIRIUS | SIRIUS 结果、`gnps_upload.md` |
+| 11 | `11_gemma_mgwas.sh`（v3.10） | **GEMMA AI-REML mGWAS**：kinship + LMM | GEMMA | `mgwas.assoc.txt` |
 | 07 | `07_plot_metabolome.R` | 代谢组出版图汇编：OPLS-DA 得分图、VIP、分类组成、ROC | ggplot2 + plot_theme.R | 多面板组合图 |
 
 ### 模块 3：多组学联合分析（scripts/integration/，仅转录组+代谢组）

@@ -471,6 +471,43 @@ FIGURES = {
 # --------------------------------------------------------------------------- #
 # 路由与渲染
 # --------------------------------------------------------------------------- #
+
+EXTRA_STEPS = {
+    "rnaseq": {"标准": ["transcriptomics/10_ssgsea.R：ssGSEA/GSVA 通路活性（可选）"],
+               "进阶": ["transcriptomics/08_tf_prioritize.py：PURE-like TF 候选排序",
+                        "transcriptomics/09_dtu.py：isoform 水平 DTU（有 isoform counts 时）",
+                        "transcriptomics/11_batch_timecourse.R：ComBat + 时间序列模型（有时间点/批次时）"]},
+    "gwas": {"标准": ["gwas/13_burden_test.py：rare-variant gene burden（有罕见变异时）",
+                      "gwas/12_kmer_gwas.py：k-mer 剂量 GWAS（有 PAV/SV 或图泛基因组时）"],
+             "进阶": ["qtl/06_twas.R：TWAS（需 eQTL 权重 + GWAS，可加 --ld）",
+                      "qtl/07_mr.R：两样本孟德尔随机化（需暴露/结局 summary）",
+                      "qtl/08_finemap_susie.R：SuSiE/ABF fine-mapping（需 LD）"]},
+    "multiomics": {"标准": ["integration/09_mofa_interpret.R：MOFA 因子方差/载荷/性状相关",
+                            "integration/10_diablo_tune.R：DIABLO 调参计划/执行"]},
+    "singlecell": {"标准": ["single_cell/02_integration_annotation.py：HVG/PCA/批次整合 + marker 注释",
+                            "single_cell/03_cell_communication.py：LR 通讯打分 + 置换检验"],
+                   "进阶": ["single_cell/04_scvi_cellchat.py：scVI 整合 + CellChat 计划"]},
+    "spatial": {"标准": ["spatial/02_deconvolution.py：NNLS 反卷积"],
+                "进阶": ["spatial/03_cell2location.py：cell2location/COMMOT 计划"]},
+    "metabolome": {"标准": ["metabolomics/08_mgwas.R：代谢物 GWAS/mQTL"],
+                   "进阶": ["metabolomics/10_sirius.sh：SIRIUS 注释",
+                            "metabolomics/11_gemma_mgwas.sh：GEMMA AI-REML mGWAS"]},
+    "qtl": {"标准": ["qtl/10_qtl_epistasis.R：成对 QTL 上位性",
+                     "qtl/11_bsa_ed_sl.py：BSA ED/SL（混池数据）"],
+            "进阶": ["qtl/06_twas.R：TWAS（eQTL + GWAS）",
+                     "qtl/07_mr.R：孟德尔随机化",
+                     "qtl/08_finemap_susie.R：fine-mapping"]},
+    "gs": {"标准": ["phenomics/11_multitrait_gs.R：多性状 GBLUP 汇总"],
+           "进阶": ["phenomics/09_dl_gs.py：DL-GS 基线（Ridge/ElasticNet/MLP/CNN）"]},
+    "proteome": {"标准": ["proteomics/06_ptm_ppi.py：PTM 富集 + STRING PPI"],
+                 "进阶": ["proteomics/07_alphafold.py：AlphaFold DB 查询"]},
+    "pangenome": {"标准": ["pangenome/07_t2t_qc.sh：T2T QC",
+                           "pangenome/08_graph_genotype.sh：vg/PanGenie 图基因型"],
+                  "进阶": ["pangenome/09_graph_visualize.sh：odgi 图可视化"]},
+    "epigenome": {"标准": ["epigenomics/04_scatac.py：scATAC TF-IDF/LSI 聚类"],
+                  "进阶": ["epigenomics/03_hic_analysis.sh：Hi-C TAD/loops"]},
+}
+
 def build(d):
     b, w = validate(d)
     assay, goal, design = d["assay"], d["goal"], d["design"]
@@ -510,6 +547,7 @@ def build(d):
            "gwas" if goal == "gwas" or assay == "resequencing" else
            "multiomics")
     for t in tiers:
+        t["steps"].extend(EXTRA_STEPS.get(key, {}).get(t["tier"], []))
         t["figures"] = [{"name": n, "type": ty, "script": sc, "spec": FIG_SPEC}
                         for n, ty, sc in FIGURES.get(key, {}).get(t["tier"], [])]
     return {"input": d, "blockers": b, "warnings": w,
